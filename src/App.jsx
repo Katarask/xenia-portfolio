@@ -2,69 +2,216 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 // ============================================
-// DESIGN TOKENS (from Webflow CSS)
-// ============================================
-const tokens = {
-  colors: {
-    red: '#a71c1c',
-    casual: '#333',
-    white: '#fff',
-    black: '#0d0d0d',
-    border: '#ebebeb',
-    muted: '#7d797a',
-  },
-  font: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif',
-  easing: {
-    smooth: 'cubic-bezier(0.16, 1, 0.3, 1)',
-    hover: 'cubic-bezier(0.215, 0.61, 0.355, 1)',
-  },
-};
-
-// ============================================
-// PORTFOLIO DATA
+// PORTFOLIO DATA - Original from Webflow
 // ============================================
 const PORTFOLIO_DATA = {
   column1: [
-    { id: 1, title: 'Soap&Skin', subtitle: 'Artist', image: '/images/col1-1.jpg', height: 450 },
-    { id: 2, title: '', subtitle: '', image: '/images/col1-2.jpg', height: 380 },
-    { id: 3, title: 'Rick Owens', subtitle: 'Designer', image: '/images/col1-3.jpg', height: 420 },
-    { id: 4, title: 'Soap&Skin', subtitle: 'Artist', image: '/images/col1-4.jpg', height: 350 },
-    { id: 5, title: '', subtitle: '', image: '/images/col1-5.jpg', height: 400 },
+    { 
+      id: 1, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863.JPG',
+      srcset: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-500.jpg 500w, https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-800.jpg 800w, https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-1080.jpg 1080w, https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863.JPG 1440w',
+      alt: 'Artist portrait Soap&Skin - Editorial photography for C/O Magazine Berlin',
+      title: 'Soap&Skin',
+      subtitle: 'Artist',
+      caption: 'for C/O Magazine'
+    },
+    { 
+      id: 2, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294689_15%203.JPG',
+      alt: 'Portrait photography Berlin - Editorial modefotografie',
+      title: '',
+      subtitle: ''
+    },
+    { 
+      id: 3, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929464f_B9D24BBF-0CB3-42F1-8E03-5BE311B9E597.avif',
+      alt: 'Fashion designer Rick Owens portrait - Modefotografie Berlin',
+      title: 'Rick Owens',
+      subtitle: 'Designer'
+    },
+    { 
+      id: 4, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294653_064E2395-AA58-48F8-ADC5-939D2CE34E63.avif',
+      alt: 'Music artist Soap&Skin - Editorial portrait C/O Magazine Berlin',
+      title: 'Soap&Skin',
+      subtitle: 'Artist',
+      caption: 'C/O Magazine'
+    },
+    { 
+      id: 5, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/69273068a6b7b82db826396f_Website.jpg',
+      alt: 'Fashion portrait photography - Editorial Berlin',
+      title: '',
+      subtitle: ''
+    },
+    { 
+      id: 6, 
+      type: 'video',
+      vimeoId: '1137289960',
+      title: 'Safira',
+      subtitle: '',
+      caption: 'Safira',
+      aspect: 'portrait'
+    },
   ],
   column2: [
-    { id: 6, title: 'Eric Joham', subtitle: 'Interview', image: '/images/col2-1.jpg', height: 320 },
-    { id: 7, title: 'Laura Gerte', subtitle: 'Brand', image: '/images/col2-2.jpg', height: 480 },
-    { id: 8, title: 'Wales Bonner', subtitle: 'Backstage', image: '/images/col2-3.jpg', height: 400 },
-    { id: 9, title: '', subtitle: '', image: '/images/col2-4.jpg', height: 360 },
+    { 
+      id: 7, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294643_1.avif',
+      alt: 'Artist interview portrait Eric Joham - Editorial photography C/O Magazine',
+      title: 'Eric Joham',
+      subtitle: 'Interview',
+      caption: 'C/O Magazine'
+    },
+    { 
+      id: 8, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929467b_Kuko%202%20tags-44.jpg',
+      alt: 'Brand campaign Laura Gerte - Fashion lookbook photography Berlin',
+      title: 'Laura Gerte',
+      subtitle: 'Brand',
+      caption: 'Model: Oraina'
+    },
+    { 
+      id: 9, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929467c_Kuko%202%20tags-42.jpg',
+      alt: 'Fashion brand Laura Gerte - Lookbook photography Model Oraina Berlin',
+      title: 'Laura Gerte',
+      subtitle: 'Brand',
+      caption: 'Model: Oraina'
+    },
+    { 
+      id: 10, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929464d_14240002.avif',
+      alt: 'Fashion week backstage Wales Bonner - Editorial photography Berlin',
+      title: 'Wales Bonner',
+      subtitle: 'Show Backstage'
+    },
+    { 
+      id: 11, 
+      type: 'video',
+      vimeoId: '1145349173',
+      title: 'Ernst Lima',
+      subtitle: 'Performance',
+      caption: 'das weisse haus',
+      aspect: 'portrait'
+    },
   ],
   column3: [
-    { id: 10, title: 'Bonnie Strange', subtitle: 'Portrait', image: '/images/col3-1.jpg', height: 440 },
-    { id: 11, title: 'C/O Magazine', subtitle: 'Editorial', image: '/images/col3-2.jpg', height: 380 },
-    { id: 12, title: '', subtitle: '', image: '/images/col3-3.jpg', height: 350 },
-    { id: 13, title: 'Sony Music', subtitle: 'Campaign', image: '/images/col3-4.jpg', height: 420 },
+    { 
+      id: 12, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468b_Kuko%202%20tags-51.jpg',
+      alt: 'Music artist Bonnie Strange - Campaign photography Spotify Sony Music',
+      title: 'Bonnie Strange',
+      subtitle: 'Model, DJ',
+      caption: 'for Spotify/ Sony Music'
+    },
+    { 
+      id: 13, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/69273457f6983e5f11cf2264_Website-10.jpg',
+      alt: 'Brand campaign photography - Fashion editorial Berlin',
+      title: '',
+      subtitle: ''
+    },
+    { 
+      id: 14, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468a_Kuko%202%20tags-49.jpg',
+      alt: 'DJ Bonnie Strange portrait - Fashion photography Sony Music Berlin',
+      title: 'Bonnie Strange',
+      subtitle: 'Model, DJ',
+      caption: 'Sony Music'
+    },
+    { 
+      id: 15, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294692_5..jpg',
+      alt: 'Fashion editorial Das Deck - Lookbook photography Martin Niklas Wieser',
+      title: 'Das Deck',
+      subtitle: 'Model',
+      caption: 'for Martin Niklas Wieser'
+    },
+    { 
+      id: 16, 
+      type: 'video',
+      vimeoId: '730555711',
+      title: 'Mood Video',
+      subtitle: 'Casting',
+      caption: 'for the show under Wales Bonner direction',
+      aspect: 'landscape'
+    },
   ],
   column4: [
-    { id: 14, title: '', subtitle: '', image: '/images/col4-1.jpg', height: 360 },
-    { id: 15, title: 'AEYDE', subtitle: 'Brand', image: '/images/col4-2.jpg', height: 450 },
-    { id: 16, title: '', subtitle: '', image: '/images/col4-3.jpg', height: 380 },
-    { id: 17, title: 'Paris Fashion', subtitle: 'Backstage', image: '/images/col4-4.jpg', height: 400 },
+    { 
+      id: 17, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294697_IMG_3523.avif',
+      alt: 'Fashion brand founders Wendy&Jim - Editorial portrait C/O Magazine',
+      title: 'Wendy&Jim',
+      subtitle: 'Brand Owners',
+      caption: 'C/O Magazine'
+    },
+    { 
+      id: 18, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929465f_5557EDBC-AB28-454B-82B3-BFAA837285E0.avif',
+      alt: 'Austrian Fashion Association Awards - Event photography Vienna',
+      title: 'AFA Awards',
+      subtitle: 'Model',
+      caption: 'Austrian Fashion Association'
+    },
+    { 
+      id: 19, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/69273068b8b50623bc4a9a42_Website-1.jpg',
+      alt: 'Fashion photography Berlin - Creative direction portfolio',
+      title: '',
+      subtitle: ''
+    },
+    { 
+      id: 20, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294641_00-253%203.avif',
+      alt: 'Street fashion photography - Editorial modefotografie Berlin',
+      title: '',
+      subtitle: ''
+    },
+    { 
+      id: 21, 
+      type: 'image',
+      src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468c_20%202.JPG',
+      alt: 'Portrait photography - Fashion editorial Berlin',
+      title: '',
+      subtitle: ''
+    },
+    { 
+      id: 22, 
+      type: 'video',
+      vimeoId: '1137289577',
+      title: '',
+      subtitle: '',
+      aspect: 'landscape'
+    },
   ],
 };
 
 const ABOUT_IMAGES = [
-  { id: 1, label: 'Editorial', image: '/images/about-1.jpg' },
-  { id: 2, label: 'Fashion', image: '/images/about-2.jpg' },
-  { id: 3, label: 'Portrait', image: '/images/about-3.jpg' },
-  { id: 4, label: 'Backstage', image: '/images/about-4.jpg' },
-  { id: 5, label: 'Campaign', image: '/images/about-5.jpg' },
-  { id: 6, label: 'Artist', image: '/images/about-6.jpg' },
-];
-
-const NAV_LINKS = [
-  { id: 'portfolio', label: 'Portfolio' },
-  { id: 'services', label: 'Services' },
-  { id: 'about', label: 'About' },
-  { id: 'contact', label: 'Contact' },
+  { id: 1, src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6927306804f16efa0650628e_Website-2.jpg', alt: 'Vienna street photography by Xenia Snapiro' },
+  { id: 2, src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/69273457b0146580d9418bc6_Website-4.jpg', alt: 'New York fashion editorial photography' },
+  { id: 3, src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294681_IMG_9807.avif', alt: 'Creative direction portfolio work' },
+  { id: 4, src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/69273068a6b7b82db826396f_Website.jpg', alt: 'Brand campaign photography' },
+  { id: 5, src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/69273068b8b50623bc4a9a42_Website-1.jpg', alt: 'Fashion editorial and art direction' },
+  { id: 6, src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6935fe1fcf47d76c7fed7aee_Screenshot%202025-11-26%20at%2011.19.09.png', alt: 'Visual storytelling and content creation' },
 ];
 
 // ============================================
@@ -72,8 +219,8 @@ const NAV_LINKS = [
 // ============================================
 const CustomCursor = () => {
   const [pos, setPos] = useState({ x: -100, y: -100 });
-  const [hovering, setHovering] = useState(false);
-  const [cursorText, setCursorText] = useState('');
+  const [isLarger, setIsLarger] = useState(false);
+  const [text, setText] = useState('VIEW');
 
   useEffect(() => {
     const move = (e) => {
@@ -81,13 +228,11 @@ const CustomCursor = () => {
     };
 
     const checkHover = (e) => {
-      const card = e.target.closest('.story-card, .about-image');
+      const card = e.target.closest('.story-card, .video-card, .about_preview-image');
       if (card) {
-        setHovering(true);
-        setCursorText('View');
+        setIsLarger(true);
       } else {
-        setHovering(false);
-        setCursorText('');
+        setIsLarger(false);
       }
     };
 
@@ -101,17 +246,26 @@ const CustomCursor = () => {
   }, []);
 
   return (
-    <div className="cursor-container">
-      <div
-        className={`cursor-dot ${hovering ? 'is-hovering' : ''}`}
-        style={{ left: pos.x, top: pos.y }}
-      >
-        {hovering && <span className="cursor-text">{cursorText}</span>}
-      </div>
-      <div
-        className={`cursor-ring ${hovering ? 'is-hovering' : ''}`}
-        style={{ left: pos.x, top: pos.y }}
+    <div className="cursor">
+      <div 
+        className={`cursor_dot1 ${isLarger ? 'is--larger' : ''}`}
+        style={{ transform: `translate3d(${pos.x}px, ${pos.y}px, 0px)` }}
       />
+      <div 
+        className={`cursor_dot2 ${isLarger ? 'is--larger' : ''}`}
+        style={{ transform: `translate3d(${pos.x}px, ${pos.y}px, 0px)` }}
+      >
+        <div className="cursor_text">
+          {text.split('').map((char, i) => (
+            <span key={i} style={{ 
+              display: 'inline-block',
+              opacity: isLarger ? 1 : 0,
+              transform: isLarger ? 'translateY(0)' : 'translateY(10px)',
+              animation: isLarger ? `staggerIn 0.3s ease ${i * 0.04}s forwards` : 'none'
+            }}>{char}</span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
@@ -119,40 +273,48 @@ const CustomCursor = () => {
 // ============================================
 // NAVBAR
 // ============================================
-const Navbar = ({ activeSection, onNavigate }) => {
+const Navbar = ({ onNavigate }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleNavClick = (e, sectionId) => {
+    e.preventDefault();
+    onNavigate(sectionId);
+    setMenuOpen(false);
+  };
+
   return (
-    <nav className="navbar">
-      <div className="navbar-logo slide-up">
-        <h1 className="navbar-name">XENIA SNAPIRO</h1>
-        <p className="navbar-tagline">
-          Creative Director, Brand & Content Strategist<br />
+    <nav className="navbar_component">
+      <div className="navbar_logo-wrapper">
+        <h1 className="navbar_name slide-up is-visible">XENIA SNAPIRO</h1>
+        <div className="navbar_tagline">
+          Creative Director, Brand &amp; Content Strategist<br />
           Berlin - Paris - Vienna - Munich
-        </p>
+        </div>
       </div>
 
-      <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
-        <span className={`hamburger ${menuOpen ? 'open' : ''}`}></span>
+      <div className="navbar_menu">
+        <a href="#portfolio" className="navbar_link" onClick={(e) => handleNavClick(e, 'portfolio')}>Portfolio</a>
+        <a href="#services" className="navbar_link" onClick={(e) => handleNavClick(e, 'services')}>Services</a>
+        <a href="#about" className="navbar_link" onClick={(e) => handleNavClick(e, 'about')}>About</a>
+        <a href="#contact" className="navbar_link" onClick={(e) => handleNavClick(e, 'contact')}>Contact</a>
+      </div>
+
+      <button 
+        className={`menu-button ${menuOpen ? 'w--open' : ''}`}
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="menu"
+      >
+        <div className="icon w-icon-nav-menu"></div>
       </button>
 
-      <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
-        {NAV_LINKS.map((link, i) => (
-          <a
-            key={link.id}
-            href={`#${link.id}`}
-            className={`navbar-link ${activeSection === link.id ? 'active' : ''}`}
-            style={{ animationDelay: `${i * 0.1}s` }}
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate(link.id);
-              setMenuOpen(false);
-            }}
-          >
-            {link.label}
-          </a>
-        ))}
-      </div>
+      {menuOpen && (
+        <div className="w-nav-overlay is-open">
+          <a href="#portfolio" className="navbar_link" onClick={(e) => handleNavClick(e, 'portfolio')}>Portfolio</a>
+          <a href="#services" className="navbar_link" onClick={(e) => handleNavClick(e, 'services')}>Services</a>
+          <a href="#about" className="navbar_link" onClick={(e) => handleNavClick(e, 'about')}>About</a>
+          <a href="#contact" className="navbar_link" onClick={(e) => handleNavClick(e, 'contact')}>Contact</a>
+        </div>
+      )}
     </nav>
   );
 };
@@ -161,68 +323,94 @@ const Navbar = ({ activeSection, onNavigate }) => {
 // STORY CARD
 // ============================================
 const StoryCard = ({ item }) => {
-  const [hovered, setHovered] = useState(false);
-  const [imageError, setImageError] = useState(false);
-
   return (
-    <div
-      className="story-card"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {!imageError ? (
-        <img
-          src={item.image}
-          alt={item.title || 'Portfolio image'}
-          loading="lazy"
-          className="story-img"
-          style={{ minHeight: item.height }}
-          onError={() => setImageError(true)}
-        />
-      ) : (
-        <div
-          className="story-img placeholder"
-          style={{
-            minHeight: item.height,
-            background: `linear-gradient(135deg, hsl(${item.id * 20}, 5%, ${20 + (item.id % 3) * 10}%), hsl(${item.id * 20}, 5%, ${10 + (item.id % 3) * 5}%))`,
-          }}
-        />
-      )}
-
-      <div className={`story-overlay ${hovered ? 'hovered' : ''}`}>
-        {item.title && (
-          <div className={`story-caption ${hovered ? 'visible' : ''}`}>
-            <span className="story-subtitle">{item.subtitle}</span>
-            <h3 className="story-title">{item.title}</h3>
+    <div className="story-card">
+      <div className="story-overlay"></div>
+      <img 
+        src={item.src} 
+        srcSet={item.srcset}
+        alt={item.alt || ''} 
+        loading="lazy"
+        className="story-img"
+      />
+      {(item.title || item.subtitle) && (
+        <div className="story-caption">
+          <div className="artist-name">
+            {item.title && <h3 className="brand-title">{item.title}</h3>}
+            {item.subtitle && <div className="text-block">{item.subtitle}</div>}
           </div>
-        )}
-      </div>
+          {item.caption && (
+            <div className="season-subtitle">
+              <div>{item.caption}</div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
 
 // ============================================
-// PORTFOLIO COLUMN
+// VIDEO CARD
 // ============================================
-const PortfolioColumn = ({ items, direction = 'up', speed = 30 }) => {
+const VideoCard = ({ item }) => {
+  const aspectClass = item.aspect === 'landscape' ? 'is-landscape' : 'is-portrait';
+  
+  return (
+    <div className={`video-card ${aspectClass}`}>
+      <div className="w-embed w-iframe">
+        <div className="video-inner">
+          <iframe 
+            src={`https://player.vimeo.com/video/${item.vimeoId}?badge=0&autopause=0&autoplay=1&muted=1&loop=1&background=1&dnt=1`}
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            title={item.title || 'Video'}
+          />
+        </div>
+      </div>
+      <div className="story-overlay"></div>
+      {(item.title || item.subtitle) && (
+        <div className="story-caption">
+          <div className="artist-name">
+            {item.title && <h3 className="brand-title">{item.title}</h3>}
+            {item.subtitle && <div className="text-block">{item.subtitle}</div>}
+          </div>
+          {item.caption && (
+            <div className="season-subtitle">
+              <div>{item.caption}</div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ============================================
+// PORTFOLIO COLUMN with Auto-Scroll
+// ============================================
+const PortfolioColumn = ({ items, columnId, direction = 'up', speed = 30 }) => {
   const [isPaused, setIsPaused] = useState(false);
   const doubledItems = [...items, ...items];
 
   return (
-    <div
-      className="portfolio-column"
+    <div 
+      id={columnId}
+      className="portfolio_column"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div
-        className={`portfolio-column-inner ${direction}`}
+      <div 
+        className={`portfolio_column-inner ${direction}`}
         style={{
           animationDuration: `${speed}s`,
           animationPlayState: isPaused ? 'paused' : 'running',
         }}
       >
         {doubledItems.map((item, index) => (
-          <StoryCard key={`${item.id}-${index}`} item={item} />
+          item.type === 'video' 
+            ? <VideoCard key={`${item.id}-${index}`} item={item} />
+            : <StoryCard key={`${item.id}-${index}`} item={item} />
         ))}
       </div>
     </div>
@@ -234,77 +422,68 @@ const PortfolioColumn = ({ items, direction = 'up', speed = 30 }) => {
 // ============================================
 const PortfolioSection = () => {
   return (
-    <section id="portfolio" className="section section-portfolio">
-      <PortfolioColumn items={PORTFOLIO_DATA.column1} direction="up" speed={35} />
-      <PortfolioColumn items={PORTFOLIO_DATA.column2} direction="down" speed={40} />
-      <PortfolioColumn items={PORTFOLIO_DATA.column3} direction="up" speed={32} />
-      <PortfolioColumn items={PORTFOLIO_DATA.column4} direction="down" speed={38} />
-    </section>
+    <main id="portfolio" className="section_portfolio">
+      <PortfolioColumn items={PORTFOLIO_DATA.column1} columnId="column-1" direction="up" speed={35} />
+      <PortfolioColumn items={PORTFOLIO_DATA.column2} columnId="column-2" direction="down" speed={40} />
+      <PortfolioColumn items={PORTFOLIO_DATA.column3} columnId="column-3" direction="up" speed={32} />
+      <PortfolioColumn items={PORTFOLIO_DATA.column4} columnId="column-4" direction="down" speed={38} />
+    </main>
   );
 };
 
 // ============================================
 // SERVICES SECTION
 // ============================================
-const ServicesSection = () => {
-  const [vitaModalOpen, setVitaModalOpen] = useState(false);
-
+const ServicesSection = ({ onVitaClick }) => {
   return (
-    <section id="services" className="section section-services">
-      <div className="services-grid">
-        <div className="services-request">
-          <h3 className="services-label">Request</h3>
-          <button className="services-link" onClick={() => setVitaModalOpen(true)}>
-            Vita
-          </button>
-        </div>
-
-        <div className="services-focused">
-          <h3 className="services-label">Focused on</h3>
-          <div className="services-list">
-            <span className="services-item">Fashion</span>
-            <span className="services-item">Editorial</span>
-            <span className="services-item">Portraits</span>
-            <span className="services-item">Campaigns</span>
-            <span className="services-item">Artist Portraits</span>
-          </div>
-        </div>
-
-        <div className="services-cta">
-          <h3 className="services-label">Services</h3>
-          <div className="services-list">
-            <span className="services-item">Photography</span>
-            <span className="services-item">Creative Direction</span>
-            <span className="services-item">Brand Strategy</span>
-            <span className="services-item">Content Creation</span>
-          </div>
-        </div>
-
-        <div className="services-email">
-          <a href="mailto:info@xeniasnapiro.com" className="email-link">
-            info@xeniasnapiro.com
+    <main id="services" className="section_services">
+      <div className="service_request">
+        <div className="services_label">Request</div>
+      </div>
+      
+      <div className="services_content">
+        <div className="services_links">
+          <a href="#" className="link-block-2" onClick={(e) => { e.preventDefault(); onVitaClick(); }}>
+            <div className="services_link">VITA</div>
+          </a>
+          <a href="#portfolio" className="link-block-2">
+            <div className="services_link">Portfolio</div>
           </a>
         </div>
       </div>
-
-      {/* Vita Modal */}
-      {vitaModalOpen && (
-        <div className="vita-modal" onClick={() => setVitaModalOpen(false)}>
-          <div className="vita-content" onClick={(e) => e.stopPropagation()}>
-            <button className="vita-close" onClick={() => setVitaModalOpen(false)}>
-              ✕
-            </button>
-            <h3>Request Vita</h3>
-            <form className="vita-form">
-              <input type="text" placeholder="Name" required />
-              <input type="email" placeholder="Email" required />
-              <textarea placeholder="Message" rows={4}></textarea>
-              <button type="submit" className="button">Send Request</button>
-            </form>
-          </div>
+      
+      <div className="service_focused_on">
+        <div className="services_label is-mobile-l">Focused on</div>
+      </div>
+      
+      <div className="services_services">
+        <div className="services_list-item">
+          Trend &amp; cultural analysis<br />
+          Full-service content delivery<br />
+          Performance optimization
         </div>
-      )}
-    </section>
+        <div className="services_list-item">
+          Creative direction<br />
+          Brand storytelling<br />
+          Photo/video production
+        </div>
+        <div className="services_list-item is-mobile">
+          Social Media<br />
+          Content strategy<br />
+          Campaign concepts
+        </div>
+      </div>
+      
+      <div className="services_cta-wrapper">
+        <div className="services_label">Contact</div>
+      </div>
+      
+      <div className="services_email">
+        <a href="mailto:info@xeniasnapiro.com" className="link-block">
+          <div className="services_value">info@xeniasnapiro.com</div>
+        </a>
+      </div>
+    </main>
   );
 };
 
@@ -312,52 +491,33 @@ const ServicesSection = () => {
 // ABOUT SECTION
 // ============================================
 const AboutSection = () => {
-  const [lightboxImage, setLightboxImage] = useState(null);
-
   return (
-    <section id="about" className="section section-about">
-      <div className="about-content">
-        <h2 className="about-heading slide-up">About</h2>
-        <p className="about-bio slide-up">
-          Editorial photographer and creative director creating visual stories for fashion brands,
-          artists and cultural magazines. Working with clients like Sony Music, C/O Magazine and
-          Rick Owens. Based in Berlin, working internationally in Paris, Munich, and Vienna.
-        </p>
-        <p className="about-bio slide-up">
-          With a background in fine arts from UdK Berlin and Universität für angewandte Kunst Wien,
-          I bring a unique perspective to every project, blending artistic vision with commercial appeal.
-        </p>
-      </div>
-
-      <div className="about-gallery">
-        <div className="about-grid">
-          {ABOUT_IMAGES.map((img) => (
-            <div key={img.id} className="about-image-wrapper">
-              <span className="about-label">{img.label}</span>
-              <div
-                className="about-image"
-                style={{
-                  background: `linear-gradient(135deg, hsl(${img.id * 40}, 10%, 30%), hsl(${img.id * 40}, 10%, 20%))`,
-                }}
-                onClick={() => setLightboxImage(img)}
-              />
-            </div>
-          ))}
+    <main id="about" className="section_about" aria-label="About Section" role="region">
+      <div className="about_text-div">
+        <h2 className="about_heading slide-up is-visible">Fashion Photographer &amp; Creative Director</h2>
+        <div className="about_bio slide-up is-visible">
+          Based in Berlin. Working across Europe — Berlin, Munich, Vienna, Paris.<br />
+          I create visual stories for fashion brands, artists, and cultural publications — from editorial shoots to full campaign development.<br /><br />
+          With 5+ years in fashion photography and creative direction, I've worked with clients including Sony Music, C/O Magazine, Rick Owens, and the Austrian Fashion Association. My approach combines editorial photography with strategic brand thinking — shaping identities, producing campaigns, and leading projects from concept to execution.<br /><br />
+          I shoot lookbooks, brand campaigns, artist portraits, and editorial content for fashion and lifestyle clients across Germany, Austria, and France.<br />
+          Background: Marketing &amp; PR, Visual Communication (UdK Berlin), Cross-Disciplinary Strategies (die Angewandte), Luxury Marketing (TUM).
         </div>
       </div>
-
-      {/* Lightbox */}
-      {lightboxImage && (
-        <div className="lightbox" onClick={() => setLightboxImage(null)}>
-          <div
-            className="lightbox-image"
-            style={{
-              background: `linear-gradient(135deg, hsl(${lightboxImage.id * 40}, 10%, 30%), hsl(${lightboxImage.id * 40}, 10%, 20%))`,
-            }}
-          />
-        </div>
-      )}
-    </section>
+      
+      <div className="about_preview-grid">
+        {ABOUT_IMAGES.map((img, index) => (
+          <React.Fragment key={img.id}>
+            <img 
+              src={img.src} 
+              alt={img.alt}
+              loading="lazy"
+              className="about_preview-image"
+            />
+            <div className="about_preview-label">{String(index + 1).padStart(2, '0')}</div>
+          </React.Fragment>
+        ))}
+      </div>
+    </main>
   );
 };
 
@@ -370,70 +530,102 @@ const ContactSection = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In production, this would send to a backend
     console.log('Form submitted:', formData);
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
   };
 
   return (
-    <section id="contact" className="section section-contact">
-      <div className="contact-heading-wrapper">
-        <h2 className="contact-heading">CONTACT</h2>
+    <main id="contact" className="section_contact" aria-label="Contact Section" role="region">
+      <div className="contact_heading-wrapper">
+        <h2 className="contact_heading">LEAVE&nbsp;YOUR<br />CONTACT&nbsp;BELOW</h2>
       </div>
-
-      <div className="contact-form-wrapper">
-        <p className="contact-description">
-          For inquiries about collaborations, bookings, or just to say hello.
-        </p>
-
-        {!submitted ? (
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Name"
-              className="form-input"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              className="form-input"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-            />
-            <textarea
-              placeholder="Message"
-              className="form-textarea"
-              rows={4}
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              required
-            />
-            <button type="submit" className="button">Send</button>
-          </form>
-        ) : (
-          <div className="form-success">
-            <p>Thank you! Your message has been sent.</p>
+      
+      <div className="contact_info-wrapper">
+        <div className="contact_content">
+          <h3 className="contact_subheading slide-up is-visible">Contact Us</h3>
+        </div>
+        
+        <div className="contact_text-wrapper">
+          <div className="contact_description slide-up is-visible">
+            Interested in working together? Whether you have a project in mind, need creative direction<br />
+            or want to discuss a collaboration — reach out. I'll get back to you as soon as possible.
           </div>
-        )}
-
-        <div className="social-links">
-          <a href="https://instagram.com/xeniasnapiro" target="_blank" rel="noopener noreferrer" className="social-dot instagram">
-            <span className="social-label">Instagram</span>
-          </a>
-          <a href="https://linkedin.com/in/xenia-snapiro" target="_blank" rel="noopener noreferrer" className="social-dot linkedin">
-            <span className="social-label">LinkedIn</span>
-          </a>
-          <a href="https://pinterest.com/xeniasnapiro" target="_blank" rel="noopener noreferrer" className="social-dot pinterest">
-            <span className="social-label">Pinterest</span>
-          </a>
+          
+          <div className="social-dots-wrapper">
+            <a data-social="Instagram" href="https://www.instagram.com/xeniasnapiro/" target="_blank" rel="noopener noreferrer" className="social-dot is-instagram">
+              <div className="social-label">Instagram</div>
+            </a>
+            <a data-social="LinkedIn" href="https://www.linkedin.com/in/xenia-snapiro/" target="_blank" rel="noopener noreferrer" className="social-dot is-linkedin">
+              <div className="social-label">LinkedIn</div>
+            </a>
+            <a data-social="Facebook" href="https://www.facebook.com/k.snapiro/" target="_blank" rel="noopener noreferrer" className="social-dot is-facebook">
+              <div className="social-label">Facebook</div>
+            </a>
+            <a data-social="Pinterest" href="https://es.pinterest.com/xeniasnapiro/" target="_blank" rel="noopener noreferrer" className="social-dot is-pinterest">
+              <div className="social-label">Pinterest</div>
+            </a>
+          </div>
         </div>
       </div>
-    </section>
+      
+      <div className="contact_form-wrapper">
+        {!submitted ? (
+          <form className="contact_form" onSubmit={handleSubmit}>
+            <input 
+              className="form_input"
+              type="text"
+              placeholder="Name"
+              value={formData.name}
+              onChange={(e) => setFormData({...formData, name: e.target.value})}
+              required
+            />
+            <input 
+              className="form_input"
+              type="email"
+              placeholder="E-Mail"
+              value={formData.email}
+              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              required
+            />
+            <textarea 
+              className="form_textarea"
+              placeholder="Leave your Message here"
+              value={formData.message}
+              onChange={(e) => setFormData({...formData, message: e.target.value})}
+              required
+            />
+            <button type="submit" className="button">Submit</button>
+          </form>
+        ) : (
+          <div className="w-form-done" style={{ display: 'block' }}>
+            <div>Thank you! Your submission has been received!</div>
+          </div>
+        )}
+      </div>
+    </main>
+  );
+};
+
+// ============================================
+// VITA MODAL
+// ============================================
+const VitaModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="vita-modal" onClick={onClose}>
+      <div className="vita-content" onClick={(e) => e.stopPropagation()}>
+        <button className="vita-close" onClick={onClose}>✕</button>
+        <h3>Request Vita</h3>
+        <form className="vita-form">
+          <input type="text" placeholder="Name" required />
+          <input type="email" placeholder="Email" required />
+          <textarea placeholder="Message" rows={4}></textarea>
+          <button type="submit" className="button">Send Request</button>
+        </form>
+      </div>
+    </div>
   );
 };
 
@@ -441,52 +633,35 @@ const ContactSection = () => {
 // MAIN APP
 // ============================================
 function App() {
-  const [activeSection, setActiveSection] = useState('portfolio');
   const mapWrapperRef = useRef(null);
+  const [vitaOpen, setVitaOpen] = useState(false);
 
   const navigateTo = (sectionId) => {
-    const sectionIndex = NAV_LINKS.findIndex((l) => l.id === sectionId);
-    if (mapWrapperRef.current) {
+    const sections = ['portfolio', 'services', 'about', 'contact'];
+    const index = sections.indexOf(sectionId);
+    if (mapWrapperRef.current && index !== -1) {
       mapWrapperRef.current.scrollTo({
-        left: sectionIndex * window.innerWidth,
+        left: index * window.innerWidth,
         behavior: 'smooth',
       });
     }
-    setActiveSection(sectionId);
   };
-
-  // Track scroll position
-  useEffect(() => {
-    const wrapper = mapWrapperRef.current;
-    if (!wrapper) return;
-
-    const handleScroll = () => {
-      const scrollLeft = wrapper.scrollLeft;
-      const sectionWidth = window.innerWidth;
-      const index = Math.round(scrollLeft / sectionWidth);
-      const section = NAV_LINKS[index];
-      if (section) {
-        setActiveSection(section.id);
-      }
-    };
-
-    wrapper.addEventListener('scroll', handleScroll, { passive: true });
-    return () => wrapper.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <div className="app">
       <CustomCursor />
-      <Navbar activeSection={activeSection} onNavigate={navigateTo} />
-
+      <Navbar onNavigate={navigateTo} />
+      
       <div ref={mapWrapperRef} className="map-wrapper">
         <div className="sections-track">
           <PortfolioSection />
-          <ServicesSection />
+          <ServicesSection onVitaClick={() => setVitaOpen(true)} />
           <AboutSection />
           <ContactSection />
         </div>
       </div>
+      
+      <VitaModal isOpen={vitaOpen} onClose={() => setVitaOpen(false)} />
     </div>
   );
 }
