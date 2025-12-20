@@ -1,5 +1,32 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { gsap } from 'gsap';
 import './App.css';
+
+
+// GSAP Vertical Loop Helper (Safari-compatible)
+function verticalLoop(items, config) {
+  config = config || {};
+  let tl = gsap.timeline({ repeat: config.repeat, paused: config.paused, defaults: { ease: "none" }, onReverseComplete: () => tl.totalTime(tl.rawTime() + tl.duration() * 100) });
+  let length = items.length;
+  if (length === 0) return tl;
+  let startY = items[0].offsetTop, times = [], heights = [], yPercents = [];
+  let pixelsPerSecond = (config.speed || 1) * 100;
+  let snap = config.snap === false ? v => v : gsap.utils.snap(config.snap || 1);
+  gsap.set(items, { yPercent: (i, el) => { let h = heights[i] = parseFloat(gsap.getProperty(el, "height", "px")); yPercents[i] = snap(parseFloat(gsap.getProperty(el, "y", "px")) / h * 100 + gsap.getProperty(el, "yPercent")); return yPercents[i]; } });
+  gsap.set(items, { y: 0 });
+  let totalHeight = items[length - 1].offsetTop + yPercents[length - 1] / 100 * heights[length - 1] - startY + items[length - 1].offsetHeight * gsap.getProperty(items[length - 1], "scaleY") + (parseFloat(config.paddingBottom) || 0);
+  for (let i = 0; i < length; i++) { let item = items[i], curY = yPercents[i] / 100 * heights[i], distanceToStart = item.offsetTop + curY - startY, distanceToLoop = distanceToStart + heights[i] * gsap.getProperty(item, "scaleY"); tl.to(item, { yPercent: snap((curY - distanceToLoop) / heights[i] * 100), duration: distanceToLoop / pixelsPerSecond }, 0).fromTo(item, { yPercent: snap((curY - distanceToLoop + totalHeight) / heights[i] * 100) }, { yPercent: yPercents[i], duration: (curY - distanceToLoop + totalHeight - curY) / pixelsPerSecond, immediateRender: false }, distanceToLoop / pixelsPerSecond).add("label" + i, distanceToStart / pixelsPerSecond); times[i] = distanceToStart / pixelsPerSecond; }
+  tl.progress(1, true).progress(0, true);
+  if (config.reversed) { tl.vars.onReverseComplete(); tl.reverse(); }
+  return tl;
+}
+
+// Hook for mobile detection
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 767 : false);
+  useEffect(() => { const handleResize = () => setIsMobile(window.innerWidth <= 767); window.addEventListener('resize', handleResize); return () => window.removeEventListener('resize', handleResize); }, []);
+  return isMobile;
+};
 
 // ============================================
 // PORTFOLIO DATA - Original from Webflow
@@ -273,47 +300,39 @@ const CustomCursor = () => {
 // ============================================
 // NAVBAR
 // ============================================
-const Navbar = ({ onNavigate }) => {
+const Navbar = ({ onNavigate, activeSection }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const handleNavClick = (e, sectionId) => {
-    e.preventDefault();
-    onNavigate(sectionId);
-    setMenuOpen(false);
-  };
+  const isMobile = useIsMobile();
+  const handleNavClick = (e, sectionId) => { e.preventDefault(); onNavigate(sectionId); setMenuOpen(false); };
 
   return (
     <nav className="navbar_component">
       <div className="navbar_logo-wrapper">
-        <h1 className="navbar_name slide-up is-visible">XENIA SNAPIRO</h1>
-        <div className="navbar_tagline">
-          Creative Director, Brand &amp; Content Strategist<br />
-          Berlin - Paris - Vienna - Munich
-        </div>
+        <h1 className="navbar_name">XENIA SNAPIRO</h1>
+        <div className="navbar_tagline">Creative Director, Brand & Content Strategist<br/>Berlin - Paris - Vienna - Munich</div>
       </div>
-
-      <div className="navbar_menu">
-        <a href="#portfolio" className="navbar_link" onClick={(e) => handleNavClick(e, 'portfolio')}>Portfolio</a>
-        <a href="#services" className="navbar_link" onClick={(e) => handleNavClick(e, 'services')}>Services</a>
-        <a href="#about" className="navbar_link" onClick={(e) => handleNavClick(e, 'about')}>About</a>
-        <a href="#contact" className="navbar_link" onClick={(e) => handleNavClick(e, 'contact')}>Contact</a>
-      </div>
-
-      <button 
-        className={`menu-button ${menuOpen ? 'w--open' : ''}`}
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-label="menu"
-      >
-        <div className="icon w-icon-nav-menu"></div>
-      </button>
-
-      {menuOpen && (
-        <div className="w-nav-overlay is-open">
-          <a href="#portfolio" className="navbar_link" onClick={(e) => handleNavClick(e, 'portfolio')}>Portfolio</a>
-          <a href="#services" className="navbar_link" onClick={(e) => handleNavClick(e, 'services')}>Services</a>
-          <a href="#about" className="navbar_link" onClick={(e) => handleNavClick(e, 'about')}>About</a>
-          <a href="#contact" className="navbar_link" onClick={(e) => handleNavClick(e, 'contact')}>Contact</a>
+      {!isMobile && (
+        <div className="navbar_menu">
+          {['portfolio', 'services', 'about', 'contact'].map((section) => (
+            <a key={section} href={`#${section}`} className={`navbar_link ${activeSection === section ? 'w--current' : ''}`} onClick={(e) => handleNavClick(e, section)}>
+              {section.charAt(0).toUpperCase() + section.slice(1)}
+            </a>
+          ))}
         </div>
+      )}
+      {isMobile && (
+        <>
+          <button className={`menu-button ${menuOpen ? 'is-open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="menu">
+            <span className="hamburger-line line-1"></span>
+            <span className="hamburger-line line-2"></span>
+            <span className="hamburger-line line-3"></span>
+          </button>
+          <div className={`mobile-menu ${menuOpen ? 'is-open' : ''}`}>
+            {['portfolio', 'services', 'about', 'contact'].map((section) => (
+              <a key={section} href={`#${section}`} className="mobile-menu_link" onClick={(e) => handleNavClick(e, section)}>{section.toUpperCase()}</a>
+            ))}
+          </div>
+        </>
       )}
     </nav>
   );
@@ -389,28 +408,36 @@ const VideoCard = ({ item }) => {
 // ============================================
 // PORTFOLIO COLUMN with Auto-Scroll
 // ============================================
-const PortfolioColumn = ({ items, columnId, direction = 'up', speed = 30 }) => {
-  const [isPaused, setIsPaused] = useState(false);
-  const doubledItems = [...items, ...items];
+const PortfolioColumn = ({ items, direction = 'up', speed = 0.8 }) => {
+  const columnRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const loopRef = useRef(null);
+  const isMobile = useIsMobile();
+  const displayItems = isMobile ? items.filter(item => item.type !== 'video') : items;
+
+  useLayoutEffect(() => {
+    if (!wrapperRef.current || displayItems.length === 0) return;
+    const cards = gsap.utils.toArray(wrapperRef.current.children);
+    if (cards.length === 0) return;
+
+    loopRef.current = verticalLoop(cards, { speed, repeat: -1, reversed: direction === 'up', paddingBottom: 16 });
+
+    if (!isMobile && columnRef.current) {
+      const col = columnRef.current;
+      const pause = () => loopRef.current?.pause();
+      const play = () => loopRef.current?.play();
+      col.addEventListener('mouseenter', pause);
+      col.addEventListener('mouseleave', play);
+      return () => { col.removeEventListener('mouseenter', pause); col.removeEventListener('mouseleave', play); loopRef.current?.kill(); };
+    }
+    return () => loopRef.current?.kill();
+  }, [direction, speed, isMobile, displayItems.length]);
 
   return (
-    <div 
-      id={columnId}
-      className="portfolio_column"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-    >
-      <div 
-        className={`portfolio_column-inner ${direction}`}
-        style={{
-          animationDuration: `${speed}s`,
-          animationPlayState: isPaused ? 'paused' : 'running',
-        }}
-      >
-        {doubledItems.map((item, index) => (
-          item.type === 'video' 
-            ? <VideoCard key={`${item.id}-${index}`} item={item} />
-            : <StoryCard key={`${item.id}-${index}`} item={item} />
+    <div ref={columnRef} className="portfolio_column">
+      <div ref={wrapperRef} className="portfolio_column-inner">
+        {[...displayItems, ...displayItems].map((item, index) => (
+          item.type === 'video' ? <VideoCard key={`${item.id}-${index}`} item={item} /> : <StoryCard key={`${item.id}-${index}`} item={item} />
         ))}
       </div>
     </div>
@@ -421,13 +448,18 @@ const PortfolioColumn = ({ items, columnId, direction = 'up', speed = 30 }) => {
 // PORTFOLIO SECTION
 // ============================================
 const PortfolioSection = () => {
+  const isMobile = useIsMobile();
   return (
-    <main id="portfolio" className="section_portfolio">
-      <PortfolioColumn items={PORTFOLIO_DATA.column1} columnId="column-1" direction="up" speed={35} />
-      <PortfolioColumn items={PORTFOLIO_DATA.column2} columnId="column-2" direction="down" speed={40} />
-      <PortfolioColumn items={PORTFOLIO_DATA.column3} columnId="column-3" direction="up" speed={32} />
-      <PortfolioColumn items={PORTFOLIO_DATA.column4} columnId="column-4" direction="down" speed={38} />
-    </main>
+    <section id="portfolio" className="section_portfolio">
+      <PortfolioColumn items={PORTFOLIO_DATA.column1} direction="down" speed={0.8} />
+      <PortfolioColumn items={PORTFOLIO_DATA.column2} direction="up" speed={0.9} />
+      {!isMobile && (
+        <>
+          <PortfolioColumn items={PORTFOLIO_DATA.column3} direction="down" speed={0.8} />
+          <PortfolioColumn items={PORTFOLIO_DATA.column4} direction="up" speed={0.9} />
+        </>
+      )}
+    </section>
   );
 };
 
@@ -635,23 +667,50 @@ const VitaModal = ({ isOpen, onClose }) => {
 function App() {
   const mapWrapperRef = useRef(null);
   const [vitaOpen, setVitaOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('portfolio');
+  const isMobile = useIsMobile();
 
   const navigateTo = (sectionId) => {
-    const sections = ['portfolio', 'services', 'about', 'contact'];
-    const index = sections.indexOf(sectionId);
-    if (mapWrapperRef.current && index !== -1) {
-      mapWrapperRef.current.scrollTo({
-        left: index * window.innerWidth,
-        behavior: 'smooth',
-      });
+    setActiveSection(sectionId);
+    if (isMobile) {
+      const section = document.getElementById(sectionId);
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      const sections = ['portfolio', 'services', 'about', 'contact'];
+      const index = sections.indexOf(sectionId);
+      if (mapWrapperRef.current && index !== -1) {
+        gsap.to(mapWrapperRef.current, { scrollLeft: index * window.innerWidth, duration: 0.8, ease: 'power2.inOut' });
+      }
     }
   };
 
+  useEffect(() => {
+    const wrapper = mapWrapperRef.current;
+    if (!wrapper || isMobile) return;
+    const handleScroll = () => {
+      const scrollPos = wrapper.scrollLeft;
+      const sectionWidth = window.innerWidth;
+      const index = Math.round(scrollPos / sectionWidth);
+      const sections = ['portfolio', 'services', 'about', 'contact'];
+      setActiveSection(sections[index] || 'portfolio');
+    };
+    wrapper.addEventListener('scroll', handleScroll);
+    return () => wrapper.removeEventListener('scroll', handleScroll);
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (isMobile) return;
+    const wrapper = mapWrapperRef.current;
+    if (!wrapper) return;
+    const preventScroll = (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) e.preventDefault(); };
+    wrapper.addEventListener('wheel', preventScroll, { passive: false });
+    return () => wrapper.removeEventListener('wheel', preventScroll);
+  }, [isMobile]);
+
   return (
-    <div className="app">
+    <div className={`app ${isMobile ? 'is-mobile' : 'is-desktop'}`}>
       <CustomCursor />
-      <Navbar onNavigate={navigateTo} />
-      
+      <Navbar onNavigate={navigateTo} activeSection={activeSection} />
       <div ref={mapWrapperRef} className="map-wrapper">
         <div className="sections-track">
           <PortfolioSection />
@@ -660,7 +719,6 @@ function App() {
           <ContactSection />
         </div>
       </div>
-      
       <VitaModal isOpen={vitaOpen} onClose={() => setVitaOpen(false)} />
     </div>
   );
