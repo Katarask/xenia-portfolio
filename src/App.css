@@ -186,7 +186,7 @@ body {
   /* Current/active state - same as normal in Webflow */
 }
 
-.hamburger-button {
+.menu-button {
   display: none;
   flex-direction: column;
   justify-content: center;
@@ -237,7 +237,7 @@ body {
     justify-content: flex-start;
   }
   
-  .hamburger-button {
+  .menu-button {
     display: flex;
   }
 }
@@ -1047,4 +1047,29 @@ body {
   .contact_heading {
     font-size: 32px;
   }
+}
+
+/* ============================================
+   MOBILE NAV OVERLAY - Webflow Style
+   ============================================ */
+.w-nav-overlay {
+  display: none;
+}
+
+.w-nav-overlay.is-open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 73px;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  padding: 16px;
+  border-top: 1px solid var(--border);
+  z-index: 999;
+}
+
+.w-nav-overlay .navbar_link {
+  padding: 16px;
+  justify-content: flex-start;
 }
