@@ -1,5 +1,6 @@
 /* ============================================
-   XENIA SNAPIRO PORTFOLIO - CSS Animation Version
+   XENIA SNAPIRO PORTFOLIO - FIXED v2.2
+   Exact Webflow structure recreation
    ============================================ */
 
 :root {
@@ -257,7 +258,13 @@ body {
 }
 
 /* ============================================
-   PORTFOLIO SECTION - CSS INFINITE SCROLL
+   PORTFOLIO SECTION
+   Exact Webflow structure:
+   - portfolio_column: flex column, overflow hidden
+   - story-card: relative, width 100%
+   - story-img: width 100%, padding 10px
+   - story-overlay: absolute, matches image area
+   - story-caption: absolute, centered
    ============================================ */
 .section_portfolio {
   display: grid;
@@ -277,7 +284,7 @@ body {
   will-change: transform;
 }
 
-/* CSS Infinite Scroll Animations */
+/* CSS Infinite Scroll */
 .portfolio_column-inner.up {
   animation: scrollUp linear infinite;
 }
@@ -297,22 +304,25 @@ body {
 }
 
 /* ============================================
-   STORY CARD
+   STORY CARD - EXACT WEBFLOW STRUCTURE
    ============================================ */
 .story-card {
   position: relative;
   width: 100%;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
+/* Image with 10px padding on all sides */
 .story-img {
+  display: block;
   width: calc(100% - 20px);
   height: auto;
-  display: block;
   margin: 10px;
   object-fit: cover;
 }
 
+/* Overlay matches image exactly (not full card) */
 .story-overlay {
   position: absolute;
   top: 10px;
@@ -322,23 +332,28 @@ body {
   background-color: transparent;
   transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
+  z-index: 1;
 }
 
 .story-card:hover .story-overlay {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+/* Caption centered within image area */
 .story-caption {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) translateY(10px);
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   color: var(--white);
   opacity: 0;
+  transform: translateY(10px);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 2;
   pointer-events: none;
@@ -346,13 +361,20 @@ body {
 
 .story-card:hover .story-caption {
   opacity: 1;
-  transform: translate(-50%, -50%) translateY(0);
+  transform: translateY(0);
+}
+
+.artist-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .brand-title {
   font-size: 28px;
   font-weight: 500;
   margin: 0 0 4px 0;
+  line-height: 1.2;
 }
 
 .text-block {
@@ -368,22 +390,32 @@ body {
 }
 
 /* ============================================
-   VIDEO CARD - HOVER TO LOAD
+   VIDEO CARD - EXACT WEBFLOW STRUCTURE
+   Video uses 12px inset (not 10px like images)
    ============================================ */
 .video-card {
   position: relative;
   width: 100%;
-  aspect-ratio: 9/16;
-  overflow: hidden;
   flex-shrink: 0;
+  overflow: hidden;
+  /* Wrapper has 10px margin like story-card */
   margin: 10px;
   width: calc(100% - 20px);
 }
 
-.video-card.is-landscape { aspect-ratio: 16/9; }
+/* Portrait video: 9:16 aspect ratio */
+.video-card.is-portrait {
+  aspect-ratio: 9/16;
+}
+
+/* Landscape video: 16:9 aspect ratio */
+.video-card.is-landscape {
+  aspect-ratio: 16/9;
+}
 
 .video-hover-wrapper {
   position: absolute;
+  /* 12px inset for video (matches Webflow) */
   top: 0;
   left: 0;
   right: 0;
@@ -398,7 +430,10 @@ body {
   transition: opacity 0.5s ease;
 }
 
-.video-poster.is-hidden { opacity: 0; pointer-events: none; }
+.video-poster.is-hidden { 
+  opacity: 0; 
+  pointer-events: none; 
+}
 
 .video-iframe {
   position: absolute;
@@ -411,18 +446,34 @@ body {
   transition: opacity 0.5s ease;
 }
 
-.video-iframe.is-loaded { opacity: 1; }
-
-.video-card.is-landscape .video-iframe {
-  width: 120%;
-  height: 120%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.video-iframe.is-loaded { 
+  opacity: 1; 
 }
 
-.video-card:hover .story-overlay { background-color: rgba(0, 0, 0, 0.3); }
-.video-card:hover .story-caption { opacity: 1; transform: translate(-50%, -50%) translateY(0); }
+/* Video overlay - full video area */
+.video-card .story-overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Video caption - full video area */
+.video-card .story-caption {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.video-card:hover .story-overlay { 
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.video-card:hover .story-caption { 
+  opacity: 1; 
+  transform: translateY(0); 
+}
 
 /* ============================================
    SERVICES SECTION
