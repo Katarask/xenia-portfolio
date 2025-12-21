@@ -183,17 +183,19 @@ const Navbar = memo(({ onNavigate }) => {
 // ============================================
 const StoryCard = memo(({ item }) => (
   <div className="story-card">
-    <img src={item.src} srcSet={item.srcset} alt={item.alt || ''} loading="lazy" className="story-img" />
-    <div className="story-overlay"></div>
-    {(item.title || item.subtitle) && (
-      <div className="story-caption">
-        <div className="artist-name">
-          {item.title && <h3 className="brand-title">{item.title}</h3>}
-          {item.subtitle && <div className="text-block">{item.subtitle}</div>}
+    <div className="story-card-inner">
+      <img src={item.src} srcSet={item.srcset} alt={item.alt || ''} loading="lazy" className="story-img" />
+      <div className="story-overlay"></div>
+      {(item.title || item.subtitle) && (
+        <div className="story-caption">
+          <div className="artist-name">
+            {item.title && <h3 className="brand-title">{item.title}</h3>}
+            {item.subtitle && <div className="text-block">{item.subtitle}</div>}
+          </div>
+          {item.caption && <div className="season-subtitle"><div>{item.caption}</div></div>}
         </div>
-        {item.caption && <div className="season-subtitle"><div>{item.caption}</div></div>}
-      </div>
-    )}
+      )}
+    </div>
   </div>
 ));
 
@@ -211,29 +213,31 @@ const VideoCard = memo(({ vimeoId, poster, aspect, title, subtitle, caption }) =
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => !isLoaded && setIsHovered(false)}
     >
-      <div className="video-hover-wrapper">
-        <img src={poster} alt={title || 'Video thumbnail'} className={`video-poster ${isLoaded ? 'is-hidden' : ''}`} loading="lazy" />
-        {isHovered && (
-          <iframe
-            src={`https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&autoplay=1&muted=1&loop=1&background=1&dnt=1`}
-            className={`video-iframe ${isLoaded ? 'is-loaded' : ''}`}
-            frameBorder="0"
-            allow="autoplay; fullscreen"
-            title={title || 'Video'}
-            onLoad={() => setIsLoaded(true)}
-          />
+      <div className="video-card-inner">
+        <div className="video-hover-wrapper">
+          <img src={poster} alt={title || 'Video thumbnail'} className={`video-poster ${isLoaded ? 'is-hidden' : ''}`} loading="lazy" />
+          {isHovered && (
+            <iframe
+              src={`https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&autoplay=1&muted=1&loop=1&background=1&dnt=1`}
+              className={`video-iframe ${isLoaded ? 'is-loaded' : ''}`}
+              frameBorder="0"
+              allow="autoplay; fullscreen"
+              title={title || 'Video'}
+              onLoad={() => setIsLoaded(true)}
+            />
+          )}
+        </div>
+        <div className="story-overlay"></div>
+        {(title || subtitle) && (
+          <div className="story-caption">
+            <div className="artist-name">
+              {title && <h3 className="brand-title">{title}</h3>}
+              {subtitle && <div className="text-block">{subtitle}</div>}
+            </div>
+            {caption && <div className="season-subtitle"><div>{caption}</div></div>}
+          </div>
         )}
       </div>
-      <div className="story-overlay"></div>
-      {(title || subtitle) && (
-        <div className="story-caption">
-          <div className="artist-name">
-            {title && <h3 className="brand-title">{title}</h3>}
-            {subtitle && <div className="text-block">{subtitle}</div>}
-          </div>
-          {caption && <div className="season-subtitle"><div>{caption}</div></div>}
-        </div>
-      )}
     </div>
   );
 });

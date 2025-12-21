@@ -1,6 +1,6 @@
 /* ============================================
-   XENIA SNAPIRO PORTFOLIO - FIXED v2.2
-   Exact Webflow structure recreation
+   XENIA SNAPIRO PORTFOLIO - v2.3
+   Fixed aspect-ratio 3:4 for stable layout
    ============================================ */
 
 :root {
@@ -259,12 +259,6 @@ body {
 
 /* ============================================
    PORTFOLIO SECTION
-   Exact Webflow structure:
-   - portfolio_column: flex column, overflow hidden
-   - story-card: relative, width 100%
-   - story-img: width 100%, padding 10px
-   - story-overlay: absolute, matches image area
-   - story-caption: absolute, centered
    ============================================ */
 .section_portfolio {
   display: grid;
@@ -304,31 +298,43 @@ body {
 }
 
 /* ============================================
-   STORY CARD - EXACT WEBFLOW STRUCTURE
+   STORY CARD - 3:4 ASPECT RATIO
+   Stable layout: height is calculated before images load
    ============================================ */
 .story-card {
   position: relative;
   width: 100%;
   flex-shrink: 0;
   overflow: hidden;
+  /* 10px margin on all sides */
+  padding: 10px;
 }
 
-/* Image with 10px padding on all sides */
+/* Inner wrapper with fixed 3:4 aspect ratio */
+.story-card-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+/* Image fills the inner container */
 .story-img {
-  display: block;
-  width: calc(100% - 20px);
-  height: auto;
-  margin: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-/* Overlay matches image exactly (not full card) */
+/* Overlay covers exactly the image area */
 .story-overlay {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: transparent;
   transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
@@ -342,10 +348,10 @@ body {
 /* Caption centered within image area */
 .story-caption {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -390,32 +396,34 @@ body {
 }
 
 /* ============================================
-   VIDEO CARD - EXACT WEBFLOW STRUCTURE
-   Video uses 12px inset (not 10px like images)
+   VIDEO CARD - FIXED ASPECT RATIOS
    ============================================ */
 .video-card {
   position: relative;
   width: 100%;
   flex-shrink: 0;
   overflow: hidden;
-  /* Wrapper has 10px margin like story-card */
-  margin: 10px;
-  width: calc(100% - 20px);
+  padding: 10px;
 }
 
-/* Portrait video: 9:16 aspect ratio */
-.video-card.is-portrait {
-  aspect-ratio: 9/16;
+.video-card-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
-/* Landscape video: 16:9 aspect ratio */
-.video-card.is-landscape {
-  aspect-ratio: 16/9;
+/* Portrait video: 9:16 */
+.video-card.is-portrait .video-card-inner {
+  aspect-ratio: 9 / 16;
+}
+
+/* Landscape video: 16:9 */
+.video-card.is-landscape .video-card-inner {
+  aspect-ratio: 16 / 9;
 }
 
 .video-hover-wrapper {
   position: absolute;
-  /* 12px inset for video (matches Webflow) */
   top: 0;
   left: 0;
   right: 0;
@@ -450,16 +458,10 @@ body {
   opacity: 1; 
 }
 
-/* Video overlay - full video area */
-.video-card .story-overlay {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-/* Video caption - full video area */
+/* Video overlay & caption */
+.video-card .story-overlay,
 .video-card .story-caption {
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
