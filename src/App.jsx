@@ -48,74 +48,7 @@ const ABOUT_IMAGES = [
 ];
 
 // ============================================
-// GSAP VERTICAL LOOP HELPER
-// Official GreenSock helper for Safari-stable infinite scroll
-// ============================================
-function verticalLoop(items, config) {
-  items = gsap.utils.toArray(items);
-  config = config || {};
-  
-  let tl = gsap.timeline({
-    repeat: config.repeat,
-    paused: config.paused,
-    defaults: { ease: "none" },
-    onReverseComplete: () => tl.totalTime(tl.rawTime() + tl.duration() * 100)
-  });
-  
-  const length = items.length;
-  const startY = items[0].offsetTop;
-  const times = [];
-  const heights = [];
-  const yPercents = [];
-  let curIndex = 0;
-  const pixelsPerSecond = (config.speed || 1) * 100;
-  const snap = config.snap === false ? v => v : gsap.utils.snap(config.snap || 1);
-  
-  let totalHeight;
-  
-  const populateHeights = () => {
-    items.forEach((el, i) => {
-      heights[i] = parseFloat(gsap.getProperty(el, "height", "px"));
-      yPercents[i] = snap(parseFloat(gsap.getProperty(el, "y", "px")) / heights[i] * 100 + gsap.getProperty(el, "yPercent"));
-    });
-    gsap.set(items, { yPercent: i => yPercents[i] });
-    totalHeight = items[length-1].offsetTop + yPercents[length-1] / 100 * heights[length-1] - startY + items[length-1].offsetHeight * gsap.getProperty(items[length-1], "scaleY") + (parseFloat(config.paddingBottom) || 0);
-  };
-  
-  const populateTimeline = () => {
-    tl.clear();
-    for (let i = 0; i < length; i++) {
-      const item = items[i];
-      const curY = yPercents[i] / 100 * heights[i];
-      const distanceToStart = item.offsetTop + curY - startY;
-      const distanceToLoop = distanceToStart + heights[i] * gsap.getProperty(item, "scaleY");
-      
-      tl.to(item, { yPercent: snap((curY - distanceToLoop) / heights[i] * 100), duration: distanceToLoop / pixelsPerSecond }, 0)
-        .fromTo(item, 
-          { yPercent: snap((curY - distanceToLoop + totalHeight) / heights[i] * 100) }, 
-          { yPercent: yPercents[i], duration: (curY - distanceToLoop + totalHeight - curY) / pixelsPerSecond, immediateRender: false }, 
-          distanceToLoop / pixelsPerSecond
-        );
-      times[i] = distanceToStart / pixelsPerSecond;
-    }
-  };
-  
-  gsap.set(items, { y: 0 });
-  populateHeights();
-  populateTimeline();
-  
-  tl.progress(1, true).progress(0, true);
-  
-  if (config.reversed) {
-    tl.vars.onReverseComplete();
-    tl.reverse();
-  }
-  
-  return tl;
-}
-
-// ============================================
-// CUSTOM CURSOR (Memoized)
+// CUSTOM CURSOR
 // ============================================
 const CustomCursor = memo(() => {
   const dot1Ref = useRef(null);
@@ -125,9 +58,10 @@ const CustomCursor = memo(() => {
   const mousePos = useRef({ x: -100, y: -100 });
   const dot1Pos = useRef({ x: -100, y: -100 });
   const dot2Pos = useRef({ x: -100, y: -100 });
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Skip on mobile
+    setIsMobile(window.innerWidth <= 767);
     if (window.innerWidth <= 767) return;
 
     const handleMouseMove = (e) => {
@@ -157,7 +91,6 @@ const CustomCursor = memo(() => {
     };
 
     const animate = () => {
-      // Lerp for smooth follow
       dot1Pos.current.x += (mousePos.current.x - dot1Pos.current.x) * 0.35;
       dot1Pos.current.y += (mousePos.current.y - dot1Pos.current.y) * 0.35;
       dot2Pos.current.x += (mousePos.current.x - dot2Pos.current.x) * 0.15;
@@ -182,8 +115,7 @@ const CustomCursor = memo(() => {
     };
   }, []);
 
-  // Don't render on mobile
-  if (typeof window !== 'undefined' && window.innerWidth <= 767) return null;
+  if (isMobile) return null;
 
   return (
     <div className="cursor">
@@ -191,15 +123,7 @@ const CustomCursor = memo(() => {
       <div ref={dot2Ref} className={`cursor_dot2 ${isLarger ? 'is--larger' : ''}`}>
         <div className="cursor_text">
           {cursorText.split('').map((char, i) => (
-            <span 
-              key={i} 
-              style={{ 
-                animationDelay: `${i * 0.04}s`,
-                opacity: isLarger ? 1 : 0 
-              }}
-            >
-              {char}
-            </span>
+            <span key={i} style={{ animationDelay: `${i * 0.04}s`, opacity: isLarger ? 1 : 0 }}>{char}</span>
           ))}
         </div>
       </div>
@@ -231,34 +155,20 @@ const Navbar = memo(({ onNavigate }) => {
 
       <div className="navbar_menu">
         {['portfolio', 'services', 'about', 'contact'].map(section => (
-          <a 
-            key={section}
-            href={`#${section}`} 
-            className="navbar_link" 
-            onClick={(e) => handleNavClick(e, section)}
-          >
+          <a key={section} href={`#${section}`} className="navbar_link" onClick={(e) => handleNavClick(e, section)}>
             {section.charAt(0).toUpperCase() + section.slice(1)}
           </a>
         ))}
       </div>
 
-      <button 
-        className={`menu-button ${menuOpen ? 'w--open' : ''}`}
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-label="Toggle menu"
-      >
+      <button className={`menu-button ${menuOpen ? 'w--open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
         <div className="icon w-icon-nav-menu"></div>
       </button>
 
       {menuOpen && (
         <div className="w-nav-overlay is-open">
           {['portfolio', 'services', 'about', 'contact'].map(section => (
-            <a 
-              key={section}
-              href={`#${section}`} 
-              className="navbar_link" 
-              onClick={(e) => handleNavClick(e, section)}
-            >
+            <a key={section} href={`#${section}`} className="navbar_link" onClick={(e) => handleNavClick(e, section)}>
               {section.charAt(0).toUpperCase() + section.slice(1)}
             </a>
           ))}
@@ -269,46 +179,28 @@ const Navbar = memo(({ onNavigate }) => {
 });
 
 // ============================================
-// LAZY IMAGE (Intersection Observer)
+// STORY CARD (Image)
 // ============================================
-const LazyImage = memo(({ src, srcset, alt, className, onLoad }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
-  const imgRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px' }
-    );
-
-    if (imgRef.current) observer.observe(imgRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <img
-      ref={imgRef}
-      src={isInView ? src : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}
-      srcSet={isInView ? srcset : undefined}
-      alt={alt}
-      className={`${className} ${isLoaded ? 'is-loaded' : ''}`}
-      loading="lazy"
-      decoding="async"
-      onLoad={() => { setIsLoaded(true); onLoad?.(); }}
-    />
-  );
-});
+const StoryCard = memo(({ item }) => (
+  <div className="story-card">
+    <img src={item.src} srcSet={item.srcset} alt={item.alt || ''} loading="lazy" className="story-img" />
+    <div className="story-overlay"></div>
+    {(item.title || item.subtitle) && (
+      <div className="story-caption">
+        <div className="artist-name">
+          {item.title && <h3 className="brand-title">{item.title}</h3>}
+          {item.subtitle && <div className="text-block">{item.subtitle}</div>}
+        </div>
+        {item.caption && <div className="season-subtitle"><div>{item.caption}</div></div>}
+      </div>
+    )}
+  </div>
+));
 
 // ============================================
-// LAZY VIDEO (Hover to Load)
+// VIDEO CARD (Hover to Load)
 // ============================================
-const LazyVideo = memo(({ vimeoId, poster, aspect, title, subtitle, caption }) => {
+const VideoCard = memo(({ vimeoId, poster, aspect, title, subtitle, caption }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const aspectClass = aspect === 'landscape' ? 'is-landscape' : 'is-portrait';
@@ -320,15 +212,7 @@ const LazyVideo = memo(({ vimeoId, poster, aspect, title, subtitle, caption }) =
       onMouseLeave={() => !isLoaded && setIsHovered(false)}
     >
       <div className="video-hover-wrapper">
-        {/* Poster Image */}
-        <img 
-          src={poster} 
-          alt={title || 'Video thumbnail'} 
-          className={`video-poster ${isLoaded ? 'is-hidden' : ''}`}
-          loading="lazy"
-        />
-        
-        {/* Vimeo iframe - only loads on hover */}
+        <img src={poster} alt={title || 'Video thumbnail'} className={`video-poster ${isLoaded ? 'is-hidden' : ''}`} loading="lazy" />
         {isHovered && (
           <iframe
             src={`https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&autoplay=1&muted=1&loop=1&background=1&dnt=1`}
@@ -340,9 +224,7 @@ const LazyVideo = memo(({ vimeoId, poster, aspect, title, subtitle, caption }) =
           />
         )}
       </div>
-      
       <div className="story-overlay"></div>
-      
       {(title || subtitle) && (
         <div className="story-caption">
           <div className="artist-name">
@@ -357,77 +239,33 @@ const LazyVideo = memo(({ vimeoId, poster, aspect, title, subtitle, caption }) =
 });
 
 // ============================================
-// STORY CARD
+// PORTFOLIO COLUMN - Pure CSS Animation
 // ============================================
-const StoryCard = memo(({ item }) => (
-  <div className="story-card">
-    <div className="story-overlay"></div>
-    <LazyImage 
-      src={item.src} 
-      srcset={item.srcset}
-      alt={item.alt || ''} 
-      className="story-img"
-    />
-    {(item.title || item.subtitle) && (
-      <div className="story-caption">
-        <div className="artist-name">
-          {item.title && <h3 className="brand-title">{item.title}</h3>}
-          {item.subtitle && <div className="text-block">{item.subtitle}</div>}
-        </div>
-        {item.caption && <div className="season-subtitle"><div>{item.caption}</div></div>}
-      </div>
-    )}
-  </div>
-));
-
-// ============================================
-// PORTFOLIO COLUMN with GSAP
-// ============================================
-const PortfolioColumn = memo(({ items, columnId, direction, speed }) => {
-  const columnRef = useRef(null);
-  const timelineRef = useRef(null);
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 767;
-
-  useEffect(() => {
-    if (isMobile) return;
-    
-    const column = columnRef.current;
-    if (!column) return;
-
-    // Wait for images to load
-    const timer = setTimeout(() => {
-      const cards = column.querySelectorAll('.story-card, .video-card');
-      if (cards.length === 0) return;
-
-      timelineRef.current = verticalLoop(cards, {
-        repeat: -1,
-        speed: speed,
-        reversed: direction === 'up',
-        paddingBottom: 0
-      });
-    }, 500);
-
-    return () => {
-      clearTimeout(timer);
-      timelineRef.current?.kill();
-    };
-  }, [direction, speed, isMobile]);
-
-  // Filter videos on mobile
-  const displayItems = isMobile 
-    ? items.filter(item => item.type !== 'video')
-    : items;
-
-  // Double items for infinite scroll
-  const allItems = [...displayItems, ...displayItems];
+const PortfolioColumn = memo(({ items, direction, speed }) => {
+  const [isPaused, setIsPaused] = useState(false);
+  
+  // Duplicate items for seamless loop
+  const duplicatedItems = [...items, ...items];
 
   return (
-    <div ref={columnRef} id={columnId} className="portfolio_column">
-      {allItems.map((item, index) => (
-        item.type === 'video' 
-          ? <LazyVideo key={`${item.id}-${index}`} {...item} />
-          : <StoryCard key={`${item.id}-${index}`} item={item} />
-      ))}
+    <div 
+      className="portfolio_column"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div 
+        className={`portfolio_column-inner ${direction}`}
+        style={{ 
+          animationDuration: `${speed}s`,
+          animationPlayState: isPaused ? 'paused' : 'running'
+        }}
+      >
+        {duplicatedItems.map((item, index) => (
+          item.type === 'video' 
+            ? <VideoCard key={`${item.id}-${index}`} {...item} />
+            : <StoryCard key={`${item.id}-${index}`} item={item} />
+        ))}
+      </div>
     </div>
   );
 });
@@ -436,31 +274,43 @@ const PortfolioColumn = memo(({ items, columnId, direction, speed }) => {
 // PORTFOLIO SECTION
 // ============================================
 const PortfolioSection = memo(() => {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 767;
+  const [isMobile, setIsMobile] = useState(false);
   
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 767);
+    const handleResize = () => setIsMobile(window.innerWidth <= 767);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Column config: direction + speed (seconds for full loop)
   const columns = [
-    { items: PORTFOLIO_DATA.column1, id: 'column-1', direction: 'down', speed: 0.8 },
-    { items: PORTFOLIO_DATA.column2, id: 'column-2', direction: 'up', speed: 0.9 },
-    { items: PORTFOLIO_DATA.column3, id: 'column-3', direction: 'down', speed: 0.8 },
-    { items: PORTFOLIO_DATA.column4, id: 'column-4', direction: 'up', speed: 0.9 },
+    { items: PORTFOLIO_DATA.column1, direction: 'up', speed: 35 },
+    { items: PORTFOLIO_DATA.column2, direction: 'down', speed: 40 },
+    { items: PORTFOLIO_DATA.column3, direction: 'up', speed: 32 },
+    { items: PORTFOLIO_DATA.column4, direction: 'down', speed: 38 },
   ];
 
-  // On mobile, only show 2 columns and merge content
-  const displayColumns = isMobile ? columns.slice(0, 2) : columns;
+  // Mobile: merge columns 3+4 into 1+2, filter out videos
+  const mobileColumns = [
+    { 
+      items: [...PORTFOLIO_DATA.column1, ...PORTFOLIO_DATA.column3].filter(i => i.type !== 'video'), 
+      direction: 'up', 
+      speed: 45 
+    },
+    { 
+      items: [...PORTFOLIO_DATA.column2, ...PORTFOLIO_DATA.column4].filter(i => i.type !== 'video'), 
+      direction: 'down', 
+      speed: 50 
+    },
+  ];
+
+  const displayColumns = isMobile ? mobileColumns : columns;
 
   return (
     <section id="portfolio" className="section_portfolio">
       {displayColumns.map((col, i) => (
-        <PortfolioColumn 
-          key={col.id}
-          items={isMobile && i < 2 
-            ? [...columns[i].items, ...columns[i + 2].items].filter(item => item.type !== 'video')
-            : col.items
-          }
-          columnId={col.id}
-          direction={col.direction}
-          speed={isMobile ? 0.6 : col.speed}
-        />
+        <PortfolioColumn key={i} items={col.items} direction={col.direction} speed={col.speed} />
       ))}
     </section>
   );
@@ -474,50 +324,31 @@ const ServicesSection = memo(({ onVitaClick }) => (
     <div className="service_request">
       <div className="services_label">Request</div>
     </div>
-    
     <div className="services_content">
       <div className="services_links">
         <button className="services_link" onClick={onVitaClick}>VITA</button>
         <a href="#portfolio" className="services_link">Portfolio</a>
       </div>
     </div>
-    
     <div className="service_focused_on">
       <div className="services_label">Focused on</div>
     </div>
-    
     <div className="services_services">
-      <div className="services_list-item">
-        Trend &amp; cultural analysis<br />
-        Full-service content delivery<br />
-        Performance optimization
-      </div>
-      <div className="services_list-item">
-        Creative direction<br />
-        Brand storytelling<br />
-        Photo/video production
-      </div>
-      <div className="services_list-item">
-        Social Media<br />
-        Content strategy<br />
-        Campaign concepts
-      </div>
+      <div className="services_list-item">Trend &amp; cultural analysis<br />Full-service content delivery<br />Performance optimization</div>
+      <div className="services_list-item">Creative direction<br />Brand storytelling<br />Photo/video production</div>
+      <div className="services_list-item">Social Media<br />Content strategy<br />Campaign concepts</div>
     </div>
-    
     <div className="services_cta-wrapper">
       <div className="services_label">Contact</div>
     </div>
-    
     <div className="services_email">
-      <a href="mailto:info@xeniasnapiro.com" className="services_link">
-        info@xeniasnapiro.com
-      </a>
+      <a href="mailto:info@xeniasnapiro.com" className="services_link">info@xeniasnapiro.com</a>
     </div>
   </section>
 ));
 
 // ============================================
-// ABOUT SECTION with Lightbox
+// ABOUT SECTION
 // ============================================
 const AboutSection = memo(() => {
   const [lightboxSrc, setLightboxSrc] = useState(null);
@@ -534,13 +365,13 @@ const AboutSection = memo(() => {
           Background: Marketing &amp; PR, Visual Communication (UdK Berlin), Cross-Disciplinary Strategies (die Angewandte), Luxury Marketing (TUM).
         </p>
       </div>
-      
       <div className="about_preview-grid">
         {ABOUT_IMAGES.map((img, index) => (
           <div key={img.id} className="about_preview-item">
-            <LazyImage 
+            <img 
               src={img.src} 
               alt={img.alt}
+              loading="lazy"
               className="about_preview-image"
               onMouseEnter={() => setLightboxSrc(img.src)}
               onMouseLeave={() => setLightboxSrc(null)}
@@ -549,8 +380,6 @@ const AboutSection = memo(() => {
           </div>
         ))}
       </div>
-
-      {/* Lightbox */}
       {lightboxSrc && (
         <div className="lightbox-overlay">
           <img src={lightboxSrc} alt="" className="lightbox-image" />
@@ -570,21 +399,17 @@ const ContactSection = memo(() => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
-    
-    // Here you would add your form submission logic
-    // For now, just simulate success
     await new Promise(r => setTimeout(r, 1000));
     setStatus('success');
     setFormData({ name: '', email: '', message: '' });
-    
     setTimeout(() => setStatus('idle'), 3000);
   };
 
   const socialLinks = [
-    { name: 'Instagram', url: 'https://www.instagram.com/xeniasnapiro/', color: '#e16d41' },
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/xenia-snapiro/', color: '#1a70ab' },
-    { name: 'Facebook', url: 'https://www.facebook.com/k.snapiro/', color: '#1877f2' },
-    { name: 'Pinterest', url: 'https://es.pinterest.com/xeniasnapiro/', color: '#b40022' },
+    { name: 'Instagram', url: 'https://www.instagram.com/xeniasnapiro/' },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/xenia-snapiro/' },
+    { name: 'Facebook', url: 'https://www.facebook.com/k.snapiro/' },
+    { name: 'Pinterest', url: 'https://es.pinterest.com/xeniasnapiro/' },
   ];
 
   return (
@@ -592,69 +417,32 @@ const ContactSection = memo(() => {
       <div className="contact_heading-wrapper">
         <h2 className="contact_heading">LEAVE&nbsp;YOUR<br />CONTACT&nbsp;BELOW</h2>
       </div>
-      
       <div className="contact_info-wrapper">
         <div className="contact_content">
           <h3 className="contact_subheading">Contact Us</h3>
         </div>
-        
         <div className="contact_text-wrapper">
           <p className="contact_description">
-            Interested in working together? Whether you have a project in mind, need creative direction
-            or want to discuss a collaboration — reach out. I'll get back to you as soon as possible.
+            Interested in working together? Whether you have a project in mind, need creative direction or want to discuss a collaboration — reach out.
           </p>
-          
           <div className="social-dots-wrapper">
             {socialLinks.map(social => (
-              <a 
-                key={social.name}
-                data-social={social.name}
-                href={social.url} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className={`social-dot is-${social.name.toLowerCase()}`}
-                style={{ '--social-color': social.color }}
-              >
+              <a key={social.name} data-social={social.name} href={social.url} target="_blank" rel="noopener noreferrer" className={`social-dot is-${social.name.toLowerCase()}`}>
                 <span className="social-label">{social.name}</span>
               </a>
             ))}
           </div>
         </div>
       </div>
-      
       <div className="contact_form-wrapper">
         {status === 'success' ? (
-          <div className="form-success">
-            Thank you! Your message has been sent.
-          </div>
+          <div className="form-success">Thank you! Your message has been sent.</div>
         ) : (
           <form className="contact_form" onSubmit={handleSubmit}>
-            <input 
-              className="form_input"
-              type="text"
-              placeholder="Name"
-              value={formData.name}
-              onChange={(e) => setFormData({...formData, name: e.target.value})}
-              required
-            />
-            <input 
-              className="form_input"
-              type="email"
-              placeholder="E-Mail"
-              value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              required
-            />
-            <textarea 
-              className="form_textarea"
-              placeholder="Leave your Message here"
-              value={formData.message}
-              onChange={(e) => setFormData({...formData, message: e.target.value})}
-              required
-            />
-            <button type="submit" className="button" disabled={status === 'sending'}>
-              {status === 'sending' ? 'Sending...' : 'Submit'}
-            </button>
+            <input className="form_input" type="text" placeholder="Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required />
+            <input className="form_input" type="email" placeholder="E-Mail" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required />
+            <textarea className="form_textarea" placeholder="Leave your Message here" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} required />
+            <button type="submit" className="button" disabled={status === 'sending'}>{status === 'sending' ? 'Sending...' : 'Submit'}</button>
           </form>
         )}
       </div>
@@ -670,10 +458,7 @@ const VitaModal = memo(({ isOpen, onClose }) => {
 
   const handleClose = useCallback(() => {
     setIsClosing(true);
-    setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-    }, 500);
+    setTimeout(() => { setIsClosing(false); onClose(); }, 500);
   }, [onClose]);
 
   useEffect(() => {
@@ -685,14 +470,9 @@ const VitaModal = memo(({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div 
-      className={`vita-modal ${isClosing ? 'is-closing' : ''}`} 
-      onClick={handleClose}
-    >
+    <div className={`vita-modal ${isClosing ? 'is-closing' : ''}`} onClick={handleClose}>
       <div className="vita-content" onClick={(e) => e.stopPropagation()}>
-        <button className="vita-close" onClick={handleClose}>
-          {isClosing ? '♥' : '✕'}
-        </button>
+        <button className="vita-close" onClick={handleClose}>{isClosing ? '♥' : '✕'}</button>
         <h3>Request Vita</h3>
         <form className="vita-form">
           <input type="text" placeholder="Name" required />
@@ -728,30 +508,22 @@ function App() {
     let interval;
     const titles = ["Xenia Snapiro", "Creative Director", "Photographer", "Berlin", "Paris"];
     let i = 0;
-
     const handleVisibility = () => {
       if (document.hidden) {
-        interval = setInterval(() => {
-          document.title = titles[i++ % titles.length];
-        }, 2000);
+        interval = setInterval(() => { document.title = titles[i++ % titles.length]; }, 2000);
       } else {
         clearInterval(interval);
         document.title = "Xenia Snapiro | Fashion Photographer & Creative Director";
       }
     };
-
     document.addEventListener('visibilitychange', handleVisibility);
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibility);
-      clearInterval(interval);
-    };
+    return () => { document.removeEventListener('visibilitychange', handleVisibility); clearInterval(interval); };
   }, []);
 
   return (
     <div className="app">
       <CustomCursor />
       <Navbar onNavigate={navigateTo} />
-      
       <div ref={mapWrapperRef} className="map-wrapper">
         <div className="sections-track">
           <PortfolioSection />
@@ -760,7 +532,6 @@ function App() {
           <ContactSection />
         </div>
       </div>
-      
       <VitaModal isOpen={vitaOpen} onClose={() => setVitaOpen(false)} />
     </div>
   );
