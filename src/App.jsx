@@ -3,34 +3,43 @@ import { gsap } from 'gsap';
 import './App.css';
 
 // ============================================
+// TRANSITION IMAGES (between sections)
+// ============================================
+const TRANSITION_IMAGES = {
+  1: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468b_Kuko%202%20tags-51.jpg',
+  2: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/69273068a6b7b82db826396f_Website.jpg',
+  3: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929467f_Kuko%202%20tags-44.jpg',
+};
+
+// ============================================
 // PORTFOLIO DATA
 // ============================================
 const PORTFOLIO_DATA = {
   column1: [
-    { id: 1, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863.JPG', srcset: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-500.jpg 500w, https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-800.jpg 800w', alt: 'Artist portrait Soap&Skin - Editorial photography for C/O Magazine Berlin', title: 'Soap&Skin', subtitle: 'Artist', caption: 'for C/O Magazine' },
+    { id: 1, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863.JPG', srcset: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-500.jpg 500w, https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-800.jpg 800w', alt: 'Artist portrait Soap&Skin - Editorial photography for C/O Magazine Berlin', title: 'Soap&Skin', subtitle: 'ARTIST', caption: 'for C/O Magazine' },
     { id: 2, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294689_15%203.JPG', alt: 'Portrait photography Berlin', title: '', subtitle: '' },
-    { id: 3, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929464f_B9D24BBF-0CB3-42F1-8E03-5BE311B9E597.avif', alt: 'Fashion designer Rick Owens portrait', title: 'Rick Owens', subtitle: 'Designer' },
-    { id: 4, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294653_064E2395-AA58-48F8-ADC5-939D2CE34E63.avif', alt: 'Music artist Soap&Skin - C/O Magazine', title: 'Soap&Skin', subtitle: 'Artist', caption: 'C/O Magazine' },
+    { id: 3, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929464f_B9D24BBF-0CB3-42F1-8E03-5BE311B9E597.avif', alt: 'Fashion designer Rick Owens portrait', title: 'Rick Owens', subtitle: 'DESIGNER' },
+    { id: 4, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294653_064E2395-AA58-48F8-ADC5-939D2CE34E63.avif', alt: 'Music artist Soap&Skin - C/O Magazine', title: 'Soap&Skin', subtitle: 'ARTIST', caption: 'C/O Magazine' },
     { id: 5, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/69273068a6b7b82db826396f_Website.jpg', alt: 'Fashion portrait photography', title: '', subtitle: '' },
-    { id: 6, type: 'video', vimeoId: '1137289960', poster: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-500.jpg', title: 'Safira', subtitle: '', caption: 'Safira', aspect: 'portrait' },
+    { id: 6, type: 'video', vimeoId: '1137289960', poster: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-500.jpg', title: 'Safira', subtitle: 'SAFIRA', caption: 'Safira', aspect: 'portrait' },
   ],
   column2: [
-    { id: 7, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294643_1.avif', alt: 'Artist interview Eric Joham - C/O Magazine', title: 'Eric Joham', subtitle: 'Interview', caption: 'C/O Magazine' },
-    { id: 8, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929467b_Kuko%202%20tags-44.jpg', alt: 'Brand campaign Laura Gerte', title: 'Laura Gerte', subtitle: 'Brand', caption: 'Model: Oraina' },
-    { id: 9, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929467c_Kuko%202%20tags-42.jpg', alt: 'Fashion brand Laura Gerte - Lookbook', title: 'Laura Gerte', subtitle: 'Brand', caption: 'Model: Oraina' },
-    { id: 10, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929464d_14240002.avif', alt: 'Wales Bonner backstage', title: 'Wales Bonner', subtitle: 'Show Backstage' },
-    { id: 11, type: 'video', vimeoId: '1145349173', poster: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294643_1.avif', title: 'Ernst Lima', subtitle: 'Performance', caption: 'das weisse haus', aspect: 'portrait' },
+    { id: 7, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294643_1.avif', alt: 'Artist interview Eric Joham - C/O Magazine', title: 'Eric Joham', subtitle: 'INTERVIEW', caption: 'C/O Magazine' },
+    { id: 8, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929467b_Kuko%202%20tags-44.jpg', alt: 'Brand campaign Laura Gerte', title: 'Laura Gerte', subtitle: 'BRAND', caption: 'Model: Oraina' },
+    { id: 9, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929467c_Kuko%202%20tags-42.jpg', alt: 'Fashion brand Laura Gerte - Lookbook', title: 'Laura Gerte', subtitle: 'BRAND', caption: 'Model: Oraina' },
+    { id: 10, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929464d_14240002.avif', alt: 'Wales Bonner backstage', title: 'Wales Bonner', subtitle: 'SHOW BACKSTAGE' },
+    { id: 11, type: 'video', vimeoId: '1145349173', poster: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294643_1.avif', title: 'Ernst Lima', subtitle: 'PERFORMANCE', caption: 'das weisse haus', aspect: 'portrait' },
   ],
   column3: [
-    { id: 12, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468b_Kuko%202%20tags-51.jpg', alt: 'Bonnie Strange - Sony Music', title: 'Bonnie Strange', subtitle: 'Model, DJ', caption: 'for Spotify/ Sony Music' },
+    { id: 12, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468b_Kuko%202%20tags-51.jpg', alt: 'Bonnie Strange - Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'for Spotify/ Sony Music' },
     { id: 13, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/69273457f6983e5f11cf2264_Website-10.jpg', alt: 'Brand campaign photography', title: '', subtitle: '' },
-    { id: 14, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468a_Kuko%202%20tags-49.jpg', alt: 'DJ Bonnie Strange portrait', title: 'Bonnie Strange', subtitle: 'Model, DJ', caption: 'Sony Music' },
-    { id: 15, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294692_5..jpg', alt: 'Fashion editorial Das Deck', title: 'Das Deck', subtitle: 'Model', caption: 'for Martin Niklas Wieser' },
-    { id: 16, type: 'video', vimeoId: '730555711', poster: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468b_Kuko%202%20tags-51.jpg', title: 'Mood Video', subtitle: 'Casting', caption: 'for Wales Bonner', aspect: 'landscape' },
+    { id: 14, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468a_Kuko%202%20tags-49.jpg', alt: 'DJ Bonnie Strange portrait', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Sony Music' },
+    { id: 15, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294692_5..jpg', alt: 'Fashion editorial Das Deck', title: 'Das Deck', subtitle: 'MODEL', caption: 'for Martin Niklas Wieser' },
+    { id: 16, type: 'video', vimeoId: '730555711', poster: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468b_Kuko%202%20tags-51.jpg', title: 'Mood Video', subtitle: 'CASTING', caption: 'for Wales Bonner', aspect: 'landscape' },
   ],
   column4: [
-    { id: 17, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294697_IMG_3523.avif', alt: 'Wendy&Jim - C/O Magazine', title: 'Wendy&Jim', subtitle: 'Brand Owners', caption: 'C/O Magazine' },
-    { id: 18, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929465f_5557EDBC-AB28-454B-82B3-BFAA837285E0.avif', alt: 'Austrian Fashion Association Awards', title: 'AFA Awards', subtitle: 'Model', caption: 'Austrian Fashion Association' },
+    { id: 17, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294697_IMG_3523.avif', alt: 'Wendy&Jim - C/O Magazine', title: 'Wendy&Jim', subtitle: 'BRAND OWNERS', caption: 'C/O Magazine' },
+    { id: 18, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929465f_5557EDBC-AB28-454B-82B3-BFAA837285E0.avif', alt: 'Austrian Fashion Association Awards', title: 'AFA Awards', subtitle: 'MODEL', caption: 'Austrian Fashion Association' },
     { id: 19, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/69273068b8b50623bc4a9a42_Website-1.jpg', alt: 'Fashion photography Berlin', title: '', subtitle: '' },
     { id: 20, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294641_00-253%203.avif', alt: 'Street fashion photography', title: '', subtitle: '' },
     { id: 21, type: 'image', src: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468c_20%202.JPG', alt: 'Portrait photography', title: '', subtitle: '' },
@@ -48,7 +57,7 @@ const ABOUT_IMAGES = [
 ];
 
 // ============================================
-// CUSTOM CURSOR
+// CUSTOM CURSOR - Blur to Sharp Effect
 // ============================================
 const CustomCursor = memo(() => {
   const dot1Ref = useRef(null);
@@ -71,7 +80,7 @@ const CustomCursor = memo(() => {
       const card = target.closest('.story-card, .video-card, .about_preview-image');
       const navLink = target.closest('.navbar_link');
       const socialDot = target.closest('.social-dot');
-      const button = target.closest('.button, .services_link');
+      const button = target.closest('.button, .services_link, .vita-button');
       
       if (card) {
         setIsLarger(true);
@@ -81,7 +90,7 @@ const CustomCursor = memo(() => {
         setCursorText(navLink.textContent.trim().toUpperCase());
       } else if (socialDot) {
         setIsLarger(true);
-        setCursorText(socialDot.dataset.social?.toUpperCase() || 'SOCIAL');
+        setCursorText(socialDot.dataset.social?.toUpperCase() || 'LINK');
       } else if (button) {
         setIsLarger(true);
         setCursorText('CLICK');
@@ -91,10 +100,10 @@ const CustomCursor = memo(() => {
     };
 
     const animate = () => {
-      dot1Pos.current.x += (mousePos.current.x - dot1Pos.current.x) * 0.35;
-      dot1Pos.current.y += (mousePos.current.y - dot1Pos.current.y) * 0.35;
-      dot2Pos.current.x += (mousePos.current.x - dot2Pos.current.x) * 0.15;
-      dot2Pos.current.y += (mousePos.current.y - dot2Pos.current.y) * 0.15;
+      dot1Pos.current.x += (mousePos.current.x - dot1Pos.current.x) * 0.2;
+      dot1Pos.current.y += (mousePos.current.y - dot1Pos.current.y) * 0.2;
+      dot2Pos.current.x += (mousePos.current.x - dot2Pos.current.x) * 0.12;
+      dot2Pos.current.y += (mousePos.current.y - dot2Pos.current.y) * 0.12;
       
       if (dot1Ref.current) {
         dot1Ref.current.style.transform = `translate3d(${dot1Pos.current.x}px, ${dot1Pos.current.y}px, 0)`;
@@ -121,11 +130,7 @@ const CustomCursor = memo(() => {
     <div className="cursor">
       <div ref={dot1Ref} className={`cursor_dot1 ${isLarger ? 'is--larger' : ''}`} />
       <div ref={dot2Ref} className={`cursor_dot2 ${isLarger ? 'is--larger' : ''}`}>
-        <div className="cursor_text">
-          {cursorText.split('').map((char, i) => (
-            <span key={i} style={{ animationDelay: `${i * 0.04}s`, opacity: isLarger ? 1 : 0 }}>{char}</span>
-          ))}
-        </div>
+        <span className={`cursor_text ${isLarger ? 'is--visible' : ''}`}>{cursorText}</span>
       </div>
     </div>
   );
@@ -162,7 +167,10 @@ const Navbar = memo(({ onNavigate }) => {
       </div>
 
       <button className={`menu-button ${menuOpen ? 'w--open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
-        <div className="icon w-icon-nav-menu"></div>
+        <div className="menu-icon">
+          <span></span>
+          <span></span>
+        </div>
       </button>
 
       {menuOpen && (
@@ -177,6 +185,13 @@ const Navbar = memo(({ onNavigate }) => {
     </nav>
   );
 });
+
+// ============================================
+// TRANSITION SECTION (between main sections)
+// ============================================
+const TransitionSection = memo(({ imageNum }) => (
+  <section className={`section_transition is-image-${imageNum}`} style={{ backgroundImage: `url(${TRANSITION_IMAGES[imageNum]})` }} />
+));
 
 // ============================================
 // STORY CARD (Image)
@@ -247,8 +262,6 @@ const VideoCard = memo(({ vimeoId, poster, aspect, title, subtitle, caption }) =
 // ============================================
 const PortfolioColumn = memo(({ items, direction, speed }) => {
   const [isPaused, setIsPaused] = useState(false);
-  
-  // Duplicate items for seamless loop
   const duplicatedItems = [...items, ...items];
 
   return (
@@ -287,7 +300,6 @@ const PortfolioSection = memo(() => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Column config: direction + speed (seconds for full loop)
   const columns = [
     { items: PORTFOLIO_DATA.column1, direction: 'up', speed: 35 },
     { items: PORTFOLIO_DATA.column2, direction: 'down', speed: 40 },
@@ -295,60 +307,61 @@ const PortfolioSection = memo(() => {
     { items: PORTFOLIO_DATA.column4, direction: 'down', speed: 38 },
   ];
 
-  // Mobile: merge columns 3+4 into 1+2, filter out videos
   const mobileColumns = [
-    { 
-      items: [...PORTFOLIO_DATA.column1, ...PORTFOLIO_DATA.column3].filter(i => i.type !== 'video'), 
-      direction: 'up', 
-      speed: 45 
-    },
-    { 
-      items: [...PORTFOLIO_DATA.column2, ...PORTFOLIO_DATA.column4].filter(i => i.type !== 'video'), 
-      direction: 'down', 
-      speed: 50 
-    },
+    { items: [...PORTFOLIO_DATA.column1, ...PORTFOLIO_DATA.column3].filter(i => i.type !== 'video'), direction: 'up', speed: 45 },
+    { items: [...PORTFOLIO_DATA.column2, ...PORTFOLIO_DATA.column4].filter(i => i.type !== 'video'), direction: 'down', speed: 50 },
   ];
 
   const displayColumns = isMobile ? mobileColumns : columns;
 
   return (
-    <section id="portfolio" className="section_portfolio">
+    <main id="portfolio" className="section_portfolio">
       {displayColumns.map((col, i) => (
         <PortfolioColumn key={i} items={col.items} direction={col.direction} speed={col.speed} />
       ))}
-    </section>
+    </main>
   );
 });
 
 // ============================================
-// SERVICES SECTION
+// SERVICES SECTION - Webflow Grid Layout
 // ============================================
 const ServicesSection = memo(({ onVitaClick }) => (
-  <section id="services" className="section_services">
+  <main id="services" className="section_services">
     <div className="service_request">
-      <div className="services_label">Request</div>
+      <span className="services_label">Request</span>
     </div>
     <div className="services_content">
-      <div className="services_links">
-        <button className="services_link" onClick={onVitaClick}>VITA</button>
-        <a href="#portfolio" className="services_link">Portfolio</a>
-      </div>
+      <button className="vita-button services_link" onClick={onVitaClick}>VITA</button>
+      <a href="#portfolio" className="services_link">Portfolio</a>
     </div>
     <div className="service_focused_on">
-      <div className="services_label">Focused on</div>
+      <span className="services_label">Focused on</span>
     </div>
     <div className="services_services">
-      <div className="services_list-item">Trend &amp; cultural analysis<br />Full-service content delivery<br />Performance optimization</div>
-      <div className="services_list-item">Creative direction<br />Brand storytelling<br />Photo/video production</div>
-      <div className="services_list-item">Social Media<br />Content strategy<br />Campaign concepts</div>
+      <div className="services_column">
+        <span>Trend &amp; cultural analysis</span>
+        <span>Full-service content delivery</span>
+        <span>Performance optimization</span>
+      </div>
+      <div className="services_column">
+        <span>Creative direction</span>
+        <span>Brand storytelling</span>
+        <span>Photo/video production</span>
+      </div>
+      <div className="services_column">
+        <span>Social Media</span>
+        <span>Content strategy</span>
+        <span>Campaign concepts</span>
+      </div>
     </div>
     <div className="services_cta-wrapper">
-      <div className="services_label">Contact</div>
+      <span className="services_label">Contact</span>
     </div>
     <div className="services_email">
       <a href="mailto:info@xeniasnapiro.com" className="services_link">info@xeniasnapiro.com</a>
     </div>
-  </section>
+  </main>
 ));
 
 // ============================================
@@ -358,7 +371,7 @@ const AboutSection = memo(() => {
   const [lightboxSrc, setLightboxSrc] = useState(null);
 
   return (
-    <section id="about" className="section_about">
+    <main id="about" className="section_about">
       <div className="about_text-div">
         <h2 className="about_heading">Fashion Photographer &amp; Creative Director</h2>
         <p className="about_bio">
@@ -377,24 +390,23 @@ const AboutSection = memo(() => {
               alt={img.alt}
               loading="lazy"
               className="about_preview-image"
-              onMouseEnter={() => setLightboxSrc(img.src)}
-              onMouseLeave={() => setLightboxSrc(null)}
+              onClick={() => setLightboxSrc(img.src)}
             />
             <div className="about_preview-label">{String(index + 1).padStart(2, '0')}</div>
           </div>
         ))}
       </div>
       {lightboxSrc && (
-        <div className="lightbox-overlay">
+        <div className="lightbox-overlay" onClick={() => setLightboxSrc(null)}>
           <img src={lightboxSrc} alt="" className="lightbox-image" />
         </div>
       )}
-    </section>
+    </main>
   );
 });
 
 // ============================================
-// CONTACT SECTION
+// CONTACT SECTION - Webflow 2-Column Grid
 // ============================================
 const ContactSection = memo(() => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -437,43 +449,46 @@ const ContactSection = memo(() => {
   ];
 
   return (
-    <section id="contact" className="section_contact">
+    <main id="contact" className="section_contact">
       <div className="contact_heading-wrapper">
-        <h2 className="contact_heading">LEAVE&nbsp;YOUR<br />CONTACT&nbsp;BELOW</h2>
+        <h2 className="contact_heading">LEAVE<br />YOUR<br />CONTACT<br />BELOW</h2>
       </div>
-      <div className="contact_info-wrapper">
-        <div className="contact_content">
+      <div className="contact_content-wrapper">
+        <div className="contact_info-wrapper">
           <h3 className="contact_subheading">Contact Us</h3>
-        </div>
-        <div className="contact_text-wrapper">
           <p className="contact_description">
-            Interested in working together? Whether you have a project in mind, need creative direction or want to discuss a collaboration — reach out.
+            Interested in working together? Whether you have a project in mind, need creative direction<br />
+            or want to discuss a collaboration — reach out. I'll get back to you as soon as possible.
           </p>
           <div className="social-dots-wrapper">
             {socialLinks.map(social => (
-              <a key={social.name} data-social={social.name} href={social.url} target="_blank" rel="noopener noreferrer" className={`social-dot is-${social.name.toLowerCase()}`}>
-                <span className="social-label">{social.name}</span>
+              <a key={social.name} data-social={social.name} href={social.url} target="_blank" rel="noopener noreferrer" className="social-dot">
+                <span className="social-icon"></span>
               </a>
             ))}
           </div>
         </div>
+        <div className="contact_form-wrapper">
+          {status === 'success' ? (
+            <div className="form-success">Thank you! Your message has been sent.</div>
+          ) : (
+            <form className="contact_form" onSubmit={handleSubmit}>
+              <input className="form_input" type="text" placeholder="Your name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required />
+              <input className="form_input" type="email" placeholder="Your email address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required />
+              <textarea className="form_textarea" placeholder="Leave your Message here" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} required />
+              {status === 'error' && <div className="form-error">{errorMsg}</div>}
+              <button type="submit" className="button" disabled={status === 'sending'}>{status === 'sending' ? 'Sending...' : 'Send message'}</button>
+            </form>
+          )}
+        </div>
       </div>
-      <div className="contact_form-wrapper">
-        {status === 'success' ? (
-          <div className="form-success">Thank you! Your message has been sent.</div>
-        ) : (
-          <form className="contact_form" onSubmit={handleSubmit}>
-            <input className="form_input" type="text" placeholder="Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required />
-            <input className="form_input" type="email" placeholder="E-Mail" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required />
-            <textarea className="form_textarea" placeholder="Leave your Message here" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} required />
-            {status === 'error' && <div className="form-error">{errorMsg}</div>}
-            <button type="submit" className="button" disabled={status === 'sending'}>{status === 'sending' ? 'Sending...' : 'Submit'}</button>
-          </form>
-        )}
-      </div>
-    </section>
+    </main>
   );
 });
+
+// ============================================
+// VITA MODAL
+// ============================================
 const VitaModal = memo(({ isOpen, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
 
@@ -493,13 +508,13 @@ const VitaModal = memo(({ isOpen, onClose }) => {
   return (
     <div className={`vita-modal ${isClosing ? 'is-closing' : ''}`} onClick={handleClose}>
       <div className="vita-content" onClick={(e) => e.stopPropagation()}>
-        <button className="vita-close" onClick={handleClose}>{isClosing ? '♥' : '✕'}</button>
+        <button className="vita-close" onClick={handleClose}>✕</button>
         <h3>Request Vita</h3>
         <form className="vita-form">
-          <input type="text" placeholder="Name" required />
-          <input type="email" placeholder="Email" required />
-          <textarea placeholder="Message" rows={4}></textarea>
-          <button type="submit" className="button">Send Request</button>
+          <input type="text" placeholder="Your name" required />
+          <input type="email" placeholder="Your email address" required />
+          <textarea placeholder="Leave your Message here" rows={4}></textarea>
+          <button type="submit" className="button">Send message</button>
         </form>
       </div>
     </div>
@@ -512,6 +527,14 @@ const VitaModal = memo(({ isOpen, onClose }) => {
 function App() {
   const mapWrapperRef = useRef(null);
   const [vitaOpen, setVitaOpen] = useState(false);
+
+  // Section positions for navigation (accounting for transitions)
+  const sectionPositions = {
+    portfolio: 0,
+    services: 4,  // After portfolio + transition1 + about + transition2
+    about: 2,     // After portfolio + transition1
+    contact: 6,   // Last section
+  };
 
   const navigateTo = useCallback((sectionId) => {
     const section = document.getElementById(sectionId);
@@ -534,7 +557,7 @@ function App() {
         interval = setInterval(() => { document.title = titles[i++ % titles.length]; }, 2000);
       } else {
         clearInterval(interval);
-        document.title = "Xenia Snapiro | Fashion Photographer & Creative Director";
+        document.title = "Xenia Snapiro | Modefotografie & Creative Direction Berlin";
       }
     };
     document.addEventListener('visibilitychange', handleVisibility);
@@ -548,8 +571,11 @@ function App() {
       <div ref={mapWrapperRef} className="map-wrapper">
         <div className="sections-track">
           <PortfolioSection />
-          <ServicesSection onVitaClick={() => setVitaOpen(true)} />
+          <TransitionSection imageNum={1} />
           <AboutSection />
+          <TransitionSection imageNum={2} />
+          <ServicesSection onVitaClick={() => setVitaOpen(true)} />
+          <TransitionSection imageNum={3} />
           <ContactSection />
         </div>
       </div>
