@@ -36,7 +36,7 @@ body {
 }
 
 /* ============================================
-   CUSTOM CURSOR - Blur to Sharp Effect
+   CUSTOM CURSOR - Original Webflow Style
    ============================================ */
 .cursor {
   position: fixed;
@@ -57,25 +57,25 @@ body {
   margin-left: -3px;
   margin-top: -3px;
   will-change: transform;
-  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              margin 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.4s;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              margin 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.35s;
 }
 
 .cursor_dot1.is--larger {
-  width: 90px;
-  height: 90px;
-  margin-left: -45px;
-  margin-top: -45px;
-  background-color: rgba(0, 0, 0, 0.06);
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  background-color: rgba(153, 153, 153, 0.2);
 }
 
 .cursor_dot2 {
   position: absolute;
   width: 52px;
   height: 52px;
-  border: 1.5px solid var(--casual);
+  border: 2px solid var(--casual);
   border-radius: 50%;
   margin-left: -26px;
   margin-top: -26px;
@@ -83,38 +83,50 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cursor_dot2.is--larger {
-  width: 90px;
-  height: 90px;
-  margin-left: -45px;
-  margin-top: -45px;
-  background-color: var(--casual);
-  border-color: var(--casual);
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  background-color: #000;
+  border-color: #000;
 }
 
-/* Blur to Sharp Text Effect - SLOWER */
+/* Cursor Text - Letter Stagger Animation */
 .cursor_text {
+  display: flex;
+  gap: 1px;
   color: var(--white);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  opacity: 0;
-  filter: blur(8px);
-  transform: scale(0.8);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 1.2px;
 }
 
-.cursor_text.is--visible {
-  opacity: 1;
-  filter: blur(0);
-  transform: scale(1);
+.cursor_text span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
+.cursor_text.is--visible span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for each letter */
+.cursor_text.is--visible span:nth-child(1) { transition-delay: 0s; }
+.cursor_text.is--visible span:nth-child(2) { transition-delay: 0.03s; }
+.cursor_text.is--visible span:nth-child(3) { transition-delay: 0.06s; }
+.cursor_text.is--visible span:nth-child(4) { transition-delay: 0.09s; }
+.cursor_text.is--visible span:nth-child(5) { transition-delay: 0.12s; }
+.cursor_text.is--visible span:nth-child(6) { transition-delay: 0.15s; }
+.cursor_text.is--visible span:nth-child(7) { transition-delay: 0.18s; }
+.cursor_text.is--visible span:nth-child(8) { transition-delay: 0.21s; }
+.cursor_text.is--visible span:nth-child(9) { transition-delay: 0.24s; }
 
 /* ============================================
    NAVBAR
@@ -222,7 +234,7 @@ body {
   display: flex;
   flex-direction: row;
   height: 90vh;
-  width: 700vw; /* 7 sections × 100vw */
+  width: 700vw;
 }
 
 /* ============================================
@@ -500,8 +512,8 @@ body {
 .services_label {
   font-size: 12px;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--hover-gray);
+  text-transform: capitalize;
+  color: var(--casual);
 }
 
 .services_link {
@@ -511,6 +523,7 @@ body {
   background: none;
   border: none;
   padding: 0;
+  font-family: inherit;
   text-align: left;
   transition: color 0.3s;
 }
@@ -520,7 +533,6 @@ body {
 }
 
 .vita-button {
-  font-family: inherit;
   cursor: none;
 }
 
@@ -562,9 +574,9 @@ body {
 }
 
 .about_preview-item {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .about_preview-image {
@@ -579,29 +591,55 @@ body {
   transform: scale(1.02);
 }
 
+/* Number OVER the image */
 .about_preview-label {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
   font-size: 12px;
-  color: var(--hover-gray);
+  color: var(--white);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  pointer-events: none;
 }
 
+/* ============================================
+   LIGHTBOX - Apple Smooth Effect
+   ============================================ */
 .lightbox-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.95) 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
-  cursor: pointer;
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease-out;
+}
+
+.lightbox-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .lightbox-image {
   max-width: 90vw;
   max-height: 90vh;
   object-fit: contain;
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 0.35s ease-out, opacity 0.35s ease-out;
+}
+
+.lightbox-overlay.is-visible .lightbox-image {
+  transform: scale(1);
+  opacity: 1;
 }
 
 /* ============================================

@@ -57,7 +57,7 @@ const ABOUT_IMAGES = [
 ];
 
 // ============================================
-// CUSTOM CURSOR - Blur to Sharp Effect
+// CUSTOM CURSOR - Letter Stagger Animation
 // ============================================
 const CustomCursor = memo(() => {
   const dot1Ref = useRef(null);
@@ -100,10 +100,10 @@ const CustomCursor = memo(() => {
     };
 
     const animate = () => {
-      dot1Pos.current.x += (mousePos.current.x - dot1Pos.current.x) * 0.2;
-      dot1Pos.current.y += (mousePos.current.y - dot1Pos.current.y) * 0.2;
-      dot2Pos.current.x += (mousePos.current.x - dot2Pos.current.x) * 0.12;
-      dot2Pos.current.y += (mousePos.current.y - dot2Pos.current.y) * 0.12;
+      dot1Pos.current.x += (mousePos.current.x - dot1Pos.current.x) * 0.35;
+      dot1Pos.current.y += (mousePos.current.y - dot1Pos.current.y) * 0.35;
+      dot2Pos.current.x += (mousePos.current.x - dot2Pos.current.x) * 0.15;
+      dot2Pos.current.y += (mousePos.current.y - dot2Pos.current.y) * 0.15;
       
       if (dot1Ref.current) {
         dot1Ref.current.style.transform = `translate3d(${dot1Pos.current.x}px, ${dot1Pos.current.y}px, 0)`;
@@ -130,7 +130,11 @@ const CustomCursor = memo(() => {
     <div className="cursor">
       <div ref={dot1Ref} className={`cursor_dot1 ${isLarger ? 'is--larger' : ''}`} />
       <div ref={dot2Ref} className={`cursor_dot2 ${isLarger ? 'is--larger' : ''}`}>
-        <span className={`cursor_text ${isLarger ? 'is--visible' : ''}`}>{cursorText}</span>
+        <div className={`cursor_text ${isLarger ? 'is--visible' : ''}`}>
+          {cursorText.split('').map((char, i) => (
+            <span key={i}>{char}</span>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -187,14 +191,14 @@ const Navbar = memo(({ onNavigate }) => {
 });
 
 // ============================================
-// TRANSITION SECTION (between main sections)
+// TRANSITION SECTION
 // ============================================
 const TransitionSection = memo(({ imageNum }) => (
   <section className={`section_transition is-image-${imageNum}`} style={{ backgroundImage: `url(${TRANSITION_IMAGES[imageNum]})` }} />
 ));
 
 // ============================================
-// STORY CARD (Image)
+// STORY CARD
 // ============================================
 const StoryCard = memo(({ item }) => (
   <div className="story-card">
@@ -215,7 +219,7 @@ const StoryCard = memo(({ item }) => (
 ));
 
 // ============================================
-// VIDEO CARD (Hover to Load)
+// VIDEO CARD
 // ============================================
 const VideoCard = memo(({ vimeoId, poster, aspect, title, subtitle, caption }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -258,7 +262,7 @@ const VideoCard = memo(({ vimeoId, poster, aspect, title, subtitle, caption }) =
 });
 
 // ============================================
-// PORTFOLIO COLUMN - Pure CSS Animation
+// PORTFOLIO COLUMN
 // ============================================
 const PortfolioColumn = memo(({ items, direction, speed }) => {
   const [isPaused, setIsPaused] = useState(false);
@@ -312,11 +316,9 @@ const PortfolioSection = memo(() => {
     { items: [...PORTFOLIO_DATA.column2, ...PORTFOLIO_DATA.column4].filter(i => i.type !== 'video'), direction: 'down', speed: 50 },
   ];
 
-  const displayColumns = isMobile ? mobileColumns : columns;
-
   return (
     <main id="portfolio" className="section_portfolio">
-      {displayColumns.map((col, i) => (
+      {(isMobile ? mobileColumns : columns).map((col, i) => (
         <PortfolioColumn key={i} items={col.items} direction={col.direction} speed={col.speed} />
       ))}
     </main>
@@ -324,7 +326,7 @@ const PortfolioSection = memo(() => {
 });
 
 // ============================================
-// SERVICES SECTION - Webflow Grid Layout
+// SERVICES SECTION
 // ============================================
 const ServicesSection = memo(({ onVitaClick }) => (
   <main id="services" className="section_services">
@@ -365,10 +367,13 @@ const ServicesSection = memo(({ onVitaClick }) => (
 ));
 
 // ============================================
-// ABOUT SECTION
+// ABOUT SECTION with Apple Smooth Lightbox
 // ============================================
 const AboutSection = memo(() => {
   const [lightboxSrc, setLightboxSrc] = useState(null);
+
+  const openLightbox = (src) => setLightboxSrc(src);
+  const closeLightbox = () => setLightboxSrc(null);
 
   return (
     <main id="about" className="section_about">
@@ -390,23 +395,23 @@ const AboutSection = memo(() => {
               alt={img.alt}
               loading="lazy"
               className="about_preview-image"
-              onClick={() => setLightboxSrc(img.src)}
+              onClick={() => openLightbox(img.src)}
             />
             <div className="about_preview-label">{String(index + 1).padStart(2, '0')}</div>
           </div>
         ))}
       </div>
-      {lightboxSrc && (
-        <div className="lightbox-overlay" onClick={() => setLightboxSrc(null)}>
-          <img src={lightboxSrc} alt="" className="lightbox-image" />
-        </div>
-      )}
+      
+      {/* Apple Smooth Lightbox */}
+      <div className={`lightbox-overlay ${lightboxSrc ? 'is-visible' : ''}`} onClick={closeLightbox}>
+        {lightboxSrc && <img src={lightboxSrc} alt="" className="lightbox-image" />}
+      </div>
     </main>
   );
 });
 
 // ============================================
-// CONTACT SECTION - Webflow 2-Column Grid
+// CONTACT SECTION
 // ============================================
 const ContactSection = memo(() => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -528,14 +533,6 @@ function App() {
   const mapWrapperRef = useRef(null);
   const [vitaOpen, setVitaOpen] = useState(false);
 
-  // Section positions for navigation (accounting for transitions)
-  const sectionPositions = {
-    portfolio: 0,
-    services: 4,  // After portfolio + transition1 + about + transition2
-    about: 2,     // After portfolio + transition1
-    contact: 6,   // Last section
-  };
-
   const navigateTo = useCallback((sectionId) => {
     const section = document.getElementById(sectionId);
     if (section && mapWrapperRef.current) {
@@ -547,7 +544,6 @@ function App() {
     }
   }, []);
 
-  // Tab title animation
   useEffect(() => {
     let interval;
     const titles = ["Xenia Snapiro", "Creative Director", "Photographer", "Berlin", "Paris"];
