@@ -30,12 +30,18 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error('Resend error:', error);
-      return res.status(500).json({ error: 'Failed to send email' });
+      return res.status(500).json({ 
+        error: 'Failed to send email', 
+        details: error.message || JSON.stringify(error) 
+      });
     }
 
     return res.status(200).json({ success: true, id: data.id });
   } catch (error) {
     console.error('Server error:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ 
+      error: 'Internal server error', 
+      details: error.message || JSON.stringify(error) 
+    });
   }
 }
