@@ -399,14 +399,34 @@ const AboutSection = memo(() => {
 const ContactSection = memo(() => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
-    await new Promise(r => setTimeout(r, 1000));
-    setStatus('success');
-    setFormData({ name: '', email: '', message: '' });
-    setTimeout(() => setStatus('idle'), 3000);
+    setErrorMsg('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+        setErrorMsg(data.error || 'Something went wrong');
+      }
+    } catch (error) {
+      setStatus('error');
+      setErrorMsg('Network error. Please try again.');
+    }
   };
 
   const socialLinks = [
@@ -446,6 +466,7 @@ const ContactSection = memo(() => {
             <input className="form_input" type="text" placeholder="Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required />
             <input className="form_input" type="email" placeholder="E-Mail" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required />
             <textarea className="form_textarea" placeholder="Leave your Message here" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} required />
+            {status === 'error' && <div className="form-error">{errorMsg}</div>}
             <button type="submit" className="button" disabled={status === 'sending'}>{status === 'sending' ? 'Sending...' : 'Submit'}</button>
           </form>
         )}
@@ -453,10 +474,6 @@ const ContactSection = memo(() => {
     </section>
   );
 });
-
-// ============================================
-// VITA MODAL
-// ============================================
 const VitaModal = memo(({ isOpen, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
 

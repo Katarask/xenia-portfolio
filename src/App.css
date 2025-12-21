@@ -883,3 +883,10 @@ body {
   .contact_heading { font-size: 32px; }
   .about_preview-grid { grid-template-columns: 1fr; }
 }
+
+/* Form Error State */
+.form-error {
+  color: var(--red);
+  font-size: 14px;
+  padding: 8px 0;
+}
