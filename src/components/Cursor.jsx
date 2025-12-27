@@ -100,6 +100,10 @@ const Cursor = memo(() => {
         <div
           ref={cursorTextRef}
           className={`cursor_text ${isLarger ? 'is--visible' : ''}`}
+          style={{
+            // Dynamische Schriftgröße basierend auf Textlänge
+            fontSize: cursorText.length > 6 ? '10px' : '12px',
+          }}
         >
           {cursorText.split('').map((char, i) => (
             <span
