@@ -14,7 +14,6 @@ import './App.css';
 // ============================================
 // MAIN APP - Horizontal Scroll Layout
 // Section Order: Portfolio -> Services -> About -> Contact
-// NO Transitions (they don't exist in Webflow original!)
 // Total width: 400vw (4 sections × 100vw)
 // ============================================
 function App() {

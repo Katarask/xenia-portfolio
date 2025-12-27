@@ -115,6 +115,7 @@ body:hover .cursor {
   border-radius: 50%;
   background-color: var(--black);
   will-change: transform;
+  transform: translate3d(-100px, -100px, 0);
   transition: width 0.3s ease, height 0.3s ease, margin 0.3s ease, background-color 0.3s ease;
 }
 
@@ -138,6 +139,7 @@ body:hover .cursor {
   background-color: transparent;
   display: flex;
   align-items: center;
+  transform: translate3d(-100px, -100px, 0);
   justify-content: center;
   will-change: transform;
   transition: width 0.3s ease, height 0.3s ease, margin 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
@@ -211,7 +213,6 @@ body:hover .cursor {
 .navbar_component {
   width: 100%;
   height: 100%;
-  padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -263,8 +264,8 @@ body:hover .cursor {
 /* Mobile Menu Button */
 .menu-button {
   display: none;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -283,7 +284,7 @@ body:hover .cursor {
   display: block;
   width: 100%;
   height: 2px;
-  background-color: var(--black);
+  background-color: #a71c1c;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -381,7 +382,7 @@ body:hover .cursor {
 .sections-track {
   display: flex;
   flex-direction: row;
-  width: 400vw; /* 4 sections × 100vw - NO transitions! */
+  width: 400vw; /* 4 sections × 100vw */
   height: var(--content-height);
 }
 

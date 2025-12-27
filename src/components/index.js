@@ -1,6 +1,5 @@
 // ============================================
 // COMPONENTS INDEX - Central export
-// No Transition component - doesn't exist in Webflow original!
 // ============================================
 export { default as Cursor } from './Cursor';
 export { default as Navbar } from './Navbar';
