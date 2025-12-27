@@ -518,31 +518,33 @@ body:hover .cursor {
 /* ============================================
    STORY CARD - Image with overlay
    ============================================ */
+/* Story Card - matches Webflow original */
 .story-card {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  height: auto;
+  margin-bottom: 0;
+  padding-top: 0;
   cursor: pointer;
+  display: block;
+  overflow: hidden;
 }
 
 .story-img {
   width: 100%;
   height: auto;
-  padding-left: 10px; /* Webflow original: only padding-left */
+  padding-left: 10px;
   object-fit: cover;
   display: block;
+  position: relative;
 }
 
 .story-overlay {
   position: absolute;
-  top: 0;
-  left: 10px;
-  right: 0;
-  bottom: 0;
-  background-color: transparent;
+  inset: 0;
   z-index: 1;
-  transition: background-color 0.4s ease;
-  pointer-events: none;
+  background-color: transparent;
+  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .story-card:hover .story-overlay {
@@ -551,108 +553,99 @@ body:hover .cursor {
 
 .story-caption {
   position: absolute;
-  top: 0;
-  left: 10px;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 2;
-  display: flex;
+  display: none;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 16px;
+  justify-content: center;
+  align-items: center;
   color: var(--white);
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .story-card:hover .story-caption {
+  display: flex;
   opacity: 1;
   transform: translateY(0);
 }
 
 .artist-name {
-  font-size: var(--text-xs);
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: var(--tracking-widest);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  padding-bottom: 8px;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   margin-bottom: 8px;
+  padding-bottom: 4px;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .text-block {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wider);
-  opacity: 0.9;
-  margin-bottom: 4px;
+  text-align: center;
 }
 
 .brand-title {
-  font-size: var(--text-2xl);
+  text-align: center;
+  font-size: 28px;
   font-weight: 500;
-  transition: transform 0.5s ease;
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 8px;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .season-subtitle {
-  font-size: var(--text-sm);
+  font-size: 14px;
+  font-weight: 400;
   opacity: 0.9;
-  margin-top: 8px;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ============================================
-   VIDEO CARD - Vimeo iframe lazy load
+   VIDEO CARD - Vimeo iframe autoplay
+   Matches Webflow original structure
    ============================================ */
 .video-card {
   position: relative;
   width: 100%;
   overflow: hidden;
-  cursor: pointer;
 }
 
+/* Aspect ratios using padding-bottom (Webflow style) */
 .video-card.is-portrait {
-  aspect-ratio: 3/4;
+  height: 0;
+  padding-bottom: 177.78%; /* 9:16 */
 }
 
 .video-card.is-landscape {
-  aspect-ratio: 16/9;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 */
 }
 
-.video-hover-wrapper {
+/* Webflow embed wrapper */
+.w-embed.w-iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.video-inner {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
+  inset: 10px;
   overflow: hidden;
 }
 
-.video-poster {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.5s ease;
-}
-
-.video-poster.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.video-iframe {
+.video-inner iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   border: none;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.video-iframe.is-loaded {
-  opacity: 1;
+  object-fit: cover;
 }
 
 .video-card .story-overlay {
@@ -661,6 +654,12 @@ body:hover .cursor {
 
 .video-card .story-caption {
   z-index: 3;
+}
+
+.video-card:hover .story-caption {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Hide videos on mobile */
