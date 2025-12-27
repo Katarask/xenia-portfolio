@@ -16,13 +16,82 @@
    CSS VARIABLES
    ============================================ */
 :root {
+  /* Colors */
   --white: #ffffff;
   --black: #000000;
   --casual: #333333;
   --border: rgba(0, 0, 0, 0.1);
   --hover-gray: #999999;
+  --accent: #a71c1c;
+
+  /* Layout */
   --navbar-height: 10vh;
   --content-height: 90vh;
+
+  /* Typography Scale (Desktop) */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Font Sizes */
+  --text-xs: 12px;      /* tagline, artist-name, labels */
+  --text-sm: 14px;      /* navbar links, subtitles */
+  --text-base: 16px;    /* body, services, descriptions */
+  --text-lg: 18px;      /* mobile menu links */
+  --text-xl: 24px;      /* navbar name */
+  --text-2xl: 28px;     /* story titles, brand titles */
+  --text-3xl: 32px;     /* about heading, contact subheading */
+  --text-4xl: 48px;     /* large headings (tablet) */
+  --text-5xl: 80px;     /* contact heading */
+
+  /* Line Heights */
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+
+  /* Letter Spacing */
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+}
+
+/* Tablet Typography (≤991px) */
+@media (max-width: 991px) {
+  :root {
+    --text-xl: 22px;
+    --text-2xl: 24px;
+    --text-3xl: 28px;
+    --text-5xl: 56px;
+  }
+}
+
+/* Mobile Landscape Typography (≤767px) */
+@media (max-width: 767px) {
+  :root {
+    --text-xs: 10px;
+    --text-sm: 12px;
+    --text-base: 14px;
+    --text-lg: 16px;
+    --text-xl: 20px;
+    --text-2xl: 22px;
+    --text-3xl: 24px;
+    --text-5xl: 40px;
+  }
+}
+
+/* Mobile Portrait Typography (≤478px) */
+@media (max-width: 478px) {
+  :root {
+    --text-xs: 10px;
+    --text-sm: 11px;
+    --text-base: 13px;
+    --text-lg: 14px;
+    --text-xl: 18px;
+    --text-2xl: 20px;
+    --text-3xl: 22px;
+    --text-5xl: 32px;
+  }
 }
 
 /* ============================================
@@ -40,9 +109,9 @@ html,
 body {
   height: 100vh;
   overflow: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
   color: var(--casual);
   background-color: var(--white);
   -webkit-font-smoothing: antialiased;
@@ -158,8 +227,8 @@ body:hover .cursor {
 .cursor_text {
   display: flex;
   gap: 1px;
-  font-size: 12px;
-  letter-spacing: 0.1em;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
   color: var(--white);
   opacity: 0;
@@ -226,15 +295,15 @@ body:hover .cursor {
 }
 
 .navbar_name {
-  font-size: 24px;
+  font-size: var(--text-xl);
   font-weight: 400;
-  line-height: 32px;
-  letter-spacing: 0.02em;
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-wide);
 }
 
 .navbar_tagline {
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: var(--text-xs);
+  line-height: var(--leading-snug);
   margin-bottom: 4px;
   color: var(--hover-gray);
 }
@@ -247,7 +316,7 @@ body:hover .cursor {
 
 .navbar_link {
   padding: 20px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   text-transform: capitalize;
   transition: color 0.3s ease;
 }
@@ -317,7 +386,7 @@ body:hover .cursor {
 .w-nav-overlay .navbar_link {
   padding: 16px 0;
   border-bottom: 1px solid var(--border);
-  font-size: 18px;
+  font-size: var(--text-lg);
 }
 
 /* Tablet/Mobile: Show hamburger */
@@ -335,23 +404,8 @@ body:hover .cursor {
   }
 }
 
-/* Mobile adjustments */
-@media (max-width: 767px) {
-  .navbar_name {
-    font-size: 20px;
-  }
-
-  .navbar_tagline {
-    font-size: 10px;
-  }
-}
-
-/* Tiny mobile */
+/* Tiny mobile - hide tagline */
 @media (max-width: 478px) {
-  .navbar_name {
-    font-size: 18px;
-  }
-
   .navbar_tagline {
     display: none;
   }
@@ -519,9 +573,9 @@ body:hover .cursor {
 }
 
 .artist-name {
-  font-size: 12px;
+  font-size: var(--text-xs);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: var(--tracking-widest);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   padding-bottom: 8px;
   margin-bottom: 8px;
@@ -530,28 +584,21 @@ body:hover .cursor {
 .text-block {
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: var(--tracking-wider);
   opacity: 0.9;
   margin-bottom: 4px;
 }
 
 .brand-title {
-  font-size: 28px;
+  font-size: var(--text-2xl);
   font-weight: 500;
   transition: transform 0.5s ease;
 }
 
 .season-subtitle {
-  font-size: 13px;
+  font-size: var(--text-sm);
   opacity: 0.9;
   margin-top: 8px;
-}
-
-/* Mobile adjustments */
-@media (max-width: 767px) {
-  .brand-title {
-    font-size: 22px;
-  }
 }
 
 /* ============================================
@@ -668,7 +715,7 @@ body:hover .cursor {
 }
 
 .services_list-item {
-  font-size: 16px;
+  font-size: var(--text-base);
   padding: 4px 0;
 }
 
@@ -683,15 +730,15 @@ body:hover .cursor {
 }
 
 .services_label {
-  font-size: 12px;
+  font-size: var(--text-xs);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: var(--tracking-widest);
   color: var(--hover-gray);
   padding: 4px 0;
 }
 
 .services_link {
-  font-size: 18px;
+  font-size: var(--text-lg);
   padding: 4px 0;
   transition: color 0.3s ease;
   display: inline-flex;
@@ -704,7 +751,7 @@ body:hover .cursor {
 .vita-button {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: var(--text-lg);
   padding: 4px 0;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -775,14 +822,15 @@ body:hover .cursor {
 }
 
 .about_heading {
-  font-size: 32px;
+  font-size: var(--text-3xl);
   font-weight: 400;
   margin-bottom: 24px;
+  line-height: var(--leading-snug);
 }
 
 .about_bio {
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
   color: var(--casual);
 }
 
@@ -799,8 +847,8 @@ body:hover .cursor {
 }
 
 .about_preview-label {
-  font-size: 16px;
-  line-height: 24px;
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
   margin-bottom: 8px;
   color: var(--hover-gray);
 }
@@ -910,10 +958,10 @@ body:hover .cursor {
 }
 
 .contact_heading {
-  font-size: 80px;
+  font-size: var(--text-5xl);
   font-weight: 400;
-  line-height: 72px;
-  letter-spacing: 8px;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-widest);
   text-align: right;
 }
 
@@ -930,14 +978,14 @@ body:hover .cursor {
 }
 
 .contact_subheading {
-  font-size: 32px;
+  font-size: var(--text-3xl);
   font-weight: 400;
   margin-bottom: 16px;
 }
 
 .contact_description {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
   max-width: 400px;
   margin-bottom: 24px;
 }
@@ -1030,7 +1078,7 @@ body:hover .cursor {
 .form_textarea {
   width: 100%;
   padding: 8px 16px;
-  font-size: 16px;
+  font-size: var(--text-base);
   font-family: inherit;
   background: transparent;
   border: none;
@@ -1062,7 +1110,7 @@ body:hover .cursor {
   --color: #333;
   width: 100%;
   padding: calc(0.5em + var(--s)) calc(0.9em + var(--s));
-  font-size: 16px;
+  font-size: var(--text-base);
   font-family: inherit;
   color: var(--color);
   --_p: var(--s);
@@ -1105,14 +1153,7 @@ body:hover .cursor {
   margin-bottom: 8px;
 }
 
-/* Tablet */
-@media (max-width: 991px) {
-  .contact_heading {
-    font-size: 56px;
-  }
-}
-
-/* Mobile */
+/* Mobile Contact Layout */
 @media (max-width: 767px) {
   .section_contact {
     grid-template-areas:
@@ -1137,7 +1178,6 @@ body:hover .cursor {
   }
 
   .contact_heading {
-    font-size: 40px;
     text-align: left;
   }
 
@@ -1157,14 +1197,6 @@ body:hover .cursor {
 
   .social-dots-wrapper {
     gap: 24px;
-  }
-}
-
-/* Tiny mobile */
-@media (max-width: 478px) {
-  .contact_heading {
-    font-size: 32px;
-    letter-spacing: 4px;
   }
 }
 
@@ -1252,7 +1284,7 @@ body:hover .cursor {
   right: 16px;
   width: 32px;
   height: 32px;
-  font-size: 20px;
+  font-size: var(--text-xl);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1270,7 +1302,7 @@ body:hover .cursor {
 }
 
 .vita-title {
-  font-size: 24px;
+  font-size: var(--text-xl);
   font-weight: 400;
   margin-bottom: 24px;
 }
@@ -1285,7 +1317,7 @@ body:hover .cursor {
 .vita-form textarea {
   width: 100%;
   padding: 12px 0;
-  font-size: 16px;
+  font-size: var(--text-base);
   font-family: inherit;
   background: transparent;
   border: none;
