@@ -75,7 +75,7 @@ const Contact = memo(() => {
             Interested in working together? Whether you have a project in mind, need creative direction or want to discuss a collaboration — reach out. I'll get back to you as soon as possible.
           </p>
 
-          {/* Social Dots - with hover label */}
+          {/* Social Dots - cursor shows name on hover */}
           <div className="social-dots-wrapper">
             {SOCIAL_LINKS.map((social) => (
               <a
@@ -84,10 +84,9 @@ const Contact = memo(() => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`social-dot is-${social.name.toLowerCase()}`}
+                data-social={social.name}
                 aria-label={social.name}
-              >
-                <span className="social-label">{social.name}</span>
-              </a>
+              />
             ))}
           </div>
         </div>
