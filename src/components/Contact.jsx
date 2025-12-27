@@ -56,13 +56,14 @@ const Contact = memo(() => {
 
   return (
     <section id="contact" className="section_contact">
-      {/* Grid Area: heading (top-left) */}
+      {/* Grid Area: empty (top-left) */}
+      <div className="contact_empty"></div>
+
+      {/* Grid Area: heading (top-right) */}
       <div className="contact_heading-wrapper">
         <h2 className="contact_heading">
-          LEAVE<br />
-          YOUR<br />
-          CONTACT<br />
-          BELOW
+          LEAVE YOUR<br />
+          CONTACT BELOW
         </h2>
       </div>
 
@@ -74,7 +75,7 @@ const Contact = memo(() => {
             Interested in working together? Whether you have a project in mind, need creative direction or want to discuss a collaboration — reach out. I'll get back to you as soon as possible.
           </p>
 
-          {/* Social Dots */}
+          {/* Social Dots - only border, no icon */}
           <div className="social-dots-wrapper">
             {SOCIAL_LINKS.map((social) => (
               <a
@@ -83,10 +84,8 @@ const Contact = memo(() => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`social-dot is-${social.name.toLowerCase()}`}
-                data-social={social.name}
-              >
-                <span className="social-icon"></span>
-              </a>
+                aria-label={social.name}
+              />
             ))}
           </div>
         </div>

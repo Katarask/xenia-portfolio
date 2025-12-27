@@ -877,12 +877,17 @@ body:hover .cursor {
 
 /* ============================================
    CONTACT SECTION
-   Webflow Grid: 2×2 with grid-template-areas
+   Webflow Grid: 2×2 equal parts
+   ┌──────────┬──────────┐
+   │  empty   │ heading  │
+   ├──────────┼──────────┤
+   │ content  │  form    │
+   └──────────┴──────────┘
    ============================================ */
 .section_contact {
   display: grid;
   grid-template-areas:
-    "heading form"
+    "empty   heading"
     "content form";
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 50% 50%;
@@ -892,14 +897,15 @@ body:hover .cursor {
   height: 89.7vh;
 }
 
+.contact_empty {
+  grid-area: empty;
+}
+
 .contact_heading-wrapper {
   grid-area: heading;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  width: 100%;
-  padding-right: 48px;
-  padding-bottom: 24px;
+  align-items: center;
+  justify-content: center;
 }
 
 .contact_heading {
@@ -915,14 +921,11 @@ body:hover .cursor {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-right: 48px;
-  padding-top: 24px;
+  padding: 24px;
 }
 
 .contact_info-wrapper {
-  display: grid;
   width: 100%;
-  margin-left: 16px;
 }
 
 .contact_subheading {
@@ -945,6 +948,7 @@ body:hover .cursor {
   margin-top: 22px;
 }
 
+/* Social Dots - only border color, no icon inside */
 .social-dot {
   width: 40px;
   height: 40px;
@@ -956,58 +960,55 @@ body:hover .cursor {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.social-dot:hover {
-  background-color: var(--casual);
-  border-color: var(--casual);
+/* Each platform has its own border color */
+.social-dot.is-instagram {
+  border-color: #E16D41;
 }
 
-.social-dot:hover .social-icon {
-  background-color: var(--white);
+.social-dot.is-linkedin {
+  border-color: #1A70AB;
 }
 
-.social-icon {
-  width: 16px;
-  height: 16px;
-  background-color: var(--casual);
-  transition: background-color 0.3s ease;
+.social-dot.is-pinterest {
+  border-color: #b40022;
 }
 
-/* Social dot colors on hover */
+.social-dot.is-facebook {
+  border-color: #3d5496;
+}
+
+/* Hover: fill with platform color */
 .social-dot.is-instagram:hover {
   background-color: #E16D41;
-  border-color: #E16D41;
 }
 
 .social-dot.is-linkedin:hover {
   background-color: #1A70AB;
-  border-color: #1A70AB;
 }
 
 .social-dot.is-pinterest:hover {
   background-color: #b40022;
-  border-color: #b40022;
 }
 
 .social-dot.is-facebook:hover {
   background-color: #3d5496;
-  border-color: #3d5496;
 }
 
-/* Contact Form - Webflow exact: 40vw × 75vh with border */
+/* Contact Form - unten rechts, mit Border */
 .contact_form-wrapper {
   grid-area: form;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 100%;
   height: 100%;
-  margin-left: 20px;
+  padding: 24px;
 }
 
 .contact_form-block {
-  width: 40vw;
-  height: 75vh;
+  width: 100%;
+  height: 100%;
   border: 1px solid var(--black);
   display: flex;
   flex-direction: column;
@@ -1124,6 +1125,10 @@ body:hover .cursor {
     min-height: 100vh;
   }
 
+  .contact_empty {
+    display: none;
+  }
+
   .contact_heading-wrapper {
     justify-content: flex-start;
     align-items: flex-start;
@@ -1140,7 +1145,6 @@ body:hover .cursor {
   }
 
   .contact_form-wrapper {
-    margin-left: 0;
     padding: 16px;
   }
 
