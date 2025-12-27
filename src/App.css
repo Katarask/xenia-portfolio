@@ -140,7 +140,8 @@ button {
 img {
   max-width: 100%;
   height: auto;
-  display: block;
+  padding: 10px;
+  display: inline-block;
 }
 
 /* ============================================
@@ -533,7 +534,6 @@ body:hover .cursor {
 .story-img {
   width: 100%;
   height: auto;
-  padding-left: 10px;
   object-fit: cover;
   display: block;
   position: relative;
