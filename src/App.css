@@ -797,18 +797,23 @@ body:hover .cursor {
 
 /* ============================================
    ABOUT SECTION
-   Flex column layout
+   Upper: 50vh bio text, Lower: 34vh preview grid
    ============================================ */
 .section_about {
   display: flex;
   flex-direction: column;
-  padding: 48px 24px;
+  justify-content: space-between;
+  padding: 24px;
   overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .about_upper-wrapper {
   width: 100%;
-  margin-bottom: 48px;
+  height: 50vh;
+  display: flex;
+  align-items: center;
 }
 
 .about_text-wrapper {
@@ -830,46 +835,57 @@ body:hover .cursor {
 
 .about_bio {
   font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
+  line-height: 1.7;
   color: var(--casual);
 }
 
-/* About Preview Grid: 6 columns */
+/* About Preview Grid: 6 columns, 34vh height */
 .about_preview-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 16px;
-  width: 97%;
+  width: 97vw;
+  height: 34vh;
 }
 
 .about_preview-item {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .about_preview-label {
   font-size: var(--text-base);
-  line-height: var(--leading-normal);
+  line-height: 1.5;
   margin-bottom: 8px;
   color: var(--hover-gray);
 }
 
 .about_preview-image {
   width: 100%;
-  aspect-ratio: 1;
+  height: 100%;
   object-fit: cover;
   border-radius: 4px;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.35s ease-out, filter 0.35s ease-out;
 }
 
 .about_preview-image:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
+  filter: brightness(1.05);
 }
 
-/* Mobile */
+/* Mobile About */
 @media (max-width: 767px) {
   .section_about {
-    padding: 32px 16px;
+    padding: 24px 16px;
+    height: auto;
+    min-height: var(--content-height);
+  }
+
+  .about_upper-wrapper {
+    height: auto;
+    margin-bottom: 32px;
   }
 
   .about_text-div {
@@ -878,6 +894,12 @@ body:hover .cursor {
 
   .about_preview-grid {
     grid-template-columns: repeat(2, 1fr);
+    height: auto;
+    width: 100%;
+  }
+
+  .about_preview-image {
+    aspect-ratio: 1;
   }
 }
 
