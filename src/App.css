@@ -948,8 +948,9 @@ body:hover .cursor {
   margin-top: 22px;
 }
 
-/* Social Dots - only border color, no icon inside */
+/* Social Dots - only border color, with hover label */
 .social-dot {
+  position: relative;
   width: 40px;
   height: 40px;
   border: 1px solid var(--casual);
@@ -958,6 +959,23 @@ body:hover .cursor {
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Label appears on hover above the dot */
+.social-label {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.social-dot:hover .social-label {
+  opacity: 1;
 }
 
 /* Each platform has its own border color */
