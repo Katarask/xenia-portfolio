@@ -652,19 +652,30 @@ body:hover .cursor {
 }
 
 .video-card .story-overlay {
+  position: absolute;
   inset: 10px;
   z-index: 2;
 }
 
 .video-card .story-caption {
+  position: absolute;
   inset: 10px;
   z-index: 3;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  opacity: 0;
+}
+
+.video-card:hover .story-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .video-card:hover .story-caption {
   display: flex;
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* Hide videos on mobile */
