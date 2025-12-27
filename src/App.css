@@ -648,6 +648,7 @@ body:hover .cursor {
   height: 100%;
   border: none;
   object-fit: cover;
+  transform: scale(1.05);
 }
 
 .video-card .story-overlay {
