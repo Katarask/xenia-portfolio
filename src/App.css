@@ -699,6 +699,8 @@ body:hover .cursor {
 .service_focused_on {
   grid-column: 1;
   grid-row: 2;
+  position: relative;
+  top: -38px;
 }
 
 .services_services {
@@ -736,7 +738,7 @@ body:hover .cursor {
 }
 
 .services_label {
-  font-size: var(--text-xs);
+  font-size: var(--text-base);
   text-transform: uppercase;
   letter-spacing: var(--tracking-widest);
   color: var(--hover-gray);
@@ -744,7 +746,7 @@ body:hover .cursor {
 }
 
 .services_link {
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   padding: 4px 0;
   transition: color 0.3s ease;
   display: inline-flex;
@@ -757,7 +759,7 @@ body:hover .cursor {
 .vita-button {
   background: none;
   border: none;
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   padding: 4px 0;
   cursor: pointer;
   transition: color 0.3s ease;
