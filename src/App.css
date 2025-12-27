@@ -732,14 +732,12 @@ body:hover .cursor {
 .service_focused_on {
   display: flex;
   flex-direction: column;
-  grid-area: 1 / 2 / 3 / 3;
+  grid-area: 1 / 2 / 2 / 3;
   justify-content: flex-start;
   align-items: flex-start;
   padding-top: 0;
   padding-bottom: 0;
   padding-left: 0;
-  position: relative;
-  top: -38px;
 }
 
 .services_services {
@@ -841,10 +839,6 @@ body:hover .cursor {
     padding-bottom: 48px;
   }
 
-  .service_focused_on {
-    top: 75px;
-  }
-
   .services_services {
     grid-column-gap: 32px;
     grid-row-gap: 32px;
@@ -891,7 +885,6 @@ body:hover .cursor {
 
   .service_focused_on {
     color: #333;
-    top: 86px;
   }
 
   .services_services {
@@ -954,10 +947,6 @@ body:hover .cursor {
 
   .service_request {
     margin-left: 0;
-  }
-
-  .service_focused_on {
-    top: 49px;
   }
 
   .services_services {
