@@ -658,13 +658,13 @@ body:hover .cursor {
 
 .video-card .story-overlay {
   position: absolute;
-  inset: 10px;
+  inset: 0;
   z-index: 2;
 }
 
 .video-card .story-caption {
   position: absolute;
-  inset: 10px;
+  inset: 0;
   z-index: 3;
   display: none;
   flex-direction: column;
