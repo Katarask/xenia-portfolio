@@ -694,12 +694,19 @@ body:hover .cursor {
   overflow: hidden;
 }
 
+/* Grid Layout:
+   Row 1: [Focused on]    [Services List]   [leer]
+   Row 2: [Request]       [VITA/Portfolio]  [leer]
+   Row 3: [Contact]       [Email]           [leer]
+*/
+
 .service_request {
   display: flex;
   flex-direction: column;
-  grid-area: 1 / 1 / 2 / 2;
-  justify-content: flex-start;
+  grid-area: Area-3;
+  justify-content: center;
   align-items: flex-start;
+  place-self: center start;
   padding-bottom: 0;
   padding-left: 0;
 }
@@ -709,9 +716,10 @@ body:hover .cursor {
   flex-direction: column;
   grid-column-gap: 60px;
   grid-row-gap: 60px;
-  grid-area: 2 / 1 / 3 / 2;
+  grid-area: Area-4;
   justify-content: flex-end;
   align-items: center;
+  place-self: center start;
   width: 100%;
   height: auto;
 }
@@ -732,9 +740,10 @@ body:hover .cursor {
 .service_focused_on {
   display: flex;
   flex-direction: column;
-  grid-area: 1 / 2 / 2 / 3;
+  grid-area: Area;
   justify-content: flex-start;
   align-items: flex-start;
+  align-self: end;
   padding-top: 0;
   padding-bottom: 0;
   padding-left: 0;
@@ -744,8 +753,9 @@ body:hover .cursor {
   display: flex;
   grid-column-gap: 64px;
   grid-row-gap: 64px;
-  grid-area: 2 / 2 / 3 / 3;
+  grid-area: Area-2;
   align-items: flex-start;
+  align-self: end;
   margin-top: 0;
 }
 
@@ -766,7 +776,7 @@ body:hover .cursor {
 .services_cta-wrapper {
   display: flex;
   flex-direction: column;
-  grid-area: 2 / 1 / 4 / 2;
+  grid-area: Area-5;
   justify-content: flex-end;
   align-items: flex-start;
   padding-top: 0;
@@ -776,7 +786,7 @@ body:hover .cursor {
 
 .services_email {
   display: flex;
-  grid-area: 3 / 2 / 4 / 3;
+  grid-area: Area-6;
   justify-content: flex-start;
   align-items: flex-end;
   text-decoration: none;
