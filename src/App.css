@@ -651,6 +651,11 @@ body:hover .cursor {
   transform: scale(1.05);
 }
 
+/* Landscape videos need more zoom to fill frame */
+.video-card.is-landscape .video-inner iframe {
+  transform: scale(1.15);
+}
+
 .video-card .story-overlay {
   position: absolute;
   inset: 10px;
