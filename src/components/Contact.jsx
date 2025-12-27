@@ -12,9 +12,10 @@ const SOCIAL_LINKS = [
 
 // ============================================
 // CONTACT SECTION - Exact Webflow Recreation
-// Grid: 2 columns x 2 rows
-// Left: Heading "LEAVE YOUR CONTACT BELOW"
-// Right: Info + Form
+// Grid Layout:
+//   "heading  form"
+//   "content  form"
+// 2 columns × 2 rows, form spans both rows
 // ============================================
 const Contact = memo(() => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -55,7 +56,7 @@ const Contact = memo(() => {
 
   return (
     <section id="contact" className="section_contact">
-      {/* Left Column: Heading */}
+      {/* Grid Area: heading (top-left) */}
       <div className="contact_heading-wrapper">
         <h2 className="contact_heading">
           LEAVE<br />
@@ -65,9 +66,8 @@ const Contact = memo(() => {
         </h2>
       </div>
 
-      {/* Right Column: Content */}
+      {/* Grid Area: content (bottom-left) */}
       <div className="contact_content-wrapper">
-        {/* Info Section */}
         <div className="contact_info-wrapper">
           <h3 className="contact_subheading">Contact Us</h3>
           <p className="contact_description">
@@ -90,9 +90,11 @@ const Contact = memo(() => {
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Form Section */}
-        <div className="contact_form-wrapper">
+      {/* Grid Area: form (spans both rows on right side) */}
+      <div className="contact_form-wrapper">
+        <div className="contact_form-block">
           {status === 'success' ? (
             <div className="form-success">
               Thank you! Your message has been sent.
