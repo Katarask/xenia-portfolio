@@ -328,6 +328,10 @@ body:hover .cursor {
   .menu-button {
     display: flex;
   }
+
+  .navbar_link:hover {
+    background-color: rgba(153, 153, 153, 0.1);
+  }
 }
 
 /* Mobile adjustments */
@@ -377,7 +381,7 @@ body:hover .cursor {
 .sections-track {
   display: flex;
   flex-direction: row;
-  width: 700vw; /* 4 sections + 3 transitions */
+  width: 400vw; /* 4 sections × 100vw - NO transitions! */
   height: var(--content-height);
 }
 
@@ -388,8 +392,7 @@ body:hover .cursor {
 .section_portfolio,
 .section_services,
 .section_about,
-.section_contact,
-.section_transition {
+.section_contact {
   flex: 0 0 100vw;
   width: 100vw;
   height: var(--content-height);
@@ -470,17 +473,17 @@ body:hover .cursor {
 .story-img {
   width: 100%;
   height: auto;
-  padding: 10px;
+  padding-left: 10px; /* Webflow original: only padding-left */
   object-fit: cover;
   display: block;
 }
 
 .story-overlay {
   position: absolute;
-  top: 10px;
+  top: 0;
   left: 10px;
-  right: 10px;
-  bottom: 10px;
+  right: 0;
+  bottom: 0;
   background-color: transparent;
   z-index: 1;
   transition: background-color 0.4s ease;
@@ -493,10 +496,10 @@ body:hover .cursor {
 
 .story-caption {
   position: absolute;
-  top: 10px;
+  top: 0;
   left: 10px;
-  right: 10px;
-  bottom: 10px;
+  right: 0;
+  bottom: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -617,20 +620,6 @@ body:hover .cursor {
   .video-card {
     display: none !important;
   }
-}
-
-/* ============================================
-   TRANSITION SECTION
-   Full-screen background image
-   ============================================ */
-.section_transition {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--black);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 /* ============================================
@@ -1023,7 +1012,7 @@ body:hover .cursor {
 
 .form_input:focus,
 .form_textarea:focus {
-  border-color: var(--casual);
+  border-bottom-color: #a71c1c;
 }
 
 .form_textarea {
@@ -1031,21 +1020,32 @@ body:hover .cursor {
   resize: vertical;
 }
 
+/* Button with conic-gradient animation (exact Webflow style) */
 .button {
+  --b: 2px;
+  --s: 0.45em;
+  --color: #333;
   width: 100%;
-  padding: 16px 32px;
+  padding: calc(0.5em + var(--s)) calc(0.9em + var(--s));
   font-size: 16px;
   font-family: inherit;
-  background-color: var(--black);
-  color: var(--white);
-  border: none;
+  color: var(--color);
+  --_p: var(--s);
+  background: conic-gradient(from 90deg at var(--b) var(--b), #0000 90deg, var(--color) 0)
+    var(--_p) var(--_p) / calc(100% - var(--b) - 2 * var(--_p)) calc(100% - var(--b) - 2 * var(--_p));
+  transition: 0.3s linear, color 0s, background-color 0s;
+  outline: var(--b) solid #0000;
+  outline-offset: 0.6em;
+  border: 0;
   cursor: pointer;
-  transition: background-color 0.3s ease;
   margin-top: 16px;
 }
 
-.button:hover {
-  background-color: var(--hover-gray);
+.button:hover,
+.button:focus-visible {
+  --_p: 0px;
+  outline-color: var(--color);
+  outline-offset: 0.05em;
 }
 
 .button:disabled {

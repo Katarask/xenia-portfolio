@@ -7,7 +7,6 @@ import {
   Services,
   About,
   Contact,
-  Transition,
   VitaModal,
 } from './components';
 import './App.css';
@@ -15,8 +14,8 @@ import './App.css';
 // ============================================
 // MAIN APP - Horizontal Scroll Layout
 // Section Order: Portfolio -> Services -> About -> Contact
-// With Transitions between sections
-// Total width: 700vw (4 sections + 3 transitions)
+// NO Transitions (they don't exist in Webflow original!)
+// Total width: 400vw (4 sections × 100vw)
 // ============================================
 function App() {
   const mapWrapperRef = useRef(null);
@@ -107,23 +106,14 @@ function App() {
           {/* Section 1: Portfolio */}
           <Portfolio />
 
-          {/* Transition 1 */}
-          <Transition imageNum={1} />
-
-          {/* Section 2: Services (CORRECT ORDER!) */}
+          {/* Section 2: Services */}
           <Services
             onVitaClick={() => setVitaOpen(true)}
             onNavigate={navigateTo}
           />
 
-          {/* Transition 2 */}
-          <Transition imageNum={2} />
-
           {/* Section 3: About */}
           <About />
-
-          {/* Transition 3 */}
-          <Transition imageNum={3} />
 
           {/* Section 4: Contact */}
           <Contact />
