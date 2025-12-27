@@ -717,6 +717,12 @@ body:hover .cursor {
 .services_list-item {
   font-size: var(--text-base);
   padding: 4px 0;
+  transition: color 0.3s ease;
+  cursor: default;
+}
+
+.services_list-item:hover {
+  color: var(--hover-gray);
 }
 
 .services_cta-wrapper {
