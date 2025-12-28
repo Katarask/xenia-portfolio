@@ -1410,12 +1410,12 @@ body:hover .cursor {
   }
 
   .contact_form-wrapper {
-    padding: 16px 0;
+    padding: 8px 0;
     margin-bottom: 0;
   }
 
   .contact_content-wrapper {
-    padding: 16px 0;
+    padding: 8px 0;
   }
 
   .contact_form-block {
@@ -1426,18 +1426,18 @@ body:hover .cursor {
   .contact_form {
     padding: 0;
     height: auto;
-    gap: 16px;
+    gap: 8px;
   }
 
   .form_input {
     height: auto;
-    padding: 16px;
+    padding: 12px;
   }
 
   .form_textarea {
     height: auto;
-    min-height: 120px;
-    padding: 16px;
+    min-height: 100px;
+    padding: 12px;
   }
 
   .social-dots-wrapper {
