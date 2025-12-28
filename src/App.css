@@ -29,7 +29,8 @@
   --content-height: 90vh;
 
   /* Typography Scale (Desktop) */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family: 'Geist Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
 
   /* Font Sizes */
   --text-xs: 12px;      /* tagline, artist-name, labels */
