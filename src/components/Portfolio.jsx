@@ -2,38 +2,39 @@ import { useState, memo } from 'react';
 import useIsMobile from '../hooks/useIsMobile';
 
 // ============================================
-// PORTFOLIO DATA - Local images (Webflow-free)
+// PORTFOLIO DATA - Local images with responsive srcset
 // ============================================
 const IMG = '/images/portfolio';
+const srcset = (name) => `${IMG}/${name}-500.webp 500w, ${IMG}/${name}-800.webp 800w, ${IMG}/${name}.webp 2000w`;
 
 const PORTFOLIO_DATA = {
   column1: [
-    { id: 1, type: 'image', src: `${IMG}/soap-skin.webp`, width: 963, height: 644, alt: 'Artist portrait Soap&Skin - Editorial photography for C/O Magazine Berlin', title: 'Soap&Skin', subtitle: 'ARTIST', caption: 'for C/O Magazine' },
-    { id: 2, type: 'image', src: `${IMG}/curly-hair.webp`, width: 1600, height: 2000, alt: 'Portrait photography Berlin', title: '', subtitle: '' },
-    { id: 3, type: 'image', src: `${IMG}/rick-owens.webp`, width: 1365, height: 2000, alt: 'Fashion designer Rick Owens portrait', title: 'Rick Owens', subtitle: 'DESIGNER' },
-    { id: 4, type: 'image', src: `${IMG}/red-jacket.webp`, width: 1642, height: 2000, alt: 'Fashion portrait photography', title: '', subtitle: '' },
+    { id: 1, type: 'image', src: `${IMG}/soap-skin.webp`, srcset: srcset('soap-skin'), width: 963, height: 644, alt: 'Artist portrait Soap&Skin - Editorial photography for C/O Magazine Berlin', title: 'Soap&Skin', subtitle: 'ARTIST', caption: 'for C/O Magazine' },
+    { id: 2, type: 'image', src: `${IMG}/curly-hair.webp`, srcset: srcset('curly-hair'), width: 1600, height: 2000, alt: 'Portrait photography Berlin', title: '', subtitle: '' },
+    { id: 3, type: 'image', src: `${IMG}/rick-owens.webp`, srcset: srcset('rick-owens'), width: 1365, height: 2000, alt: 'Fashion designer Rick Owens portrait', title: 'Rick Owens', subtitle: 'DESIGNER' },
+    { id: 4, type: 'image', src: `${IMG}/red-jacket.webp`, srcset: srcset('red-jacket'), width: 1642, height: 2000, alt: 'Fashion portrait photography', title: '', subtitle: '' },
     { id: 5, type: 'video', vimeoId: '1137289960', poster: `${IMG}/soap-skin.webp`, title: 'Safira', subtitle: 'SAFIRA', caption: 'Safira', aspect: 'portrait' },
   ],
   column2: [
-    { id: 6, type: 'image', src: `${IMG}/chandelier.webp`, width: 1280, height: 1931, alt: 'Artist interview Eric Joham - C/O Magazine', title: 'Eric Joham', subtitle: 'INTERVIEW', caption: 'C/O Magazine' },
-    { id: 7, type: 'image', src: `${IMG}/fence-sitting.webp`, width: 2000, height: 1333, alt: 'Brand campaign Laura Gerte', title: 'Laura Gerte', subtitle: 'BRAND', caption: 'Model: Oraina' },
-    { id: 8, type: 'image', src: `${IMG}/feather-hat.webp`, width: 1561, height: 2000, alt: 'Fashion brand Laura Gerte - Lookbook', title: 'Laura Gerte', subtitle: 'BRAND', caption: 'Model: Oraina' },
-    { id: 9, type: 'image', src: `${IMG}/black-sand.webp`, width: 1409, height: 2000, alt: 'Wales Bonner backstage', title: 'Wales Bonner', subtitle: 'SHOW BACKSTAGE' },
+    { id: 6, type: 'image', src: `${IMG}/chandelier.webp`, srcset: srcset('chandelier'), width: 1280, height: 1931, alt: 'Artist interview Eric Joham - C/O Magazine', title: 'Eric Joham', subtitle: 'INTERVIEW', caption: 'C/O Magazine' },
+    { id: 7, type: 'image', src: `${IMG}/fence-sitting.webp`, srcset: srcset('fence-sitting'), width: 2000, height: 1333, alt: 'Brand campaign Laura Gerte', title: 'Laura Gerte', subtitle: 'BRAND', caption: 'Model: Oraina' },
+    { id: 8, type: 'image', src: `${IMG}/feather-hat.webp`, srcset: srcset('feather-hat'), width: 1561, height: 2000, alt: 'Fashion brand Laura Gerte - Lookbook', title: 'Laura Gerte', subtitle: 'BRAND', caption: 'Model: Oraina' },
+    { id: 9, type: 'image', src: `${IMG}/black-sand.webp`, srcset: srcset('black-sand'), width: 1409, height: 2000, alt: 'Wales Bonner backstage', title: 'Wales Bonner', subtitle: 'SHOW BACKSTAGE' },
     { id: 10, type: 'video', vimeoId: '1145349173', poster: `${IMG}/chandelier.webp`, title: 'Ernst Lima', subtitle: 'PERFORMANCE', caption: 'das weisse haus', aspect: 'portrait' },
   ],
   column3: [
-    { id: 11, type: 'image', src: `${IMG}/bonnie-hair.webp`, width: 2000, height: 1333, alt: 'Bonnie Strange - Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'for Spotify/ Sony Music' },
-    { id: 12, type: 'image', src: `${IMG}/blue-dress-sand.webp`, width: 1449, height: 2000, alt: 'Brand campaign photography', title: '', subtitle: '' },
-    { id: 13, type: 'image', src: `${IMG}/bonnie-bathroom.webp`, width: 2000, height: 1333, alt: 'DJ Bonnie Strange portrait', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Sony Music' },
-    { id: 14, type: 'image', src: `${IMG}/hands-nails.webp`, width: 1179, height: 1356, alt: 'Fashion editorial Das Deck', title: 'Das Deck', subtitle: 'MODEL', caption: 'for Martin Niklas Wieser' },
+    { id: 11, type: 'image', src: `${IMG}/bonnie-hair.webp`, srcset: srcset('bonnie-hair'), width: 2000, height: 1333, alt: 'Bonnie Strange - Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'for Spotify/ Sony Music' },
+    { id: 12, type: 'image', src: `${IMG}/blue-dress-sand.webp`, srcset: srcset('blue-dress-sand'), width: 1449, height: 2000, alt: 'Brand campaign photography', title: '', subtitle: '' },
+    { id: 13, type: 'image', src: `${IMG}/bonnie-bathroom.webp`, srcset: srcset('bonnie-bathroom'), width: 2000, height: 1333, alt: 'DJ Bonnie Strange portrait', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Sony Music' },
+    { id: 14, type: 'image', src: `${IMG}/hands-nails.webp`, srcset: srcset('hands-nails'), width: 1179, height: 1356, alt: 'Fashion editorial Das Deck', title: 'Das Deck', subtitle: 'MODEL', caption: 'for Martin Niklas Wieser' },
     { id: 15, type: 'video', vimeoId: '730555711', poster: `${IMG}/bonnie-hair.webp`, title: 'Mood Video', subtitle: 'CASTING', caption: 'for Wales Bonner', aspect: 'landscape' },
   ],
   column4: [
-    { id: 16, type: 'image', src: `${IMG}/wendy-jim.webp`, width: 2000, height: 1325, alt: 'Wendy&Jim - C/O Magazine', title: 'Wendy&Jim', subtitle: 'BRAND OWNERS', caption: 'C/O Magazine' },
-    { id: 17, type: 'image', src: `${IMG}/mob-wheelchair.webp`, width: 1440, height: 1800, alt: 'Austrian Fashion Association Awards', title: 'AFA Awards', subtitle: 'MODEL', caption: 'Austrian Fashion Association' },
-    { id: 18, type: 'image', src: `${IMG}/magazine-spread.webp`, width: 2000, height: 1333, alt: 'Fashion photography Berlin', title: '', subtitle: '' },
-    { id: 19, type: 'image', src: `${IMG}/vienna-street.webp`, width: 2000, height: 1325, alt: 'Street fashion photography', title: '', subtitle: '' },
-    { id: 20, type: 'image', src: `${IMG}/leather-nails.webp`, width: 2000, height: 1333, alt: 'Portrait photography', title: '', subtitle: '' },
+    { id: 16, type: 'image', src: `${IMG}/wendy-jim.webp`, srcset: srcset('wendy-jim'), width: 2000, height: 1325, alt: 'Wendy&Jim - C/O Magazine', title: 'Wendy&Jim', subtitle: 'BRAND OWNERS', caption: 'C/O Magazine' },
+    { id: 17, type: 'image', src: `${IMG}/mob-wheelchair.webp`, srcset: srcset('mob-wheelchair'), width: 1440, height: 1800, alt: 'Austrian Fashion Association Awards', title: 'AFA Awards', subtitle: 'MODEL', caption: 'Austrian Fashion Association' },
+    { id: 18, type: 'image', src: `${IMG}/magazine-spread.webp`, srcset: srcset('magazine-spread'), width: 2000, height: 1333, alt: 'Fashion photography Berlin', title: '', subtitle: '' },
+    { id: 19, type: 'image', src: `${IMG}/vienna-street.webp`, srcset: srcset('vienna-street'), width: 2000, height: 1325, alt: 'Street fashion photography', title: '', subtitle: '' },
+    { id: 20, type: 'image', src: `${IMG}/leather-nails.webp`, srcset: srcset('leather-nails'), width: 2000, height: 1333, alt: 'Portrait photography', title: '', subtitle: '' },
     { id: 21, type: 'video', vimeoId: '1137289577', poster: `${IMG}/wendy-jim.webp`, title: '', subtitle: '', aspect: 'landscape' },
   ],
 };
@@ -47,6 +48,8 @@ const StoryCard = memo(({ item, isEager = false }) => (
     <div className="story-overlay"></div>
     <img
       src={item.src}
+      srcSet={item.srcset}
+      sizes="(max-width: 767px) 50vw, 25vw"
       width={item.width}
       height={item.height}
       alt={item.alt || ''}
