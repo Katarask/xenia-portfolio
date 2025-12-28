@@ -167,17 +167,18 @@ const Portfolio = memo(() => {
   ];
 
   // Mobile: 2 columns, merge col1+col3 and col2+col4, no videos
+  // Faster animation (25s/28s instead of 45s/50s)
   const mobileColumns = [
     {
       items: [...PORTFOLIO_DATA.column1, ...PORTFOLIO_DATA.column3].filter(i => i.type !== 'video'),
       direction: 'down',
-      speed: 45,
+      speed: 25,
       className: '',
     },
     {
       items: [...PORTFOLIO_DATA.column2, ...PORTFOLIO_DATA.column4].filter(i => i.type !== 'video'),
       direction: 'up',
-      speed: 50,
+      speed: 28,
       className: '',
     },
   ];

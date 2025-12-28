@@ -405,8 +405,8 @@ body:hover .cursor {
   }
 }
 
-/* Tiny mobile - hide tagline */
-@media (max-width: 478px) {
+/* Mobile - hide tagline */
+@media (max-width: 767px) {
   .navbar_tagline {
     display: none;
   }
