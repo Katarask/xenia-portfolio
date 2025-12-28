@@ -731,10 +731,7 @@ body:hover .cursor {
     "focused services ."
     "request links ."
     "contact email .";
-  background-image: url('/images/portfolio/vienna-street.webp');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #f5f5f5;
   width: 100vw;
   height: 100%;
   padding: 48px 24px;
