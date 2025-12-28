@@ -430,7 +430,14 @@ body:hover .cursor {
    SECTION BASE STYLES
    Horizontal layout - sections side by side
    ============================================ */
-.section_portfolio,
+.section_portfolio {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
 .section_services {
   flex: 0 0 100vw;
   width: 100vw;
