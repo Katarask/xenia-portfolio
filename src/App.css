@@ -1251,6 +1251,7 @@ body:hover .cursor {
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-widest);
   text-align: center;
+  white-space: nowrap;
 }
 
 .contact_content-wrapper {
