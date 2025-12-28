@@ -1069,7 +1069,7 @@ body:hover .cursor {
     flex-direction: column;
     height: auto;
     gap: 8px;
-    padding-bottom: 100px;
+    margin-bottom: 16px;
   }
 
   .expertise-card {
