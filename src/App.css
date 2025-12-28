@@ -1394,14 +1394,12 @@ body:hover .cursor {
 /* Mobile Contact Layout */
 @media (max-width: 767px) {
   .section_contact {
-    grid-template-areas:
-      "form"
-      "content";
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto !important;
     height: auto;
-    min-height: 100vh;
+    min-height: 100%;
+    padding: 16px;
   }
 
   .contact_empty {
@@ -1412,18 +1410,24 @@ body:hover .cursor {
     display: none;
   }
 
-  .contact_content-wrapper {
-    padding: 24px 16px;
+  .contact_form-wrapper {
+    order: 1;
+    padding: 16px 0;
   }
 
-  .contact_form-wrapper {
-    padding: 24px 16px;
+  .contact_content-wrapper {
+    order: 2;
+    padding: 24px 0;
   }
 
   .contact_form-block {
     width: 100%;
     height: auto;
-    min-height: 350px;
+    min-height: 300px;
+  }
+
+  .contact_form {
+    padding: 0;
   }
 
   .social-dots-wrapper {
