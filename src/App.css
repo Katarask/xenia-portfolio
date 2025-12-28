@@ -1411,11 +1411,11 @@ body:hover .cursor {
 
   .contact_form-wrapper {
     padding: 16px 0;
-    margin-bottom: 24px;
+    margin-bottom: 0;
   }
 
   .contact_content-wrapper {
-    padding: 24px 0;
+    padding: 16px 0;
   }
 
   .contact_form-block {
