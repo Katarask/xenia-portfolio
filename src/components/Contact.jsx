@@ -63,8 +63,7 @@ const Contact = memo(() => {
       <div className="contact_heading-wrapper">
         <h2 className="contact_heading">
           LEAVE YOUR<br />
-          CONTACT<br />
-          BELOW
+          CONTACT BELOW
         </h2>
       </div>
 

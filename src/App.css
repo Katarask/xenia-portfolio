@@ -1258,13 +1258,13 @@ body:hover .cursor {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 24px;
 }
 
 .contact_info-wrapper {
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
 
 .contact_subheading {
@@ -1277,13 +1277,13 @@ body:hover .cursor {
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
   max-width: 400px;
-  margin: 0 auto 24px auto;
+  margin: 0 0 24px 0;
 }
 
 /* Social Dots */
 .social-dots-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 48px;
   margin-top: 22px;
 }
