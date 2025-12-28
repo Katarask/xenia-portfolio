@@ -1094,25 +1094,58 @@ body:hover .cursor {
   .expertise-cards-wrapper {
     flex-direction: column;
     height: auto;
+    gap: 8px;
   }
 
   .expertise-card {
     height: auto;
-    min-height: 200px;
+    min-height: 80px;
+    cursor: pointer;
   }
 
   .expertise-card.is-expanded {
     flex: none;
+    min-height: 250px;
   }
 
+  /* Collapsed state on mobile - hide expandable content */
   .expertise-card_expandable {
+    grid-template-rows: 0fr;
+  }
+
+  /* Expanded state on mobile - show expandable content */
+  .expertise-card.is-expanded .expertise-card_expandable {
     grid-template-rows: 1fr;
   }
 
   .expertise-card_description,
   .expertise-card_stat {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .expertise-card.is-expanded .expertise-card_description,
+  .expertise-card.is-expanded .expertise-card_stat {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .expertise-card_content {
+    padding: 16px;
+  }
+
+  .expertise-card_number {
+    top: 16px;
+    left: 16px;
+  }
+
+  .expertise-card_title {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .expertise-card.is-expanded .expertise-card_title {
+    font-size: 18px;
   }
 }
 

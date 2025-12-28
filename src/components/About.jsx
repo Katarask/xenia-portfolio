@@ -100,12 +100,13 @@ const EXPERTISE_DATA = [
 // ============================================
 // EXPANDING CARD COMPONENT
 // ============================================
-const ExpertiseCard = memo(({ item, isExpanded, onHover, onLeave }) => {
+const ExpertiseCard = memo(({ item, isExpanded, onHover, onLeave, onTap, isMobile }) => {
   return (
     <div
       className={`expertise-card ${isExpanded ? 'is-expanded' : ''}`}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
+      onClick={isMobile ? onTap : undefined}
     >
       {/* Background Image */}
       <div
@@ -156,6 +157,11 @@ const About = memo(() => {
 
   const handleHover = (id) => !isMobile && setExpandedId(id);
   const handleLeave = () => !isMobile && setExpandedId(null);
+  const handleTap = (id) => {
+    if (isMobile) {
+      setExpandedId(expandedId === id ? null : id);
+    }
+  };
   const closeLightbox = () => setLightboxSrc(null);
 
   return (
@@ -182,9 +188,11 @@ const About = memo(() => {
           <ExpertiseCard
             key={item.id}
             item={item}
-            isExpanded={!isMobile && expandedId === item.id}
+            isExpanded={expandedId === item.id}
             onHover={() => handleHover(item.id)}
             onLeave={handleLeave}
+            onTap={() => handleTap(item.id)}
+            isMobile={isMobile}
           />
         ))}
       </div>
