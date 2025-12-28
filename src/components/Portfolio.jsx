@@ -40,7 +40,7 @@ const PORTFOLIO_DATA = {
 // STORY CARD - Image with hover overlay
 // Matches original Webflow structure exactly
 // ============================================
-const StoryCard = memo(({ item }) => (
+const StoryCard = memo(({ item, isEager = false }) => (
   <div className="story-card">
     <div className="story-overlay"></div>
     <img
@@ -48,7 +48,8 @@ const StoryCard = memo(({ item }) => (
       srcSet={item.srcset}
       sizes="(max-width: 767px) 50vw, 25vw"
       alt={item.alt || ''}
-      loading="lazy"
+      loading={isEager ? 'eager' : 'lazy'}
+      decoding="async"
       className="story-img"
     />
     <div className="story-caption">
@@ -105,12 +106,13 @@ VideoCard.displayName = 'VideoCard';
 // PORTFOLIO COLUMN - Infinite scroll animation
 // Direction: 'up' or 'down'
 // Speed: Animation duration in seconds
+// duplicate: whether to duplicate items for seamless loop (desktop only)
 // ============================================
-const PortfolioColumn = memo(({ items, direction, speed, className = '' }) => {
+const PortfolioColumn = memo(({ items, direction, speed, className = '', duplicate = true }) => {
   const [isPaused, setIsPaused] = useState(false);
 
-  // Duplicate items for seamless loop
-  const duplicatedItems = [...items, ...items];
+  // Only duplicate for desktop seamless loop
+  const displayItems = duplicate ? [...items, ...items] : items;
 
   return (
     <div
@@ -125,11 +127,11 @@ const PortfolioColumn = memo(({ items, direction, speed, className = '' }) => {
           animationPlayState: isPaused ? 'paused' : 'running',
         }}
       >
-        {duplicatedItems.map((item, index) =>
+        {displayItems.map((item, index) =>
           item.type === 'video' ? (
             <VideoCard key={`${item.id}-${index}`} {...item} />
           ) : (
-            <StoryCard key={`${item.id}-${index}`} item={item} />
+            <StoryCard key={`${item.id}-${index}`} item={item} isEager={index < 3} />
           )
         )}
       </div>
@@ -166,21 +168,21 @@ const Portfolio = memo(() => {
     { items: PORTFOLIO_DATA.column4, direction: 'up', speed: 38, className: 'is-col-4' },
   ];
 
-  // Mobile: 2 columns, merge col1+col3 and col2+col4, no videos
-  // Faster animation (25s/28s instead of 45s/50s)
+  // Mobile: 2 columns with all images distributed evenly (no cloning)
+  // Get all images, filter out videos, distribute to 2 columns
+  const allImages = [
+    ...PORTFOLIO_DATA.column1,
+    ...PORTFOLIO_DATA.column2,
+    ...PORTFOLIO_DATA.column3,
+    ...PORTFOLIO_DATA.column4,
+  ].filter(i => i.type !== 'video');
+
+  const mobileCol1 = allImages.filter((_, i) => i % 2 === 0);
+  const mobileCol2 = allImages.filter((_, i) => i % 2 === 1);
+
   const mobileColumns = [
-    {
-      items: [...PORTFOLIO_DATA.column1, ...PORTFOLIO_DATA.column3].filter(i => i.type !== 'video'),
-      direction: 'down',
-      speed: 25,
-      className: '',
-    },
-    {
-      items: [...PORTFOLIO_DATA.column2, ...PORTFOLIO_DATA.column4].filter(i => i.type !== 'video'),
-      direction: 'up',
-      speed: 28,
-      className: '',
-    },
+    { items: mobileCol1, direction: 'down', speed: 25, className: '', duplicate: false },
+    { items: mobileCol2, direction: 'up', speed: 28, className: '', duplicate: false },
   ];
 
   const columns = isMobile ? mobileColumns : desktopColumns;
@@ -194,6 +196,7 @@ const Portfolio = memo(() => {
           direction={col.direction}
           speed={col.speed}
           className={col.className}
+          duplicate={col.duplicate !== false}
         />
       ))}
     </section>

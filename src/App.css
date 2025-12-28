@@ -469,6 +469,8 @@ body:hover .cursor {
   flex-direction: column;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .portfolio_column-inner.down {
