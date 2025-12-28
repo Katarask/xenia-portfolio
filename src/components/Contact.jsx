@@ -56,10 +56,10 @@ const Contact = memo(() => {
 
   return (
     <section id="contact" className="section_contact">
-      {/* Grid Area: empty (top-left) */}
+      {/* Grid Area: empty (top-left) - hidden on mobile */}
       <div className="contact_empty"></div>
 
-      {/* Grid Area: heading (top-right) */}
+      {/* Grid Area: heading (top-right) - hidden on mobile */}
       <div className="contact_heading-wrapper">
         <h2 className="contact_heading">
           LEAVE YOUR<br />
@@ -68,32 +68,7 @@ const Contact = memo(() => {
         </h2>
       </div>
 
-      {/* Grid Area: content (bottom-left) */}
-      <div className="contact_content-wrapper">
-        <div className="contact_info-wrapper">
-          <h3 className="contact_subheading">Contact Us</h3>
-          <p className="contact_description">
-            Interested in working together? Whether you have a project in mind, need creative direction or want to discuss a collaboration — reach out. I'll get back to you as soon as possible.
-          </p>
-
-          {/* Social Dots - cursor shows name on hover */}
-          <div className="social-dots-wrapper">
-            {SOCIAL_LINKS.map((social) => (
-              <a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`social-dot is-${social.name.toLowerCase()}`}
-                data-social={social.name}
-                aria-label={social.name}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Grid Area: form (spans both rows on right side) */}
+      {/* Grid Area: form - appears FIRST on mobile */}
       <div className="contact_form-wrapper">
         <div className="contact_form-block">
           {status === 'success' ? (
@@ -140,6 +115,31 @@ const Contact = memo(() => {
               </button>
             </form>
           )}
+        </div>
+      </div>
+
+      {/* Grid Area: content (bottom-left) - appears SECOND on mobile */}
+      <div className="contact_content-wrapper">
+        <div className="contact_info-wrapper">
+          <h3 className="contact_subheading">Contact Us</h3>
+          <p className="contact_description">
+            Interested in working together? Whether you have a project in mind, need creative direction or want to discuss a collaboration — reach out. I'll get back to you as soon as possible.
+          </p>
+
+          {/* Social Dots - cursor shows name on hover */}
+          <div className="social-dots-wrapper">
+            {SOCIAL_LINKS.map((social) => (
+              <a
+                key={social.name}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`social-dot is-${social.name.toLowerCase()}`}
+                data-social={social.name}
+                aria-label={social.name}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1394,9 +1394,8 @@ body:hover .cursor {
 /* Mobile Contact Layout */
 @media (max-width: 767px) {
   .section_contact {
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll !important;
+    display: block;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     height: 100%;
     padding: 16px;
@@ -1411,15 +1410,12 @@ body:hover .cursor {
   }
 
   .contact_form-wrapper {
-    order: 1;
     padding: 16px 0;
-    flex-shrink: 0;
+    margin-bottom: 24px;
   }
 
   .contact_content-wrapper {
-    order: 2;
     padding: 24px 0;
-    flex-shrink: 0;
   }
 
   .contact_form-block {
@@ -1430,16 +1426,18 @@ body:hover .cursor {
   .contact_form {
     padding: 0;
     height: auto;
+    gap: 16px;
   }
 
   .form_input {
     height: auto;
-    min-height: 50px;
+    padding: 16px;
   }
 
   .form_textarea {
     height: auto;
-    min-height: 100px;
+    min-height: 120px;
+    padding: 16px;
   }
 
   .social-dots-wrapper {
