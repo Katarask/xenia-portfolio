@@ -719,92 +719,71 @@ body:hover .cursor {
 }
 
 /* ============================================
-   SERVICES SECTION - Exact Webflow Recreation
-   Grid: 20% - 50% - 1fr (3 columns)
-   Background image from Webflow CDN
+   SERVICES SECTION - Simplified Grid
+   3 columns: Labels (20%) | Content (50%) | Space (30%)
+   3 rows: Top | Middle | Bottom
    ============================================ */
 .section_services {
   display: grid;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  background-image: url('https://cdn.prod.website-files.com/6924982cc3cac37639294622/69275065bc9500bd8a3074b5_Website-16.jpg');
-  background-position: 0 -29px;
+  grid-template-columns: 20% 50% 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "focused services ."
+    "request links ."
+    "contact email .";
+  background-image: url('/images/portfolio/vienna-street.webp');
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  flex-shrink: 0;
-  grid-template: "Area Area-2 Area-7" "Area-3 Area-4 ." "Area-5 Area-6 ." / 20% 50% 1fr;
-  grid-auto-columns: 1fr;
   width: 100vw;
-  height: 90vh;
-  margin-left: 0;
-  margin-right: 0;
-  padding: 0 24px 48px;
-  overflow: hidden;
+  height: 100%;
+  padding: 48px 24px;
 }
 
-/* Grid Layout:
-   Row 1: [Focused on]    [Services List]   [leer]
-   Row 2: [Request]       [VITA/Portfolio]  [leer]
-   Row 3: [Contact]       [Email]           [leer]
-*/
+.service_focused_on {
+  grid-area: focused;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 16px;
+}
+
+.services_services {
+  grid-area: services;
+  display: flex;
+  gap: 48px;
+  align-items: flex-end;
+  padding-bottom: 16px;
+}
 
 .service_request {
+  grid-area: request;
   display: flex;
-  flex-direction: column;
-  grid-area: Area-3;
-  justify-content: center;
-  align-items: flex-start;
-  place-self: center start;
-  padding-bottom: 0;
-  padding-left: 0;
+  align-items: center;
 }
 
 .services_content {
+  grid-area: links;
   display: flex;
-  flex-direction: column;
-  grid-column-gap: 60px;
-  grid-row-gap: 60px;
-  grid-area: Area-4;
-  justify-content: flex-end;
   align-items: center;
-  place-self: center start;
-  width: 100%;
-  height: auto;
 }
 
 .services_links {
   display: flex;
-  flex-direction: row;
-  flex: 0 auto;
-  grid-column-gap: 80px;
-  grid-row-gap: 80px;
-  object-fit: fill;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  font-size: 16px;
+  gap: 64px;
 }
 
-.service_focused_on {
+.services_cta-wrapper {
+  grid-area: contact;
   display: flex;
-  flex-direction: column;
-  grid-area: Area;
-  justify-content: flex-start;
   align-items: flex-start;
-  align-self: end;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
+  padding-top: 16px;
 }
 
-.services_services {
+.services_email {
+  grid-area: email;
   display: flex;
-  grid-column-gap: 64px;
-  grid-row-gap: 64px;
-  grid-area: Area-2;
   align-items: flex-start;
-  align-self: end;
-  margin-top: 0;
+  padding-top: 16px;
 }
 
 .services_list-item {
