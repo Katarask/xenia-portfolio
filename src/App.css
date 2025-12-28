@@ -1399,7 +1399,8 @@ body:hover .cursor {
     display: block;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    height: 100%;
+    height: auto;
+    min-height: 100%;
     padding: 16px;
   }
 
@@ -1412,8 +1413,9 @@ body:hover .cursor {
   }
 
   .contact_form-wrapper {
+    height: auto;
     padding: 8px 0;
-    margin-bottom: 0;
+    margin-bottom: 16px;
   }
 
   .contact_content-wrapper {
@@ -1429,6 +1431,7 @@ body:hover .cursor {
     padding: 0;
     height: auto;
     gap: 8px;
+    justify-content: flex-start;
   }
 
   .form_input {
