@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import {
   Cursor,
-  Navbar,
+  CardNav,
   Portfolio,
   Services,
   About,
@@ -9,6 +9,7 @@ import {
   VitaModal,
 } from './components';
 import './App.css';
+import './components/CardNav.css';
 
 // Section positions (in vw units)
 // Layout: Portfolio(100) -> Transition(100) -> Services(100) -> Transition(100) -> About(100) -> Transition(100) -> Contact(100) = 700vw
@@ -107,8 +108,8 @@ function App() {
       {/* Custom Cursor (Desktop only) */}
       <Cursor />
 
-      {/* Fixed Navbar */}
-      <Navbar onNavigate={navigateTo} />
+      {/* Card Navigation */}
+      <CardNav onNavigate={navigateTo} onVitaClick={() => setVitaOpen(true)} />
 
       {/* Horizontal Container - Navigation only */}
       <div className="map-wrapper">

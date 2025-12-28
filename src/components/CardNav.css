@@ -1,0 +1,237 @@
+/* ============================================
+   CARD NAV - Expanding Navigation
+   ============================================ */
+.card-nav-container {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 900px;
+  z-index: 1000;
+}
+
+.card-nav {
+  display: block;
+  height: 60px;
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  will-change: height;
+}
+
+/* Top Bar */
+.card-nav-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem 0.5rem 1.25rem;
+  z-index: 2;
+  background: var(--white);
+}
+
+/* Hamburger */
+.card-nav-hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.card-nav-hamburger:hover {
+  opacity: 0.7;
+}
+
+.card-nav-hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--black);
+  transition: transform 0.3s ease, opacity 0.2s ease;
+  transform-origin: center;
+}
+
+.card-nav-hamburger.is-open .card-nav-hamburger-line:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.card-nav-hamburger.is-open .card-nav-hamburger-line:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* Logo */
+.card-nav-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.card-nav-logo:hover {
+  opacity: 0.7;
+}
+
+/* CTA Button */
+.card-nav-cta {
+  background-color: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  padding: 0 1.25rem;
+  height: 44px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-nav-cta:hover {
+  background-color: #333;
+}
+
+/* Expandable Content */
+.card-nav-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  bottom: 0;
+  padding: 0.5rem;
+  display: flex;
+  gap: 8px;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-nav.is-open .card-nav-content {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Cards */
+.card-nav-card {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.card-nav-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.card-nav-card-label {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+
+.card-nav-card-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: auto;
+}
+
+.card-nav-card-link {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
+.card-nav-card-link:hover {
+  color: var(--white);
+}
+
+.card-nav-card-link-arrow {
+  font-size: 12px;
+}
+
+/* Mobile Styles */
+@media (max-width: 767px) {
+  .card-nav-container {
+    top: 1rem;
+    width: 92%;
+  }
+
+  .card-nav-top {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .card-nav-hamburger {
+    order: 2;
+  }
+
+  .card-nav-logo {
+    position: static;
+    transform: none;
+    order: 1;
+    font-size: 14px;
+  }
+
+  .card-nav-cta {
+    display: none;
+  }
+
+  .card-nav-content {
+    flex-direction: column;
+    gap: 6px;
+    padding: 0.5rem;
+  }
+
+  .card-nav-card {
+    height: auto;
+    min-height: 70px;
+    flex: none;
+    padding: 12px 16px;
+  }
+
+  .card-nav-card-label {
+    font-size: 16px;
+  }
+
+  .card-nav-card-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .card-nav-card-link {
+    font-size: 12px;
+  }
+}

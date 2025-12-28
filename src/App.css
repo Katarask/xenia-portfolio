@@ -412,10 +412,10 @@ body:hover .cursor {
    ============================================ */
 .map-wrapper {
   position: fixed;
-  top: var(--navbar-height);
+  top: 0;
   left: 0;
   width: 100vw;
-  height: calc(100vh - var(--navbar-height));
+  height: 100vh;
   overflow: hidden;
 }
 
