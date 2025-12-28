@@ -879,6 +879,7 @@ body:hover .cursor {
     padding: 24px 16px;
     height: auto;
     min-height: 100%;
+    background-position: calc(100% + 90px) center;
   }
 
   .services__col {
