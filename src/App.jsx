@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Cursor,
   Navbar,
@@ -11,25 +11,20 @@ import {
 import './App.css';
 
 // ============================================
-// MAIN APP - Horizontal Scroll Layout
+// MAIN APP - Vertical Scroll Layout
 // Section Order: Portfolio -> Services -> About -> Contact
-// Total width: 400vw (4 sections × 100vw)
 // ============================================
 function App() {
-  const mapWrapperRef = useRef(null);
   const [vitaOpen, setVitaOpen] = useState(false);
 
   // ============================================
-  // HORIZONTAL SCROLL NAVIGATION
+  // VERTICAL SCROLL NAVIGATION
   // Native smooth scroll to section
   // ============================================
   const navigateTo = useCallback((sectionId) => {
     const section = document.getElementById(sectionId);
-    if (section && mapWrapperRef.current) {
-      mapWrapperRef.current.scrollTo({
-        left: section.offsetLeft,
-        behavior: 'smooth',
-      });
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
   }, []);
 
@@ -97,8 +92,8 @@ function App() {
       {/* Fixed Navbar */}
       <Navbar onNavigate={navigateTo} />
 
-      {/* Horizontal Scroll Container */}
-      <div ref={mapWrapperRef} className="map-wrapper">
+      {/* Vertical Scroll Container */}
+      <div className="map-wrapper">
         <div className="sections-track">
           {/* Section 1: Portfolio */}
           <Portfolio />
