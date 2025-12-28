@@ -757,7 +757,7 @@ body:hover .cursor {
   background-color: #ffffff;
   background-image: url('/images/about/Website-16.jpg');
   background-size: cover;
-  background-position: right center;
+  background-position: calc(100% + 90px) center;
   background-repeat: no-repeat;
   padding: 48px 24px;
 }

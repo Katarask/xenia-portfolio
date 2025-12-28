@@ -9,13 +9,13 @@ const Services = memo(({ onVitaClick, onNavigate }) => {
       {/* Column 1: Labels */}
       <div className="services__col services__col--labels">
         <div className="services__row">
-          <span className="services__label">Focused on</span>
+          <span className="services__label slide-up">Focused on</span>
         </div>
         <div className="services__row">
-          <span className="services__label">Request</span>
+          <span className="services__label slide-up">Request</span>
         </div>
         <div className="services__row">
-          <span className="services__label">Contact</span>
+          <span className="services__label slide-up">Contact</span>
         </div>
       </div>
 
@@ -23,17 +23,17 @@ const Services = memo(({ onVitaClick, onNavigate }) => {
       <div className="services__col services__col--content">
         {/* Row 1: Services List */}
         <div className="services__row services__row--services">
-          <div className="services__list">
+          <div className="services__list slide-up">
             <span>Trend & cultural analysis</span>
             <span>Creative direction</span>
             <span>Social Media</span>
           </div>
-          <div className="services__list">
+          <div className="services__list slide-up">
             <span>Full-service content delivery</span>
             <span>Brand storytelling</span>
             <span>Content strategy</span>
           </div>
-          <div className="services__list">
+          <div className="services__list slide-up">
             <span>Performance optimization</span>
             <span>Photo/video production</span>
             <span>Campaign concepts</span>
@@ -44,7 +44,7 @@ const Services = memo(({ onVitaClick, onNavigate }) => {
         <div className="services__row services__row--links">
           <a
             href="#"
-            className="services__link"
+            className="services__link slide-up"
             onClick={(e) => {
               e.preventDefault();
               onVitaClick();
@@ -54,7 +54,7 @@ const Services = memo(({ onVitaClick, onNavigate }) => {
           </a>
           <a
             href="#portfolio"
-            className="services__link"
+            className="services__link slide-up"
             onClick={(e) => {
               e.preventDefault();
               onNavigate('portfolio');
@@ -66,7 +66,7 @@ const Services = memo(({ onVitaClick, onNavigate }) => {
 
         {/* Row 3: Email */}
         <div className="services__row services__row--email">
-          <a href="mailto:info@xeniasnapiro.com" className="services__email">
+          <a href="mailto:info@xeniasnapiro.com" className="services__email slide-up">
             info@xeniasnapiro.com
           </a>
         </div>
