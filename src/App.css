@@ -1396,9 +1396,9 @@ body:hover .cursor {
   .section_contact {
     display: flex;
     flex-direction: column;
-    overflow-y: auto !important;
-    height: auto;
-    min-height: 100%;
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch;
+    height: 100%;
     padding: 16px;
   }
 
@@ -1413,21 +1413,33 @@ body:hover .cursor {
   .contact_form-wrapper {
     order: 1;
     padding: 16px 0;
+    flex-shrink: 0;
   }
 
   .contact_content-wrapper {
     order: 2;
     padding: 24px 0;
+    flex-shrink: 0;
   }
 
   .contact_form-block {
     width: 100%;
     height: auto;
-    min-height: 300px;
   }
 
   .contact_form {
     padding: 0;
+    height: auto;
+  }
+
+  .form_input {
+    height: auto;
+    min-height: 50px;
+  }
+
+  .form_textarea {
+    height: auto;
+    min-height: 100px;
   }
 
   .social-dots-wrapper {
