@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { gsap } from 'gsap';
 import {
   Cursor,
   Navbar,
@@ -22,15 +21,14 @@ function App() {
 
   // ============================================
   // HORIZONTAL SCROLL NAVIGATION
-  // GSAP smooth scroll to section
+  // Native smooth scroll to section
   // ============================================
   const navigateTo = useCallback((sectionId) => {
     const section = document.getElementById(sectionId);
     if (section && mapWrapperRef.current) {
-      gsap.to(mapWrapperRef.current, {
-        scrollLeft: section.offsetLeft,
-        duration: 0.8,
-        ease: 'power2.inOut',
+      mapWrapperRef.current.scrollTo({
+        left: section.offsetLeft,
+        behavior: 'smooth',
       });
     }
   }, []);
