@@ -435,7 +435,8 @@ body:hover .cursor {
   width: 100vw;
   height: 100vh;
   max-height: 100vh;
-  overflow: hidden;
+  overflow: hidden !important;
+  position: relative;
 }
 
 .section_services {
@@ -465,8 +466,9 @@ body:hover .cursor {
 
 .portfolio_column {
   position: relative;
-  overflow: hidden;
-  height: 100%;
+  overflow: hidden !important;
+  height: 100vh;
+  max-height: 100vh;
 }
 
 .portfolio_column-inner {
