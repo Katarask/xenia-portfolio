@@ -427,6 +427,21 @@ body:hover .cursor {
   transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+/* Mobile: Allow vertical scroll within sections */
+@media (max-width: 767px) {
+  .map-wrapper {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sections-track {
+    height: auto;
+    min-height: 100%;
+    align-items: flex-start;
+  }
+}
+
 /* ============================================
    TRANSITION SECTIONS (fullscreen images)
    ============================================ */
