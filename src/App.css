@@ -499,16 +499,22 @@ body:hover .cursor {
   }
 }
 
-/* Mobile: 2 columns only */
+/* Mobile: 2 columns, no animation (user scrolls manually) */
 @media (max-width: 767px) {
   .section_portfolio {
     grid-template-columns: repeat(2, 1fr);
+    overflow-y: auto;
+  }
+
+  .portfolio_column {
+    overflow: visible;
   }
 
   .portfolio_column.is-col-3,
   .portfolio_column.is-col-4 {
     display: none;
   }
+
 }
 
 /* ============================================

@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { useState, memo } from 'react';
 import useIsMobile from '../hooks/useIsMobile';
 
 // ============================================
@@ -175,8 +175,8 @@ const Portfolio = memo(() => {
   const mobileCol2 = allImages.filter((_, i) => i % 2 === 1);
 
   const mobileColumns = [
-    { items: mobileCol1, direction: 'down', speed: 50, className: '', duplicate: false },
-    { items: mobileCol2, direction: 'up', speed: 56, className: '', duplicate: false },
+    { items: mobileCol1, direction: 'down', speed: 50, className: '', duplicate: true },
+    { items: mobileCol2, direction: 'up', speed: 56, className: '', duplicate: true },
   ];
 
   const columns = isMobile ? mobileColumns : desktopColumns;
