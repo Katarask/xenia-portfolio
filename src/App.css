@@ -469,6 +469,14 @@ body:hover .cursor {
   overflow-y: auto; /* Allow vertical scroll for long content */
 }
 
+@media (max-width: 767px) {
+  .section_about,
+  .section_contact {
+    height: auto;
+    min-height: 100%;
+  }
+}
+
 /* ============================================
    PORTFOLIO SECTION
    Grid: 4 columns
