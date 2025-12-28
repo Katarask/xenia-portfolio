@@ -1062,9 +1062,11 @@ body:hover .cursor {
 /* Mobile */
 @media (max-width: 767px) {
   .section_about {
+    display: block;
     padding: 0;
-    height: 100%;
-    overflow-y: scroll;
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
 
