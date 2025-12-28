@@ -405,13 +405,6 @@ body:hover .cursor {
   }
 }
 
-/* Mobile - hide tagline */
-@media (max-width: 767px) {
-  .navbar_tagline {
-    display: none;
-  }
-}
-
 /* ============================================
    MAP WRAPPER & SECTIONS TRACK
    Horizontal scroll container
