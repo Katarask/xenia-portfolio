@@ -427,20 +427,6 @@ body:hover .cursor {
   transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* Mobile: Allow vertical scroll within sections */
-@media (max-width: 767px) {
-  .map-wrapper {
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .sections-track {
-    height: auto;
-    min-height: 100%;
-    align-items: flex-start;
-  }
-}
 
 /* ============================================
    TRANSITION SECTIONS (fullscreen images)
@@ -482,14 +468,6 @@ body:hover .cursor {
   width: 100vw;
   height: 100%;
   overflow-y: auto; /* Allow vertical scroll for long content */
-}
-
-@media (max-width: 767px) {
-  .section_about,
-  .section_contact {
-    height: auto;
-    min-height: 100%;
-  }
 }
 
 /* ============================================
@@ -1078,9 +1056,8 @@ body:hover .cursor {
 @media (max-width: 767px) {
   .section_about {
     padding: 32px 16px;
-    height: auto;
-    min-height: 100%;
-    overflow-y: auto;
+    height: 100%;
+    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -1092,7 +1069,7 @@ body:hover .cursor {
     flex-direction: column;
     height: auto;
     gap: 8px;
-    padding-bottom: 32px;
+    padding-bottom: 100px;
   }
 
   .expertise-card {
