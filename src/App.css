@@ -1224,7 +1224,7 @@ body:hover .cursor {
 .section_contact {
   display: grid;
   grid-template-areas:
-    "empty   heading"
+    "heading heading"
     "content form";
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 45% 55%;
@@ -1235,22 +1235,24 @@ body:hover .cursor {
 }
 
 .contact_empty {
-  grid-area: empty;
+  display: none;
 }
 
 .contact_heading-wrapper {
   grid-area: heading;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
   justify-content: center;
+  padding-right: 0;
 }
 
-.contact_heading {
+.contact_heading-line {
   font-size: var(--text-5xl);
   font-weight: 400;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-widest);
-  text-align: center;
+  text-align: right;
   white-space: nowrap;
 }
 

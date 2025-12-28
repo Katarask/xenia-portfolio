@@ -61,10 +61,8 @@ const Contact = memo(() => {
 
       {/* Grid Area: heading (top-right) - hidden on mobile */}
       <div className="contact_heading-wrapper">
-        <h2 className="contact_heading">
-          LEAVE YOUR<br />
-          CONTACT BELOW
-        </h2>
+        <div className="contact_heading-line">LEAVE YOUR</div>
+        <div className="contact_heading-line">CONTACT BELOW</div>
       </div>
 
       {/* Grid Area: form - appears FIRST on mobile */}
