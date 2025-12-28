@@ -1055,7 +1055,7 @@ body:hover .cursor {
 /* Mobile */
 @media (max-width: 767px) {
   .section_about {
-    padding: 32px 16px;
+    padding: 32px 16px 16px 16px;
     height: 100%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;

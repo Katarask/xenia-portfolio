@@ -77,15 +77,6 @@ const EXPERTISE_DATA = [
     statLabel: 'Passion',
     image: '/images/portfolio/black-sand.webp',
   },
-  {
-    id: 9,
-    number: '09',
-    title: 'Music & Culture',
-    description: 'Working with labels, artists and cultural publications. Capturing the energy of the scene.',
-    stat: '10+',
-    statLabel: 'Labels',
-    image: '/images/portfolio/bonnie-hair.webp',
-  },
 ];
 
 // ============================================
