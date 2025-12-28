@@ -11,12 +11,20 @@ import {
 import './App.css';
 
 // Section positions (in vw units)
+// Layout: Portfolio(100) -> Transition(100) -> Services(100) -> Transition(100) -> About(100) -> Transition(100) -> Contact(100) = 700vw
 const SECTION_POSITIONS = {
   portfolio: 0,
-  services: 100,
-  about: 200,
-  contact: 300,
+  services: 200,  // after portfolio + transition
+  about: 400,     // after services + transition
+  contact: 600,   // after about + transition
 };
+
+// Transition images (fullscreen between sections)
+const TransitionImage = ({ src, alt }) => (
+  <div className="transition-section">
+    <img src={src} alt={alt} className="transition-img" />
+  </div>
+);
 
 // ============================================
 // MAIN APP - Horizontal Layout (nav only, no scroll)
@@ -108,14 +116,23 @@ function App() {
           {/* Section 1: Portfolio */}
           <Portfolio />
 
+          {/* Transition 1 */}
+          <TransitionImage src="/images/portfolio/rick-owens.webp" alt="Transition" />
+
           {/* Section 2: Services */}
           <Services
             onVitaClick={() => setVitaOpen(true)}
             onNavigate={navigateTo}
           />
 
+          {/* Transition 2 */}
+          <TransitionImage src="/images/portfolio/chandelier.webp" alt="Transition" />
+
           {/* Section 3: About */}
           <About />
+
+          {/* Transition 3 */}
+          <TransitionImage src="/images/portfolio/blue-dress-sand.webp" alt="Transition" />
 
           {/* Section 4: Contact */}
           <Contact />

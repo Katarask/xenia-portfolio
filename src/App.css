@@ -411,19 +411,39 @@ body:hover .cursor {
    Horizontal layout - NO manual scroll, only nav
    ============================================ */
 .map-wrapper {
-  margin-top: var(--navbar-height);
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
   width: 100vw;
-  height: var(--content-height);
-  overflow: hidden; /* No manual scrolling allowed */
-  position: relative;
+  height: calc(100vh - var(--navbar-height));
+  overflow: hidden;
 }
 
 .sections-track {
   display: flex;
   flex-direction: row;
-  width: 700vw; /* Total width for all sections + transitions */
-  height: var(--content-height);
+  width: 700vw; /* 4 sections + 3 transitions = 7 × 100vw */
+  height: 100%;
   transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ============================================
+   TRANSITION SECTIONS (fullscreen images)
+   ============================================ */
+.transition-section {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.transition-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  padding: 0;
 }
 
 /* ============================================
@@ -433,8 +453,8 @@ body:hover .cursor {
 .section_portfolio {
   flex: 0 0 100vw;
   width: 100vw;
-  height: 100vh;
-  max-height: 100vh;
+  height: 100%;
+  max-height: 100%;
   overflow: hidden !important;
   position: relative;
 }
@@ -442,7 +462,7 @@ body:hover .cursor {
 .section_services {
   flex: 0 0 100vw;
   width: 100vw;
-  height: var(--content-height);
+  height: 100%;
   overflow: hidden;
 }
 
@@ -450,7 +470,7 @@ body:hover .cursor {
 .section_contact {
   flex: 0 0 100vw;
   width: 100vw;
-  min-height: var(--content-height);
+  height: 100%;
   overflow-y: auto; /* Allow vertical scroll for long content */
 }
 
