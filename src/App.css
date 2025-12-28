@@ -459,12 +459,7 @@ body:hover .cursor {
   position: relative;
 }
 
-.section_services {
-  flex: 0 0 100vw;
-  width: 100vw;
-  height: 100%;
-  overflow: hidden;
-}
+/* .section_services moved to SERVICES SECTION below */
 
 .section_about,
 .section_contact {
@@ -719,257 +714,157 @@ body:hover .cursor {
 }
 
 /* ============================================
-   SERVICES SECTION - Simple 3x3 Grid
+   SERVICES SECTION - Fresh 3-Column Layout
    ============================================ */
-.section_services {
-  display: grid;
-  grid-template-columns: 20% 50% 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  background-color: #f5f5f5;
+.services {
+  flex: 0 0 100vw;
   width: 100vw;
   height: 100%;
+  display: flex;
+  background-color: #ffffff;
   padding: 48px 24px;
 }
 
-.services_cell {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-}
-
-/* Row 1 - services list */
-.services_cell:nth-child(2) {
-  display: flex;
-  gap: 48px;
-  align-items: flex-end;
-}
-
-.services_list {
+/* Columns */
+.services__col {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+}
+
+.services__col--labels {
+  width: 15%;
+  min-width: 100px;
+}
+
+.services__col--content {
+  width: 60%;
+  flex: 1;
+}
+
+.services__col--empty {
+  width: 25%;
+}
+
+/* Rows */
+.services__row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Labels */
+.services__label {
+  font-size: 16px;
+  color: var(--casual);
+  transition: color 200ms ease;
+}
+
+.services__label:hover {
+  color: #999;
+}
+
+/* Services Lists (Row 1) */
+.services__row--services {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.services__list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   font-size: 14px;
   color: var(--casual);
 }
 
-.services_list span {
+.services__list span {
   transition: color 200ms ease;
 }
 
-.services_list span:hover {
+.services__list span:hover {
   color: #999;
 }
 
-/* Row 2 - links */
-.services_links {
+/* Links (Row 2) */
+.services__row--links {
   display: flex;
-  gap: 64px;
+  gap: 48px;
 }
 
-.services_link {
+.services__link {
   font-size: 16px;
   color: var(--casual);
+  text-decoration: none;
   transition: color 200ms ease;
 }
 
-.services_link:hover {
+.services__link:hover {
   color: #999;
 }
 
-/* Row 3 - email */
-.services_email {
+/* Email (Row 3) */
+.services__email {
   font-size: 16px;
   color: var(--casual);
   text-decoration: none;
   transition: color 200ms ease;
 }
 
-.services_email:hover {
+.services__email:hover {
   color: #999;
-}
-
-.services_label {
-  color: var(--casual);
-  margin-bottom: 0;
-  margin-left: 0;
-  padding: 4px;
-  font-size: 16px;
-  transition: color 200ms ease;
-}
-
-.services_label:hover {
-  color: #999999;
-}
-
-.services_link {
-  color: var(--casual);
-  width: auto;
-  padding: 4px;
-  display: inline-flex;
-  transition: color 200ms ease;
-}
-
-.services_link:hover {
-  color: #999999;
-}
-
-.services_link.is-mobile {
-  width: auto;
-}
-
-.services_value {
-  color: var(--casual);
-  padding: 4px;
-  font-size: 16px;
-  transition: color 200ms ease;
-}
-
-.services_value:hover {
-  color: #999999;
-}
-
-.link-block {
-  text-decoration: none;
-}
-
-.link-block-2 {
-  color: #333;
-  text-decoration: none;
 }
 
 /* Tablet */
 @media (max-width: 991px) {
-  .section_services {
-    grid-template-columns: 20% 70% 1fr;
-    height: 90vh;
-    padding-bottom: 48px;
+  .services {
+    padding: 32px 16px;
   }
 
-  .services_services {
-    grid-column-gap: 32px;
-    grid-row-gap: 32px;
+  .services__col--labels {
+    width: 20%;
+  }
+
+  .services__col--empty {
+    width: 10%;
+  }
+
+  .services__row--services {
+    flex-wrap: wrap;
+    gap: 24px;
   }
 }
 
 /* Mobile */
 @media (max-width: 767px) {
-  .section_services {
-    background-position: 100%;
-    grid-template-columns: 20% 79% 1fr;
-    grid-template-areas: "Area Area-2 Area-7" "Area-3 Area-4 ." "Area-5 Area-6 .";
+  .services {
+    flex-direction: column;
+    padding: 24px 16px;
     height: auto;
-    min-height: 100vh;
-    overflow-y: visible;
+    min-height: 100%;
   }
 
-  .services_content {
-    flex-flow: row;
-    justify-content: center;
-    align-items: center;
+  .services__col {
+    width: 100% !important;
   }
 
-  .services_links {
-    grid-column-gap: 74px;
-    grid-row-gap: 74px;
-    flex-flow: row;
+  .services__col--labels {
+    display: none;
   }
 
-  .services_label,
-  .services_label.is-mobile-l {
-    color: var(--casual);
+  .services__col--empty {
+    display: none;
   }
 
-  .services_link {
-    color: var(--casual);
-    width: auto;
+  .services__row {
+    flex: none;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
   }
 
-  .services_link.is-mobile {
-    color: #333;
-    text-decoration: none;
-  }
-
-  .service_focused_on {
-    color: #333;
-  }
-
-  .services_services {
-    grid-column-gap: 24px;
-    grid-row-gap: 24px;
-  }
-
-  .services_email {
-    color: var(--_apps---colors--border, #ebebeb);
-  }
-}
-
-/* Tiny Mobile */
-@media (max-width: 479px) {
-  .section_services {
-    background-position: 73%;
-    grid-template: "Area Area-2 Area-7" "Area-3 Area-4 ." "Area-5 Area-6 ." / 30% 70% 37px;
-    grid-auto-columns: 1fr;
-    width: 100vw;
-    height: auto;
-    min-height: 100vh;
-    max-height: 100vh;
-    margin-top: 0;
-    padding-left: 16px;
-    overflow-y: visible;
-  }
-
-  .services_content {
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    padding-left: 0;
-  }
-
-  .services_links {
-    grid-column-gap: 67px;
-    grid-row-gap: 67px;
-    flex-flow: row;
-  }
-
-  .services_cta-wrapper {
-    margin-left: 0;
-  }
-
-  .services_label {
-    color: var(--casual);
-  }
-
-  .services_link {
-    color: var(--casual);
-    width: auto;
-    height: auto;
-  }
-
-  .services_link.is-mobile {
-    color: #000;
-  }
-
-  .service_request {
-    margin-left: 0;
-  }
-
-  .services_services {
-    flex-flow: row;
-    justify-content: flex-start;
-    align-items: flex-end;
-    margin-top: 0;
-    margin-left: 0;
-  }
-
-  .services_email {
-    color: #fff;
-    text-decoration: underline;
-  }
-
-  .services_value {
-    color: var(--casual);
+  .services__row--services {
+    flex-direction: column;
+    gap: 16px;
   }
 }
 

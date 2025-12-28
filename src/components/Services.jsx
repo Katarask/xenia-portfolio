@@ -1,60 +1,79 @@
 import { memo } from 'react';
 
 // ============================================
-// SERVICES SECTION - Simple 3x3 Grid
+// SERVICES SECTION - Fresh 3-Column Layout
 // ============================================
 const Services = memo(({ onVitaClick, onNavigate }) => {
   return (
-    <section id="services" className="section_services">
-      {/* Row 1 */}
-      <div className="services_cell">
-        <span className="services_label">Focused on</span>
-      </div>
-      <div className="services_cell">
-        <div className="services_list">
-          <span>Trend & cultural analysis</span>
-          <span>Creative direction</span>
-          <span>Social Media</span>
+    <section id="services" className="services">
+      {/* Column 1: Labels */}
+      <div className="services__col services__col--labels">
+        <div className="services__row">
+          <span className="services__label">Focused on</span>
         </div>
-        <div className="services_list">
-          <span>Full-service content delivery</span>
-          <span>Brand storytelling</span>
-          <span>Content strategy</span>
+        <div className="services__row">
+          <span className="services__label">Request</span>
         </div>
-        <div className="services_list">
-          <span>Performance optimization</span>
-          <span>Photo/video production</span>
-          <span>Campaign concepts</span>
+        <div className="services__row">
+          <span className="services__label">Contact</span>
         </div>
       </div>
-      <div className="services_cell"></div>
 
-      {/* Row 2 */}
-      <div className="services_cell">
-        <span className="services_label">Request</span>
-      </div>
-      <div className="services_cell">
-        <div className="services_links">
-          <a href="#" onClick={(e) => { e.preventDefault(); onVitaClick(); }}>
-            <span className="services_link">VITA</span>
+      {/* Column 2: Content */}
+      <div className="services__col services__col--content">
+        {/* Row 1: Services List */}
+        <div className="services__row services__row--services">
+          <div className="services__list">
+            <span>Trend & cultural analysis</span>
+            <span>Creative direction</span>
+            <span>Social Media</span>
+          </div>
+          <div className="services__list">
+            <span>Full-service content delivery</span>
+            <span>Brand storytelling</span>
+            <span>Content strategy</span>
+          </div>
+          <div className="services__list">
+            <span>Performance optimization</span>
+            <span>Photo/video production</span>
+            <span>Campaign concepts</span>
+          </div>
+        </div>
+
+        {/* Row 2: Links */}
+        <div className="services__row services__row--links">
+          <a
+            href="#"
+            className="services__link"
+            onClick={(e) => {
+              e.preventDefault();
+              onVitaClick();
+            }}
+          >
+            VITA
           </a>
-          <a href="#portfolio" onClick={(e) => { e.preventDefault(); onNavigate('portfolio'); }}>
-            <span className="services_link">Portfolio</span>
+          <a
+            href="#portfolio"
+            className="services__link"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('portfolio');
+            }}
+          >
+            Portfolio
+          </a>
+        </div>
+
+        {/* Row 3: Email */}
+        <div className="services__row services__row--email">
+          <a href="mailto:info@xeniasnapiro.com" className="services__email">
+            info@xeniasnapiro.com
           </a>
         </div>
       </div>
-      <div className="services_cell"></div>
 
-      {/* Row 3 */}
-      <div className="services_cell">
-        <span className="services_label">Contact</span>
-      </div>
-      <div className="services_cell">
-        <a href="mailto:info@xeniasnapiro.com" className="services_email">
-          info@xeniasnapiro.com
-        </a>
-      </div>
-      <div className="services_cell"></div>
+      {/* Column 3: Empty (for balance) */}
+      <div className="services__col services__col--empty"></div>
     </section>
   );
 });
