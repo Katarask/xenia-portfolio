@@ -129,12 +129,6 @@ const ExpertiseCard = memo(({ item, isExpanded, onHover, onLeave, onTap, isMobil
         <div className="expertise-card_expandable">
           <div className="expertise-card_expandable-inner">
             <p className="expertise-card_description">{item.description}</p>
-
-            {/* Stat Box */}
-            <div className="expertise-card_stat">
-              <span className="expertise-card_stat-value">{item.stat}</span>
-              <span className="expertise-card_stat-label">{item.statLabel}</span>
-            </div>
           </div>
         </div>
       </div>
