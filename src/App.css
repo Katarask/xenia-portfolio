@@ -108,9 +108,8 @@
 
 html,
 body {
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+  height: 100vh;
+  overflow: hidden;
   font-family: var(--font-family);
   font-size: var(--text-base);
   line-height: var(--leading-normal);
@@ -150,9 +149,9 @@ img {
    APP CONTAINER
    ============================================ */
 .app {
-  width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
   position: relative;
 }
 
@@ -409,37 +408,42 @@ body:hover .cursor {
 
 /* ============================================
    MAP WRAPPER & SECTIONS TRACK
-   Horizontal scroll container
+   Horizontal layout - NO manual scroll, only nav
    ============================================ */
 .map-wrapper {
   margin-top: var(--navbar-height);
-  width: 100%;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+  width: 100vw;
+  height: var(--content-height);
+  overflow: hidden; /* No manual scrolling allowed */
+  position: relative;
 }
 
 .sections-track {
   display: flex;
-  flex-direction: column;
-  width: 100%;
+  flex-direction: row;
+  width: 700vw; /* Total width for all sections + transitions */
+  height: var(--content-height);
+  transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 /* ============================================
    SECTION BASE STYLES
-   Vertical layout - each section full width
+   Horizontal layout - sections side by side
    ============================================ */
-.section_portfolio {
-  width: 100%;
-  height: 100vh;
+.section_portfolio,
+.section_services {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: var(--content-height);
   overflow: hidden;
 }
 
-.section_services,
 .section_about,
 .section_contact {
-  width: 100%;
-  min-height: 100vh;
-  overflow: visible;
+  flex: 0 0 100vw;
+  width: 100vw;
+  min-height: var(--content-height);
+  overflow-y: auto; /* Allow vertical scroll for long content */
 }
 
 /* ============================================

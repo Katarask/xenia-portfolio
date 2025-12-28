@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import {
   Cursor,
   Navbar,
@@ -10,21 +10,31 @@ import {
 } from './components';
 import './App.css';
 
+// Section positions (in vw units)
+const SECTION_POSITIONS = {
+  portfolio: 0,
+  services: 100,
+  about: 200,
+  contact: 300,
+};
+
 // ============================================
-// MAIN APP - Vertical Scroll Layout
+// MAIN APP - Horizontal Layout (nav only, no scroll)
 // Section Order: Portfolio -> Services -> About -> Contact
 // ============================================
 function App() {
   const [vitaOpen, setVitaOpen] = useState(false);
+  const [currentSection, setCurrentSection] = useState('portfolio');
+  const trackRef = useRef(null);
 
   // ============================================
-  // VERTICAL SCROLL NAVIGATION
-  // Native smooth scroll to section
+  // NAVIGATION VIA TRANSFORM (no scroll)
   // ============================================
   const navigateTo = useCallback((sectionId) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+    const position = SECTION_POSITIONS[sectionId];
+    if (position !== undefined && trackRef.current) {
+      trackRef.current.style.transform = `translateX(-${position}vw)`;
+      setCurrentSection(sectionId);
     }
   }, []);
 
@@ -92,9 +102,9 @@ function App() {
       {/* Fixed Navbar */}
       <Navbar onNavigate={navigateTo} />
 
-      {/* Vertical Scroll Container */}
+      {/* Horizontal Container - Navigation only */}
       <div className="map-wrapper">
-        <div className="sections-track">
+        <div ref={trackRef} className="sections-track">
           {/* Section 1: Portfolio */}
           <Portfolio />
 
