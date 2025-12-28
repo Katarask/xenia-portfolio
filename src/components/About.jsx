@@ -2,7 +2,7 @@ import { useState, memo } from 'react';
 import useIsMobile from '../hooks/useIsMobile';
 
 // ============================================
-// EXPERTISE DATA - Expanding Cards
+// EXPERTISE DATA - Expanding Cards (Local images)
 // ============================================
 const EXPERTISE_DATA = [
   {
@@ -12,7 +12,7 @@ const EXPERTISE_DATA = [
     description: 'From concept to execution — I lead visual projects that define brand identities. Strategic thinking meets artistic vision.',
     stat: '50+',
     statLabel: 'Projects',
-    image: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863.JPG',
+    image: '/images/portfolio/soap-skin.webp',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const EXPERTISE_DATA = [
     description: 'Every brand has a story worth telling. I craft visual narratives that connect with audiences.',
     stat: '5+',
     statLabel: 'Years',
-    image: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294689_15%203.JPG',
+    image: '/images/portfolio/curly-hair.webp',
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const EXPERTISE_DATA = [
     description: 'Fashion editorials, artist portraits, brand campaigns. I shoot across formats — still and motion.',
     stat: '4',
     statLabel: 'Cities',
-    image: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929464f_B9D24BBF-0CB3-42F1-8E03-5BE311B9E597.avif',
+    image: '/images/portfolio/rick-owens.webp',
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ const EXPERTISE_DATA = [
     description: 'High-end fashion photography for magazines, brands and designers. Visual stories that define style.',
     stat: '20+',
     statLabel: 'Editorials',
-    image: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294653_064E2395-AA58-48F8-ADC5-939D2CE34E63.avif',
+    image: '/images/about/pink-feathers.webp',
   },
   {
     id: 5,
@@ -48,7 +48,7 @@ const EXPERTISE_DATA = [
     description: 'Capturing the essence of musicians, performers and creatives. Authentic moments, striking visuals.',
     stat: '30+',
     statLabel: 'Artists',
-    image: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294643_1.avif',
+    image: '/images/portfolio/chandelier.webp',
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ const EXPERTISE_DATA = [
     description: 'End-to-end campaign development from strategy to final delivery. Cohesive brand experiences.',
     stat: '15+',
     statLabel: 'Campaigns',
-    image: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929467b_Kuko%202%20tags-44.jpg',
+    image: '/images/portfolio/fence-sitting.webp',
   },
   {
     id: 7,
@@ -66,7 +66,7 @@ const EXPERTISE_DATA = [
     description: 'Seasonal collections brought to life. Clean, editorial aesthetics that let the fashion speak.',
     stat: '25+',
     statLabel: 'Collections',
-    image: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929467c_Kuko%202%20tags-42.jpg',
+    image: '/images/portfolio/feather-hat.webp',
   },
   {
     id: 8,
@@ -75,7 +75,7 @@ const EXPERTISE_DATA = [
     description: 'Beyond the shoot — I develop content strategies that align with brand goals.',
     stat: '100%',
     statLabel: 'Passion',
-    image: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929464d_14240002.avif',
+    image: '/images/portfolio/black-sand.webp',
   },
   {
     id: 9,
@@ -84,7 +84,7 @@ const EXPERTISE_DATA = [
     description: 'Working with labels, artists and cultural publications. Capturing the energy of the scene.',
     stat: '10+',
     statLabel: 'Labels',
-    image: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac3763929468b_Kuko%202%20tags-51.jpg',
+    image: '/images/portfolio/bonnie-hair.webp',
   },
   {
     id: 10,
@@ -93,7 +93,7 @@ const EXPERTISE_DATA = [
     description: 'Fashion shows, concerts, events. Behind the scenes access and live documentation.',
     stat: '40+',
     statLabel: 'Events',
-    image: 'https://cdn.prod.website-files.com/6924982cc3cac37639294622/6924982cc3cac37639294692_5..jpg',
+    image: '/images/portfolio/hands-nails.webp',
   },
 ];
 

@@ -2,40 +2,39 @@ import { useState, memo } from 'react';
 import useIsMobile from '../hooks/useIsMobile';
 
 // ============================================
-// PORTFOLIO DATA - All images from Webflow CDN
+// PORTFOLIO DATA - Local images (Webflow-free)
 // ============================================
-const CDN = 'https://cdn.prod.website-files.com/6924982cc3cac37639294622';
+const IMG = '/images/portfolio';
 
 const PORTFOLIO_DATA = {
   column1: [
-    { id: 1, type: 'image', src: `${CDN}/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863.JPG`, srcset: `${CDN}/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-500.jpg 500w, ${CDN}/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-800.jpg 800w, ${CDN}/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-1080.jpg 1080w`, width: 1440, height: 959, alt: 'Artist portrait Soap&Skin - Editorial photography for C/O Magazine Berlin', title: 'Soap&Skin', subtitle: 'ARTIST', caption: 'for C/O Magazine' },
-    { id: 2, type: 'image', src: `${CDN}/6924982cc3cac37639294689_15%203.JPG`, srcset: `${CDN}/6924982cc3cac37639294689_15%203-p-500.jpg 500w, ${CDN}/6924982cc3cac37639294689_15%203-p-800.jpg 800w, ${CDN}/6924982cc3cac37639294689_15%203-p-1080.jpg 1080w`, width: 3996, height: 5672, alt: 'Portrait photography Berlin', title: '', subtitle: '' },
-    { id: 3, type: 'image', src: `${CDN}/6924982cc3cac3763929464f_B9D24BBF-0CB3-42F1-8E03-5BE311B9E597.avif`, srcset: `${CDN}/6924982cc3cac3763929464f_B9D24BBF-0CB3-42F1-8E03-5BE311B9E597-p-500.avif 500w, ${CDN}/6924982cc3cac3763929464f_B9D24BBF-0CB3-42F1-8E03-5BE311B9E597-p-800.avif 800w, ${CDN}/6924982cc3cac3763929464f_B9D24BBF-0CB3-42F1-8E03-5BE311B9E597-p-1080.avif 1080w`, width: 1976, height: 2470, alt: 'Fashion designer Rick Owens portrait', title: 'Rick Owens', subtitle: 'DESIGNER' },
-    { id: 4, type: 'image', src: `${CDN}/6924982cc3cac37639294653_064E2395-AA58-48F8-ADC5-939D2CE34E63.avif`, srcset: `${CDN}/6924982cc3cac37639294653_064E2395-AA58-48F8-ADC5-939D2CE34E63-p-500.avif 500w, ${CDN}/6924982cc3cac37639294653_064E2395-AA58-48F8-ADC5-939D2CE34E63-p-800.avif 800w, ${CDN}/6924982cc3cac37639294653_064E2395-AA58-48F8-ADC5-939D2CE34E63-p-1080.avif 1080w`, width: 3000, height: 2006, alt: 'Music artist Soap&Skin - C/O Magazine', title: 'Soap&Skin', subtitle: 'ARTIST', caption: 'C/O Magazine' },
-    { id: 5, type: 'image', src: `${CDN}/69273068a6b7b82db826396f_Website.jpg`, srcset: `${CDN}/69273068a6b7b82db826396f_Website-p-500.jpg 500w, ${CDN}/69273068a6b7b82db826396f_Website-p-800.jpg 800w, ${CDN}/69273068a6b7b82db826396f_Website-p-1080.jpg 1080w`, width: 1684, height: 2048, alt: 'Fashion portrait photography', title: '', subtitle: '' },
-    { id: 6, type: 'video', vimeoId: '1137289960', poster: `${CDN}/6924982cc3cac3763929466f_1547785C-A471-4EB4-BDCF-FF780A6D1863-p-500.jpg`, title: 'Safira', subtitle: 'SAFIRA', caption: 'Safira', aspect: 'portrait' },
+    { id: 1, type: 'image', src: `${IMG}/soap-skin.webp`, width: 963, height: 644, alt: 'Artist portrait Soap&Skin - Editorial photography for C/O Magazine Berlin', title: 'Soap&Skin', subtitle: 'ARTIST', caption: 'for C/O Magazine' },
+    { id: 2, type: 'image', src: `${IMG}/curly-hair.webp`, width: 1600, height: 2000, alt: 'Portrait photography Berlin', title: '', subtitle: '' },
+    { id: 3, type: 'image', src: `${IMG}/rick-owens.webp`, width: 1365, height: 2000, alt: 'Fashion designer Rick Owens portrait', title: 'Rick Owens', subtitle: 'DESIGNER' },
+    { id: 4, type: 'image', src: `${IMG}/red-jacket.webp`, width: 1642, height: 2000, alt: 'Fashion portrait photography', title: '', subtitle: '' },
+    { id: 5, type: 'video', vimeoId: '1137289960', poster: `${IMG}/soap-skin.webp`, title: 'Safira', subtitle: 'SAFIRA', caption: 'Safira', aspect: 'portrait' },
   ],
   column2: [
-    { id: 7, type: 'image', src: `${CDN}/6924982cc3cac37639294643_1.avif`, srcset: `${CDN}/6924982cc3cac37639294643_1-p-500.avif 500w, ${CDN}/6924982cc3cac37639294643_1-p-800.avif 800w`, width: 1280, height: 1931, alt: 'Artist interview Eric Joham - C/O Magazine', title: 'Eric Joham', subtitle: 'INTERVIEW', caption: 'C/O Magazine' },
-    { id: 8, type: 'image', src: `${CDN}/6924982cc3cac3763929467b_Kuko%202%20tags-44.jpg`, srcset: `${CDN}/6924982cc3cac3763929467b_Kuko%202%20tags-44-p-500.jpg 500w, ${CDN}/6924982cc3cac3763929467b_Kuko%202%20tags-44-p-800.jpg 800w, ${CDN}/6924982cc3cac3763929467b_Kuko%202%20tags-44-p-1080.jpg 1080w`, width: 2048, height: 1365, alt: 'Brand campaign Laura Gerte', title: 'Laura Gerte', subtitle: 'BRAND', caption: 'Model: Oraina' },
-    { id: 9, type: 'image', src: `${CDN}/6924982cc3cac3763929467c_Kuko%202%20tags-42.jpg`, srcset: `${CDN}/6924982cc3cac3763929467c_Kuko%202%20tags-42-p-500.jpg 500w, ${CDN}/6924982cc3cac3763929467c_Kuko%202%20tags-42-p-800.jpg 800w, ${CDN}/6924982cc3cac3763929467c_Kuko%202%20tags-42-p-1080.jpg 1080w`, width: 1682, height: 2048, alt: 'Fashion brand Laura Gerte - Lookbook', title: 'Laura Gerte', subtitle: 'BRAND', caption: 'Model: Oraina' },
-    { id: 10, type: 'image', src: `${CDN}/6924982cc3cac3763929464d_14240002.avif`, srcset: `${CDN}/6924982cc3cac3763929464d_14240002-p-500.avif 500w, ${CDN}/6924982cc3cac3763929464d_14240002-p-800.avif 800w, ${CDN}/6924982cc3cac3763929464d_14240002-p-1080.avif 1080w`, width: 2024, height: 2964, alt: 'Wales Bonner backstage', title: 'Wales Bonner', subtitle: 'SHOW BACKSTAGE' },
-    { id: 11, type: 'video', vimeoId: '1145349173', poster: `${CDN}/6924982cc3cac37639294643_1.avif`, title: 'Ernst Lima', subtitle: 'PERFORMANCE', caption: 'das weisse haus', aspect: 'portrait' },
+    { id: 6, type: 'image', src: `${IMG}/chandelier.webp`, width: 1280, height: 1931, alt: 'Artist interview Eric Joham - C/O Magazine', title: 'Eric Joham', subtitle: 'INTERVIEW', caption: 'C/O Magazine' },
+    { id: 7, type: 'image', src: `${IMG}/fence-sitting.webp`, width: 2000, height: 1333, alt: 'Brand campaign Laura Gerte', title: 'Laura Gerte', subtitle: 'BRAND', caption: 'Model: Oraina' },
+    { id: 8, type: 'image', src: `${IMG}/feather-hat.webp`, width: 1561, height: 2000, alt: 'Fashion brand Laura Gerte - Lookbook', title: 'Laura Gerte', subtitle: 'BRAND', caption: 'Model: Oraina' },
+    { id: 9, type: 'image', src: `${IMG}/black-sand.webp`, width: 1409, height: 2000, alt: 'Wales Bonner backstage', title: 'Wales Bonner', subtitle: 'SHOW BACKSTAGE' },
+    { id: 10, type: 'video', vimeoId: '1145349173', poster: `${IMG}/chandelier.webp`, title: 'Ernst Lima', subtitle: 'PERFORMANCE', caption: 'das weisse haus', aspect: 'portrait' },
   ],
   column3: [
-    { id: 12, type: 'image', src: `${CDN}/6924982cc3cac3763929468b_Kuko%202%20tags-51.jpg`, srcset: `${CDN}/6924982cc3cac3763929468b_Kuko%202%20tags-51-p-500.jpg 500w, ${CDN}/6924982cc3cac3763929468b_Kuko%202%20tags-51-p-800.jpg 800w, ${CDN}/6924982cc3cac3763929468b_Kuko%202%20tags-51-p-1080.jpg 1080w`, width: 2048, height: 1365, alt: 'Bonnie Strange - Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'for Spotify/ Sony Music' },
-    { id: 13, type: 'image', src: `${CDN}/69273457f6983e5f11cf2264_Website-10.jpg`, srcset: `${CDN}/69273457f6983e5f11cf2264_Website-10-p-500.jpg 500w, ${CDN}/69273457f6983e5f11cf2264_Website-10-p-800.jpg 800w, ${CDN}/69273457f6983e5f11cf2264_Website-10-p-1080.jpg 1080w`, width: 1474, height: 2048, alt: 'Brand campaign photography', title: '', subtitle: '' },
-    { id: 14, type: 'image', src: `${CDN}/6924982cc3cac3763929468a_Kuko%202%20tags-49.jpg`, srcset: `${CDN}/6924982cc3cac3763929468a_Kuko%202%20tags-49-p-500.jpg 500w, ${CDN}/6924982cc3cac3763929468a_Kuko%202%20tags-49-p-800.jpg 800w, ${CDN}/6924982cc3cac3763929468a_Kuko%202%20tags-49-p-1080.jpg 1080w`, width: 2048, height: 1365, alt: 'DJ Bonnie Strange portrait', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Sony Music' },
-    { id: 15, type: 'image', src: `${CDN}/6924982cc3cac37639294692_5..jpg`, srcset: `${CDN}/6924982cc3cac37639294692_5.-p-500.jpg 500w, ${CDN}/6924982cc3cac37639294692_5.-p-800.jpg 800w, ${CDN}/6924982cc3cac37639294692_5.-p-1080.jpg 1080w`, width: 3000, height: 3843, alt: 'Fashion editorial Das Deck', title: 'Das Deck', subtitle: 'MODEL', caption: 'for Martin Niklas Wieser' },
-    { id: 16, type: 'video', vimeoId: '730555711', poster: `${CDN}/6924982cc3cac3763929468b_Kuko%202%20tags-51.jpg`, title: 'Mood Video', subtitle: 'CASTING', caption: 'for Wales Bonner', aspect: 'landscape' },
+    { id: 11, type: 'image', src: `${IMG}/bonnie-hair.webp`, width: 2000, height: 1333, alt: 'Bonnie Strange - Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'for Spotify/ Sony Music' },
+    { id: 12, type: 'image', src: `${IMG}/blue-dress-sand.webp`, width: 1449, height: 2000, alt: 'Brand campaign photography', title: '', subtitle: '' },
+    { id: 13, type: 'image', src: `${IMG}/bonnie-bathroom.webp`, width: 2000, height: 1333, alt: 'DJ Bonnie Strange portrait', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Sony Music' },
+    { id: 14, type: 'image', src: `${IMG}/hands-nails.webp`, width: 1179, height: 1356, alt: 'Fashion editorial Das Deck', title: 'Das Deck', subtitle: 'MODEL', caption: 'for Martin Niklas Wieser' },
+    { id: 15, type: 'video', vimeoId: '730555711', poster: `${IMG}/bonnie-hair.webp`, title: 'Mood Video', subtitle: 'CASTING', caption: 'for Wales Bonner', aspect: 'landscape' },
   ],
   column4: [
-    { id: 17, type: 'image', src: `${CDN}/6924982cc3cac37639294697_IMG_3523.avif`, width: 3089, height: 2048, alt: 'Wendy&Jim - C/O Magazine', title: 'Wendy&Jim', subtitle: 'BRAND OWNERS', caption: 'C/O Magazine' },
-    { id: 18, type: 'image', src: `${CDN}/6924982cc3cac3763929465f_5557EDBC-AB28-454B-82B3-BFAA837285E0.avif`, width: 1440, height: 1800, alt: 'Austrian Fashion Association Awards', title: 'AFA Awards', subtitle: 'MODEL', caption: 'Austrian Fashion Association' },
-    { id: 19, type: 'image', src: `${CDN}/69273068b8b50623bc4a9a42_Website-1.jpg`, width: 1465, height: 2048, alt: 'Fashion photography Berlin', title: '', subtitle: '' },
-    { id: 20, type: 'image', src: `${CDN}/6924982cc3cac37639294641_00-253%203.avif`, width: 2048, height: 1365, alt: 'Street fashion photography', title: '', subtitle: '' },
-    { id: 21, type: 'image', src: `${CDN}/6924982cc3cac3763929468c_20%202.JPG`, width: 4000, height: 5519, alt: 'Portrait photography', title: '', subtitle: '' },
-    { id: 22, type: 'video', vimeoId: '1137289577', poster: `${CDN}/6924982cc3cac37639294697_IMG_3523.avif`, title: '', subtitle: '', aspect: 'landscape' },
+    { id: 16, type: 'image', src: `${IMG}/wendy-jim.webp`, width: 2000, height: 1325, alt: 'Wendy&Jim - C/O Magazine', title: 'Wendy&Jim', subtitle: 'BRAND OWNERS', caption: 'C/O Magazine' },
+    { id: 17, type: 'image', src: `${IMG}/mob-wheelchair.webp`, width: 1440, height: 1800, alt: 'Austrian Fashion Association Awards', title: 'AFA Awards', subtitle: 'MODEL', caption: 'Austrian Fashion Association' },
+    { id: 18, type: 'image', src: `${IMG}/magazine-spread.webp`, width: 2000, height: 1333, alt: 'Fashion photography Berlin', title: '', subtitle: '' },
+    { id: 19, type: 'image', src: `${IMG}/vienna-street.webp`, width: 2000, height: 1325, alt: 'Street fashion photography', title: '', subtitle: '' },
+    { id: 20, type: 'image', src: `${IMG}/leather-nails.webp`, width: 2000, height: 1333, alt: 'Portrait photography', title: '', subtitle: '' },
+    { id: 21, type: 'video', vimeoId: '1137289577', poster: `${IMG}/wendy-jim.webp`, title: '', subtitle: '', aspect: 'landscape' },
   ],
 };
 
@@ -48,8 +47,6 @@ const StoryCard = memo(({ item, isEager = false }) => (
     <div className="story-overlay"></div>
     <img
       src={item.src}
-      srcSet={item.srcset}
-      sizes="(max-width: 767px) 50vw, 25vw"
       width={item.width}
       height={item.height}
       alt={item.alt || ''}
