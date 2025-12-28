@@ -1329,11 +1329,13 @@ body:hover .cursor {
 }
 
 .form_input {
-  height: 20%;
+  height: auto;
+  min-height: 50px;
 }
 
 .form_textarea {
-  height: 30%;
+  height: auto;
+  min-height: 120px;
 }
 
 .form_input:focus,
