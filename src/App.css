@@ -722,6 +722,10 @@ body:hover .cursor {
   height: 100%;
   display: flex;
   background-color: #ffffff;
+  background-image: url('/images/about/Website-16.jpg');
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
   padding: 48px 24px;
 }
 
@@ -1170,11 +1174,11 @@ body:hover .cursor {
     "empty   heading"
     "content form";
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 50% 50%;
+  grid-template-rows: 45% 55%;
   gap: 0;
   padding: 24px;
   width: 100vw;
-  height: 89.7vh;
+  height: 100%;
 }
 
 .contact_empty {
@@ -1200,12 +1204,14 @@ body:hover .cursor {
   grid-area: content;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   padding: 24px;
 }
 
 .contact_info-wrapper {
   width: 100%;
+  text-align: center;
 }
 
 .contact_subheading {
@@ -1218,12 +1224,13 @@ body:hover .cursor {
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
   max-width: 400px;
-  margin-bottom: 24px;
+  margin: 0 auto 24px auto;
 }
 
 /* Social Dots */
 .social-dots-wrapper {
   display: flex;
+  justify-content: center;
   gap: 48px;
   margin-top: 22px;
 }
