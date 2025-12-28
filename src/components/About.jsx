@@ -151,35 +151,37 @@ const About = memo(() => {
 
   return (
     <section id="about" className="section_about">
-      {/* Upper Section: Bio */}
-      <div className="about_upper-wrapper">
-        <div className="about_text-wrapper">
-          <div className="about_text-div">
-            <h2 className="about_heading slide-up">Fashion Photographer &amp; Creative Director</h2>
-            <p className="about_bio slide-up">
-              Based in Berlin. Working across Europe — Berlin, Munich, Vienna, Paris.
-              <br /><br />
-              I create visual stories for fashion brands, artists, and cultural publications — from editorial shoots to full campaign development.
-              <br /><br />
-              With 5+ years in fashion photography and creative direction, I've worked with clients including Sony Music, C/O Magazine, Rick Owens, and the Austrian Fashion Association. My approach combines editorial photography with strategic brand thinking — shaping identities, producing campaigns, and leading projects from concept to execution.
-            </p>
+      <div className="about_scroll-container">
+        {/* Upper Section: Bio */}
+        <div className="about_upper-wrapper">
+          <div className="about_text-wrapper">
+            <div className="about_text-div">
+              <h2 className="about_heading slide-up">Fashion Photographer &amp; Creative Director</h2>
+              <p className="about_bio slide-up">
+                Based in Berlin. Working across Europe — Berlin, Munich, Vienna, Paris.
+                <br /><br />
+                I create visual stories for fashion brands, artists, and cultural publications — from editorial shoots to full campaign development.
+                <br /><br />
+                With 5+ years in fashion photography and creative direction, I've worked with clients including Sony Music, C/O Magazine, Rick Owens, and the Austrian Fashion Association. My approach combines editorial photography with strategic brand thinking — shaping identities, producing campaigns, and leading projects from concept to execution.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Expertise Cards */}
-      <div className="expertise-cards-wrapper">
-        {EXPERTISE_DATA.map((item) => (
-          <ExpertiseCard
-            key={item.id}
-            item={item}
-            isExpanded={expandedId === item.id}
-            onHover={() => handleHover(item.id)}
-            onLeave={handleLeave}
-            onTap={() => handleTap(item.id)}
-            isMobile={isMobile}
-          />
-        ))}
+        {/* Expertise Cards */}
+        <div className="expertise-cards-wrapper">
+          {EXPERTISE_DATA.map((item) => (
+            <ExpertiseCard
+              key={item.id}
+              item={item}
+              isExpanded={expandedId === item.id}
+              onHover={() => handleHover(item.id)}
+              onLeave={handleLeave}
+              onTap={() => handleTap(item.id)}
+              isMobile={isMobile}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Lightbox (kept for potential future use) */}
