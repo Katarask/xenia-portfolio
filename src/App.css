@@ -279,6 +279,18 @@ body:hover .cursor {
   z-index: 1000;
   background-color: var(--white);
   border-bottom: 1px solid var(--border);
+  animation: navbarFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes navbarFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .navbar_component {
@@ -294,6 +306,8 @@ body:hover .cursor {
   flex-direction: column;
   align-items: flex-start;
   margin-left: 10px;
+  opacity: 0;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
 }
 
 .navbar_name {
@@ -321,6 +335,24 @@ body:hover .cursor {
   font-size: var(--text-sm);
   text-transform: capitalize;
   transition: color 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.navbar_link:nth-child(1) { animation-delay: 0.3s; }
+.navbar_link:nth-child(2) { animation-delay: 0.4s; }
+.navbar_link:nth-child(3) { animation-delay: 0.5s; }
+.navbar_link:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .navbar_link:hover {
