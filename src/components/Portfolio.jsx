@@ -122,7 +122,7 @@ const PortfolioColumn = memo(({ items, direction, speed, className = '', duplica
       onMouseLeave={() => !isMobile && setIsPaused(false)}
     >
       <div
-        className={`portfolio_column-inner ${!isMobile ? direction : ''}`}
+        className={`portfolio_column-inner ${direction}`}
         style={{
           animationDuration: `${speed}s`,
           animationPlayState: isPaused ? 'paused' : 'running',
@@ -175,8 +175,8 @@ const Portfolio = memo(() => {
   const mobileCol2 = allImages.filter((_, i) => i % 2 === 1);
 
   const mobileColumns = [
-    { items: mobileCol1, direction: 'down', speed: 25, className: '', duplicate: false },
-    { items: mobileCol2, direction: 'up', speed: 28, className: '', duplicate: false },
+    { items: mobileCol1, direction: 'down', speed: 50, className: '', duplicate: false },
+    { items: mobileCol2, direction: 'up', speed: 56, className: '', duplicate: false },
   ];
 
   const columns = isMobile ? mobileColumns : desktopColumns;
