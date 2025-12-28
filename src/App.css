@@ -1197,7 +1197,7 @@ body:hover .cursor {
   font-weight: 400;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-widest);
-  text-align: right;
+  text-align: center;
 }
 
 .contact_content-wrapper {
