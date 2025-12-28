@@ -1,4 +1,5 @@
-import { useEffect, useState, memo } from 'react';
+import { memo } from 'react';
+import useIsMobile from '../hooks/useIsMobile';
 
 // ============================================
 // PORTFOLIO DATA - All images from Webflow CDN
@@ -108,7 +109,7 @@ VideoCard.displayName = 'VideoCard';
 // Speed: Animation duration in seconds
 // duplicate: whether to duplicate items for seamless loop (desktop only)
 // ============================================
-const PortfolioColumn = memo(({ items, direction, speed, className = '', duplicate = true }) => {
+const PortfolioColumn = memo(({ items, direction, speed, className = '', duplicate = true, isMobile }) => {
   const [isPaused, setIsPaused] = useState(false);
 
   // Only duplicate for desktop seamless loop
@@ -117,11 +118,11 @@ const PortfolioColumn = memo(({ items, direction, speed, className = '', duplica
   return (
     <div
       className={`portfolio_column ${className}`}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      onMouseEnter={() => !isMobile && setIsPaused(true)}
+      onMouseLeave={() => !isMobile && setIsPaused(false)}
     >
       <div
-        className={`portfolio_column-inner ${direction}`}
+        className={`portfolio_column-inner ${!isMobile ? direction : ''}`}
         style={{
           animationDuration: `${speed}s`,
           animationPlayState: isPaused ? 'paused' : 'running',
@@ -147,14 +148,7 @@ PortfolioColumn.displayName = 'PortfolioColumn';
 // Mobile: 2 columns, no videos
 // ============================================
 const Portfolio = memo(() => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 767);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   // Desktop: 4 columns with speeds from documentation
   // Column 1: down, 0.8 -> 35s
@@ -197,6 +191,7 @@ const Portfolio = memo(() => {
           speed={col.speed}
           className={col.className}
           duplicate={col.duplicate !== false}
+          isMobile={isMobile}
         />
       ))}
     </section>

@@ -1,4 +1,5 @@
 import { useState, memo } from 'react';
+import useIsMobile from '../hooks/useIsMobile';
 
 // ============================================
 // EXPERTISE DATA - Expanding Cards
@@ -151,9 +152,10 @@ ExpertiseCard.displayName = 'ExpertiseCard';
 const About = memo(() => {
   const [expandedId, setExpandedId] = useState(null);
   const [lightboxSrc, setLightboxSrc] = useState(null);
+  const isMobile = useIsMobile();
 
-  const handleHover = (id) => setExpandedId(id);
-  const handleLeave = () => setExpandedId(null);
+  const handleHover = (id) => !isMobile && setExpandedId(id);
+  const handleLeave = () => !isMobile && setExpandedId(null);
   const closeLightbox = () => setLightboxSrc(null);
 
   return (
@@ -180,7 +182,7 @@ const About = memo(() => {
           <ExpertiseCard
             key={item.id}
             item={item}
-            isExpanded={expandedId === item.id}
+            isExpanded={!isMobile && expandedId === item.id}
             onHover={() => handleHover(item.id)}
             onLeave={handleLeave}
           />
