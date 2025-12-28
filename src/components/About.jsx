@@ -86,15 +86,6 @@ const EXPERTISE_DATA = [
     statLabel: 'Labels',
     image: '/images/portfolio/bonnie-hair.webp',
   },
-  {
-    id: 10,
-    number: '10',
-    title: 'Live & Backstage',
-    description: 'Fashion shows, concerts, events. Behind the scenes access and live documentation.',
-    stat: '40+',
-    statLabel: 'Events',
-    image: '/images/portfolio/hands-nails.webp',
-  },
 ];
 
 // ============================================
