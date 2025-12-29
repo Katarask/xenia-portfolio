@@ -182,7 +182,7 @@ const PortfolioColumn = memo(({ items, direction, speed, className = '', duplica
           item.type === 'video' ? (
             <VideoCard key={`${item.id}-${index}`} {...item} />
           ) : (
-            <StoryCard key={`${item.id}-${index}`} item={item} isEager={index < 3} />
+            <StoryCard key={`${item.id}-${index}`} item={item} isEager={index === 0} />
           )
         )}
       </div>

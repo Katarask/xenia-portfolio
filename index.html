@@ -198,17 +198,17 @@
       <link rel="stylesheet" href="/fonts/geist.css" />
     </noscript>
 
-    <!-- Preconnect for Performance - Lazy load Vimeo connections -->
+    <!-- Preconnect for Performance - Optimize image loading -->
     <link rel="dns-prefetch" href="https://player.vimeo.com" />
     <link rel="dns-prefetch" href="https://i.vimeocdn.com" />
     <link rel="dns-prefetch" href="https://f.vimeocdn.com" />
+    <!-- Preconnect to same origin for faster image loading -->
+    <link rel="preconnect" href="/" crossorigin />
     
-    <!-- Preload Critical Assets - LCP Image (chandelier is the LCP element) -->
-    <link rel="preload" href="/images/portfolio/chandelier-300.avif" as="image" type="image/avif" fetchpriority="high" />
-    <link rel="preload" href="/images/portfolio/chandelier-300.webp" as="image" type="image/webp" fetchpriority="high" />
-    <!-- Preload first portfolio image -->
-    <link rel="preload" href="/images/portfolio/soap-skin-300.avif" as="image" type="image/avif" fetchpriority="high" />
-    <link rel="preload" href="/images/portfolio/soap-skin-300.webp" as="image" type="image/webp" fetchpriority="high" />
+    <!-- Preload Critical Assets - LCP Image (first portfolio image: soap-skin) -->
+    <!-- Use 500w for mobile (optimal balance between size and quality for LCP) -->
+    <link rel="preload" href="/images/portfolio/soap-skin-500.avif" as="image" type="image/avif" fetchpriority="high" />
+    <link rel="preload" href="/images/portfolio/soap-skin-500.webp" as="image" type="image/webp" fetchpriority="high" />
     
     <!-- Canonical -->
     <link rel="canonical" href="https://xeniasnapiro.com/" />
