@@ -6,7 +6,34 @@ This is a React + Vite portfolio website for Xenia Snapiro. The project uses:
 - Vite as the build tool
 - GSAP for animations
 - ESLint for code quality
-- Responsive images (WebP format with multiple sizes)
+- Responsive images (AVIF/WebP format with multiple sizes: 300, 500, 800)
+
+## Git & Deployment
+
+### Repository
+- Remote: https://github.com/Katarask/xenia-portfolio
+- Branch: main
+
+### Deployment (GitHub → Vercel)
+Vercel is connected to the GitHub repo and deploys automatically on every push.
+
+**To deploy:**
+```bash
+git add .
+git commit -m "Your commit message"
+git push origin main
+```
+
+Vercel will automatically build and deploy within ~1-2 minutes.
+
+**WICHTIG:**
+- NICHT `vercel` CLI direkt verwenden - nur über GitHub pushen
+- Nach dem Push: Deployment-Status unter https://vercel.com prüfen
+- Production URL: Wird von Vercel automatisch bereitgestellt
+
+### Common Issues
+- If push fails with "rejected": Run `git pull origin main --rebase` first
+- If build fails on Vercel: Check the build logs in Vercel dashboard
 
 ## Code Style
 - Use functional components with hooks
@@ -19,13 +46,15 @@ This is a React + Vite portfolio website for Xenia Snapiro. The project uses:
 ## File Structure
 - Components are in `src/components/`
 - Styles are co-located with components or in `src/`
-- Images are in `public/images/` with responsive variants (500, 800, full size)
+- Images are in `public/images/` with responsive variants (300, 500, 800)
 - API routes are in `api/`
+- Fonts are in `public/fonts/`
 
 ## Important Notes
-- Images should be optimized WebP format
+- Images should be optimized AVIF/WebP format
 - Maintain mobile-first responsive design
 - Keep animations smooth and performant with GSAP
 - Follow existing component patterns
 - Use the custom cursor component when appropriate
+- CSS variables for typography are defined in `src/App.css` (:root)
 
