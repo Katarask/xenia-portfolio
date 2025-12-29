@@ -190,10 +190,13 @@
       }
     </style>
     
-    <!-- Geist Font - Local hosting for better performance (no render-blocking) -->
+    <!-- Geist Font - Local hosting, async loading to avoid render-blocking -->
     <link rel="preload" href="/fonts/geist-sans/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/geist-mono/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/fonts/geist.css" />
+    <link rel="stylesheet" href="/fonts/geist.css" media="print" onload="this.media='all'; this.onload=null;" />
+    <noscript>
+      <link rel="stylesheet" href="/fonts/geist.css" />
+    </noscript>
 
     <!-- Preconnect for Performance - Lazy load Vimeo connections -->
     <link rel="dns-prefetch" href="https://player.vimeo.com" />
