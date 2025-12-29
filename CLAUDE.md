@@ -7,11 +7,43 @@ React-basierte Portfolio-Website (Vite) - Nachbau der originalen Webflow-Seite.
 - `/src/components/` - React-Komponenten (Portfolio, Contact, Services, About, Navbar)
 - `/src/App.css` - Haupt-Stylesheet
 - `/public/images/portfolio/` - Portfolio-Bilder
-- `/Users/denizlevent/Desktop/xeniasnapiro_backup/` - Original Webflow-Backup
+
+## Design System
+
+### Typografie (CSS Variablen in :root)
+
+Responsive Typografie-System mit Breakpoints:
+
+- `--text-xs: 12px` (tagline, labels)
+- `--text-sm: 14px` (navbar links, subtitles)
+- `--text-base: 16px` (body, services)
+- `--text-lg: 18px` (mobile menu)
+- `--text-xl: 24px` (navbar name)
+- `--text-2xl: 28px` (story titles)
+- `--text-3xl: 32px` (about heading)
+- `--text-4xl: 48px` (large headings)
+- `--text-5xl: 80px` (contact heading)
+
+Die Werte passen sich automatisch an Breakpoints an (siehe App.css :root).
+
+### Spacing (TODO)
+
+Aktuell kein einheitliches Spacing-System. Verschiedene feste Pixelwerte werden verwendet.
+
+**Ziel:** Einheitlicher Seitenrand basierend auf Portfolio-Bilder-Padding.
+- Portfolio-Bilder sollen ein rundum-Padding haben
+- Dieser Wert soll als `--page-margin` Variable definiert werden
+- Alle Sections (Navbar, Services, About, Contact) sollen diesen Wert für Seitenränder nutzen
 
 ## Offene Aufgaben
 
-### Portfolio Bilder/Text Zuordnung (PRIORITÄT)
+### Spacing System (PRIORITÄT)
+
+- Einheitlichen Seitenrand definieren basierend auf Portfolio-Bilder-Abstand
+- `--page-margin` Variable erstellen
+- Navbar, Services, About, Contact auf einheitlichen Seitenrand umstellen
+
+### Portfolio Bilder/Text Zuordnung
 
 Die Reihenfolge und Texte der Portfolio-Bilder müssen korrigiert werden.
 
@@ -46,23 +78,24 @@ Die Reihenfolge und Texte der Portfolio-Bilder müssen korrigiert werden.
 5. Wendy & Jim brand owners Interview for C/O Magazine
 6. Video (kein Text)
 
-### Contact Section
-
-- Heading "LEAVE YOUR / CONTACT BELOW" - beide Zeilen sollen am rechten Rand abschließen
-- Aktuell: `.contact_heading-wrapper` mit `flex-direction: column` und `align-items: flex-end`
-- Jede Zeile ist ein eigenes `div.contact_heading-line`
-
-### About Section (deferred)
+### About Section (zurückgestellt)
 
 - Letzte Expertise-Card wird auf Mobile abgeschnitten
 - Mehrere Lösungsversuche waren nicht erfolgreich
 - Vorerst zurückgestellt
 
+## Erledigte Aufgaben
+
+- [x] Services Section: Row-based Layout (Label + Content auf einer Linie)
+- [x] Services Section: Responsive Typografie-Variablen implementiert
+- [x] Contact Heading: Beide Zeilen am rechten Rand ausgerichtet
+
 ## Wichtige Dateien
 
 - `src/components/Portfolio.jsx` - Portfolio-Daten in `PORTFOLIO_DATA` Objekt (column1-4)
+- `src/components/Services.jsx` - Services mit row-based Layout
 - `src/components/Contact.jsx` - Contact-Formular und Heading
-- `src/App.css` - Alle Styles inkl. responsive Breakpoints
+- `src/App.css` - Alle Styles inkl. responsive Breakpoints und CSS Variablen
 
 ## Breakpoints
 
