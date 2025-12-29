@@ -26,22 +26,23 @@ Responsive Typografie-System mit Breakpoints:
 
 Die Werte passen sich automatisch an Breakpoints an (siehe App.css :root).
 
-### Spacing (TODO)
+### Spacing System ✅
 
-Aktuell kein einheitliches Spacing-System. Verschiedene feste Pixelwerte werden verwendet.
+Einheitliches Alignment-System basierend auf Portfolio-Bilder-Padding:
 
-**Ziel:** Einheitlicher Seitenrand basierend auf Portfolio-Bilder-Padding.
-- Portfolio-Bilder sollen ein rundum-Padding haben
-- Dieser Wert soll als `--page-margin` Variable definiert werden
-- Alle Sections (Navbar, Services, About, Contact) sollen diesen Wert für Seitenränder nutzen
+**CSS Variablen:**
+- `--image-padding: 10px` - Portfolio-Bilder Padding (Referenzwert)
+- `--content-padding-x: 10px` - Horizontal padding für alle Content-Sektionen
+- `--content-padding-y: 48px` - Vertikales padding (Desktop)
+- `--content-padding-y-mobile: 24px` - Vertikales padding (Mobile)
+
+**Anwendung:**
+- Navbar: Links und rechts mit `var(--content-padding-x)` ausgerichtet
+- Portfolio: Bilder haben `var(--image-padding)` (10px)
+- Services, About, Contact: Alle verwenden `var(--content-padding-x)` für horizontales Padding
+- Einheitliche Ausrichtung auf der gesamten Website
 
 ## Offene Aufgaben
-
-### Spacing System (PRIORITÄT)
-
-- Einheitlichen Seitenrand definieren basierend auf Portfolio-Bilder-Abstand
-- `--page-margin` Variable erstellen
-- Navbar, Services, About, Contact auf einheitlichen Seitenrand umstellen
 
 ### Portfolio Bilder/Text Zuordnung
 
@@ -89,6 +90,17 @@ Die Reihenfolge und Texte der Portfolio-Bilder müssen korrigiert werden.
 - [x] Services Section: Row-based Layout (Label + Content auf einer Linie)
 - [x] Services Section: Responsive Typografie-Variablen implementiert
 - [x] Contact Heading: Beide Zeilen am rechten Rand ausgerichtet
+- [x] **Spacing System**: Einheitliches Alignment-System mit CSS-Variablen implementiert
+  - Navbar links/rechts mit Portfolio-Bilder-Padding ausgerichtet
+  - Alle Sektionen (Services, About, Contact) verwenden einheitliches horizontales Padding
+- [x] **Expertise Card Animationen**: Smoothere und koordinierte Animationen
+  - Synchronisiertes Timing: 550ms für Card-Expansion
+  - Elegante easing curve: `cubic-bezier(0.4, 0, 0.2, 1)`
+  - GPU-Beschleunigung mit `will-change` Properties
+- [x] **Expertise Card Text**: Weißer Text mit elegantem Fade-In
+  - Text-Farbe: `var(--white)` (wie Headline)
+  - Fade-In: 700ms mit 600ms Delay (startet nach Card-Expansion)
+  - Elegante easing: `cubic-bezier(0.22, 1, 0.36, 1)`
 
 ## Wichtige Dateien
 

@@ -950,8 +950,9 @@ body:hover .cursor {
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  transition: flex 800ms cubic-bezier(0.16, 1, 0.3, 1),
-              min-height 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: flex 550ms cubic-bezier(0.4, 0, 0.2, 1),
+              min-height 550ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: flex;
 }
 
 .expertise-card.is-expanded {
@@ -965,7 +966,8 @@ body:hover .cursor {
   background-size: cover;
   background-position: center;
   opacity: 0.6;
-  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 550ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
 }
 
 .expertise-card.is-expanded .expertise-card_bg {
@@ -1014,7 +1016,7 @@ body:hover .cursor {
   margin-bottom: 16px;
   line-height: 1.2;
   white-space: nowrap;
-  transition: font-size 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: font-size 550ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .expertise-card.is-expanded .expertise-card_title {
@@ -1025,7 +1027,7 @@ body:hover .cursor {
 .expertise-card_expandable {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: grid-template-rows 550ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .expertise-card.is-expanded .expertise-card_expandable {
@@ -1048,8 +1050,6 @@ body:hover .cursor {
   /* Text startet erst NACH Card-Expansion (550ms) + 50ms Puffer = 600ms delay */
   transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1) 600ms,
               transform 700ms cubic-bezier(0.22, 1, 0.36, 1) 600ms;
-  will-change: opacity, transform;
-
   will-change: opacity, transform;
 }
 
@@ -1122,8 +1122,8 @@ body:hover .cursor {
   .expertise-card_description {
     opacity: 0;
     transform: translateY(15px);
-    transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1) 150ms,
-                transform 500ms cubic-bezier(0.16, 1, 0.3, 1) 150ms;
+    transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) 550ms,
+                transform 600ms cubic-bezier(0.22, 1, 0.36, 1) 550ms;
   }
 
   .expertise-card.is-expanded .expertise-card_description {
