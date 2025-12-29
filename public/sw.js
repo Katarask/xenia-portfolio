@@ -1,18 +1,31 @@
 // Service Worker for Xenia Portfolio
 // Caches assets for offline support and faster loading
 
-const CACHE_NAME = 'xenia-portfolio-v1';
+const CACHE_NAME = 'xenia-portfolio-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/favicon.png',
 ];
 
-// Install event - cache static assets
+// Critical assets to precache for LCP
+const CRITICAL_ASSETS = [
+  '/images/portfolio/chandelier-300.avif',
+  '/images/portfolio/chandelier-300.webp',
+  '/images/portfolio/soap-skin-300.avif',
+  '/images/portfolio/soap-skin-300.webp',
+];
+
+// Install event - cache static assets and critical images
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(STATIC_ASSETS))
+      .then((cache) => {
+        // Cache static assets
+        cache.addAll(STATIC_ASSETS);
+        // Precache critical LCP images
+        return cache.addAll(CRITICAL_ASSETS);
+      })
       .then(() => self.skipWaiting())
   );
 });

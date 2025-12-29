@@ -7,7 +7,7 @@ import useIsMobile from '../hooks/useIsMobile';
 // ============================================
 const IMG = '/images/portfolio';
 const srcset = (name, format = 'webp') => 
-  `${IMG}/${name}-500.${format} 500w, ${IMG}/${name}-800.${format} 800w, ${IMG}/${name}.${format} 2000w`;
+  `${IMG}/${name}-300.${format} 300w, ${IMG}/${name}-500.${format} 500w, ${IMG}/${name}-800.${format} 800w, ${IMG}/${name}.${format} 2000w`;
 
 const PORTFOLIO_DATA = {
   column1: [

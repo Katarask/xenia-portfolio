@@ -143,25 +143,69 @@
           grid-template-columns: repeat(2, 1fr);
         }
       }
+      .portfolio_column {
+        position: relative;
+        overflow: hidden !important;
+        height: 100vh;
+        max-height: 100vh;
+      }
+      .portfolio_column-inner {
+        display: flex;
+        flex-direction: column;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        will-change: transform;
+        backface-visibility: hidden;
+      }
+      .story-card {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .story-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        padding: var(--image-padding);
+        object-fit: cover;
+      }
+      .story-overlay {
+        position: absolute;
+        inset: var(--image-padding);
+        background: linear-gradient(to bottom, transparent 0%, transparent 60%, rgba(0, 0, 0, 0.7) 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+      .story-caption {
+        position: absolute;
+        bottom: calc(var(--image-padding) + 16px);
+        left: calc(var(--image-padding) + 16px);
+        right: calc(var(--image-padding) + 16px);
+        color: var(--white);
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
     </style>
     
-    <!-- Geist Font - Load asynchronously to avoid render-blocking -->
-    <link rel="preconnect" href="https://cdn.vercel.com" crossorigin />
-    <link rel="stylesheet" href="https://cdn.vercel.com/geist/font/sans/geist-sans.css" media="print" onload="this.media='all'; this.onload=null;" />
-    <link rel="stylesheet" href="https://cdn.vercel.com/geist/font/mono/geist-mono.css" media="print" onload="this.media='all'; this.onload=null;" />
-    <noscript>
-      <link rel="stylesheet" href="https://cdn.vercel.com/geist/font/sans/geist-sans.css" />
-      <link rel="stylesheet" href="https://cdn.vercel.com/geist/font/mono/geist-mono.css" />
-    </noscript>
+    <!-- Geist Font - Local hosting for better performance (no render-blocking) -->
+    <link rel="preload" href="/fonts/geist-sans/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/geist-mono/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/fonts/geist.css" />
 
     <!-- Preconnect for Performance - Lazy load Vimeo connections -->
     <link rel="dns-prefetch" href="https://player.vimeo.com" />
     <link rel="dns-prefetch" href="https://i.vimeocdn.com" />
     <link rel="dns-prefetch" href="https://f.vimeocdn.com" />
     
-    <!-- Preload Critical Assets - AVIF format for modern browsers -->
-    <link rel="preload" href="/images/portfolio/soap-skin-500.avif" as="image" type="image/avif" fetchpriority="high" />
-    <link rel="preload" href="/images/portfolio/soap-skin-500.webp" as="image" type="image/webp" fetchpriority="high" />
+    <!-- Preload Critical Assets - LCP Image (chandelier is the LCP element) -->
+    <link rel="preload" href="/images/portfolio/chandelier-300.avif" as="image" type="image/avif" fetchpriority="high" />
+    <link rel="preload" href="/images/portfolio/chandelier-300.webp" as="image" type="image/webp" fetchpriority="high" />
+    <!-- Preload first portfolio image -->
+    <link rel="preload" href="/images/portfolio/soap-skin-300.avif" as="image" type="image/avif" fetchpriority="high" />
+    <link rel="preload" href="/images/portfolio/soap-skin-300.webp" as="image" type="image/webp" fetchpriority="high" />
     
     <!-- Canonical -->
     <link rel="canonical" href="https://xeniasnapiro.com/" />

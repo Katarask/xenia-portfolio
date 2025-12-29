@@ -1,12 +1,14 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
 import Cursor from './components/Cursor';
 import Navbar from './components/Navbar';
 import Portfolio from './components/Portfolio';
-import Services from './components/Services';
-import About from './components/About';
-import Contact from './components/Contact';
-import VitaModal from './components/VitaModal';
 import './App.css';
+
+// Lazy load non-critical components for code splitting
+const Services = lazy(() => import('./components/Services'));
+const About = lazy(() => import('./components/About'));
+const Contact = lazy(() => import('./components/Contact'));
+const VitaModal = lazy(() => import('./components/VitaModal'));
 
 // Section positions (in vw units)
 // Layout: Portfolio(100) -> Transition(100) -> Services(100) -> Transition(100) -> About(100) -> Transition(100) -> Contact(100) = 700vw
@@ -20,8 +22,8 @@ const SECTION_POSITIONS = {
 // Transition images (fullscreen between sections) - Optimized with Picture element
 const TransitionImage = ({ src, alt }) => {
   const name = src.replace('/images/portfolio/', '').replace('.webp', '');
-  const avifSrcset = `/images/portfolio/${name}-500.avif 500w, /images/portfolio/${name}-800.avif 800w, /images/portfolio/${name}.avif 2000w`;
-  const webpSrcset = `/images/portfolio/${name}-500.webp 500w, /images/portfolio/${name}-800.webp 800w, /images/portfolio/${name}.webp 2000w`;
+  const avifSrcset = `/images/portfolio/${name}-300.avif 300w, /images/portfolio/${name}-500.avif 500w, /images/portfolio/${name}-800.avif 800w, /images/portfolio/${name}.avif 2000w`;
+  const webpSrcset = `/images/portfolio/${name}-300.webp 300w, /images/portfolio/${name}-500.webp 500w, /images/portfolio/${name}-800.webp 800w, /images/portfolio/${name}.webp 2000w`;
   
   return (
     <div className="transition-section">
@@ -148,7 +150,9 @@ function App() {
       </div>
 
       {/* Vita Modal */}
-      <VitaModal isOpen={vitaOpen} onClose={() => setVitaOpen(false)} />
+      <Suspense fallback={null}>
+        <VitaModal isOpen={vitaOpen} onClose={() => setVitaOpen(false)} />
+      </Suspense>
     </div>
   );
 }
