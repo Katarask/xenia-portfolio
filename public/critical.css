@@ -1,0 +1,129 @@
+/* Critical CSS - Above the Fold Styles */
+/* Inline in <head> for faster initial render */
+
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --casual: #333333;
+  --border: rgba(0, 0, 0, 0.1);
+  --hover-gray: #999999;
+  --accent: #a71c1c;
+  --navbar-height: 10vh;
+  --content-height: 90vh;
+  --image-padding: 10px;
+  --content-padding-x: 10px;
+  --content-padding-y: 48px;
+  --content-padding-y-mobile: 24px;
+  --font-family: 'Geist Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-xl: 24px;
+  --text-2xl: 28px;
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.5;
+}
+
+*,*::before,*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,body {
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--casual);
+  background-color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 992px) {
+  * { cursor: none !important; }
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: var(--navbar-height);
+  z-index: 1000;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar_component {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.navbar_logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: var(--content-padding-x);
+}
+
+.navbar_name {
+  font-size: var(--text-xl);
+  font-weight: 400;
+  line-height: var(--leading-snug);
+}
+
+.navbar_menu {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8px;
+  margin-right: var(--content-padding-x);
+}
+
+.map-wrapper {
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - var(--navbar-height));
+  overflow: hidden;
+}
+
+.sections-track {
+  display: flex;
+  flex-direction: row;
+  width: 700vw;
+  height: 100%;
+}
+
+.section_portfolio {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  overflow: hidden !important;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .section_portfolio {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+

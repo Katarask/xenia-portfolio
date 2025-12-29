@@ -3,72 +3,86 @@ import useIsMobile from '../hooks/useIsMobile';
 
 // ============================================
 // PORTFOLIO DATA - Local images with responsive srcset
+// AVIF format for modern browsers, WebP fallback
 // ============================================
 const IMG = '/images/portfolio';
-const srcset = (name) => `${IMG}/${name}-500.webp 500w, ${IMG}/${name}-800.webp 800w, ${IMG}/${name}.webp 2000w`;
+const srcset = (name, format = 'webp') => 
+  `${IMG}/${name}-500.${format} 500w, ${IMG}/${name}-800.${format} 800w, ${IMG}/${name}.${format} 2000w`;
 
 const PORTFOLIO_DATA = {
   column1: [
-    { id: 1, type: 'image', src: `${IMG}/soap-skin.webp`, srcset: srcset('soap-skin'), width: 963, height: 644, alt: 'Soap & Skin musician actress interview C/O Magazine', title: 'Soap & Skin', subtitle: 'MUSICIAN, ACTRESS', caption: 'Interview for C/O Magazine' },
-    { id: 2, type: 'image', src: `${IMG}/curly-hair.webp`, srcset: srcset('curly-hair'), width: 1600, height: 2000, alt: 'Rick Owens designer portrait', title: 'Rick Owens', subtitle: 'DESIGNER', caption: 'Portrait' },
-    { id: 3, type: 'image', src: `${IMG}/rick-owens.webp`, srcset: srcset('rick-owens'), width: 1365, height: 2000, alt: 'Georg Kentaro Wales Bonner Fashion Show Backstage', title: 'Georg Kentaro', subtitle: 'CMS AGENCY', caption: 'Wales Bonner Fashion Show Backstage' },
-    { id: 4, type: 'image', src: `${IMG}/red-jacket.webp`, srcset: srcset('red-jacket'), width: 1642, height: 2000, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
+    { id: 1, type: 'image', src: `${IMG}/soap-skin.webp`, width: 963, height: 644, alt: 'Soap & Skin musician actress interview C/O Magazine', title: 'Soap & Skin', subtitle: 'MUSICIAN, ACTRESS', caption: 'Interview for C/O Magazine' },
+    { id: 2, type: 'image', src: `${IMG}/curly-hair.webp`, width: 1600, height: 2000, alt: 'Rick Owens designer portrait', title: 'Rick Owens', subtitle: 'DESIGNER', caption: 'Portrait' },
+    { id: 3, type: 'image', src: `${IMG}/rick-owens.webp`, width: 1365, height: 2000, alt: 'Georg Kentaro Wales Bonner Fashion Show Backstage', title: 'Georg Kentaro', subtitle: 'CMS AGENCY', caption: 'Wales Bonner Fashion Show Backstage' },
+    { id: 4, type: 'image', src: `${IMG}/red-jacket.webp`, width: 1642, height: 2000, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
     { id: 5, type: 'video', vimeoId: '1137289960', poster: `${IMG}/soap-skin.webp`, title: 'Safira Robens', subtitle: 'ACTRESS', caption: 'Campaign video for fashion brand', aspect: 'portrait' },
   ],
   column2: [
-    { id: 6, type: 'image', src: `${IMG}/chandelier.webp`, srcset: srcset('chandelier'), width: 1280, height: 1931, alt: 'Eric Joham artist interview C/O Magazine', title: 'Eric Joham', subtitle: 'ARTIST', caption: 'Interview for C/O Magazine' },
-    { id: 7, type: 'image', src: `${IMG}/fence-sitting.webp`, srcset: srcset('fence-sitting'), width: 2000, height: 1333, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
-    { id: 8, type: 'image', src: `${IMG}/feather-hat.webp`, srcset: srcset('feather-hat'), width: 1561, height: 2000, alt: 'Joanna das deck agency editorial Martin Niklas Wieser', title: 'Joanna', subtitle: 'DAS DECK AGENCY', caption: 'Editorial shooting Martin Niklas Wieser' },
-    { id: 9, type: 'image', src: `${IMG}/black-sand.webp`, srcset: srcset('black-sand'), width: 1409, height: 2000, alt: 'Santino das deck agency fashion campaign', title: 'Santino', subtitle: 'DAS DECK AGENCY', caption: 'Fashion campaign' },
+    { id: 6, type: 'image', src: `${IMG}/chandelier.webp`, width: 1280, height: 1931, alt: 'Eric Joham artist interview C/O Magazine', title: 'Eric Joham', subtitle: 'ARTIST', caption: 'Interview for C/O Magazine' },
+    { id: 7, type: 'image', src: `${IMG}/fence-sitting.webp`, width: 2000, height: 1333, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
+    { id: 8, type: 'image', src: `${IMG}/feather-hat.webp`, width: 1561, height: 2000, alt: 'Joanna das deck agency editorial Martin Niklas Wieser', title: 'Joanna', subtitle: 'DAS DECK AGENCY', caption: 'Editorial shooting Martin Niklas Wieser' },
+    { id: 9, type: 'image', src: `${IMG}/black-sand.webp`, width: 1409, height: 2000, alt: 'Santino das deck agency fashion campaign', title: 'Santino', subtitle: 'DAS DECK AGENCY', caption: 'Fashion campaign' },
     { id: 10, type: 'video', vimeoId: '1145349173', poster: `${IMG}/chandelier.webp`, title: 'Ernst Lima', subtitle: 'ARTIST', caption: 'for DAS WEISSE HAUS', aspect: 'portrait' },
   ],
   column3: [
-    { id: 11, type: 'image', src: `${IMG}/bonnie-hair.webp`, srcset: srcset('bonnie-hair'), width: 2000, height: 1333, alt: 'Bonnie Strange model DJ Spotify Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Campaign for Spotify/Sony Music' },
-    { id: 12, type: 'image', src: `${IMG}/blue-dress-sand.webp`, srcset: srcset('blue-dress-sand'), width: 1449, height: 2000, alt: 'das deck model editorial campaign', title: 'Das Deck', subtitle: 'MODEL', caption: 'Editorial campaign for fashion brand' },
-    { id: 13, type: 'image', src: `${IMG}/bonnie-bathroom.webp`, srcset: srcset('bonnie-bathroom'), width: 2000, height: 1333, alt: 'Bonnie Strange model DJ Spotify Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Campaign for Spotify/Sony Music' },
-    { id: 14, type: 'image', src: `${IMG}/hands-nails.webp`, srcset: srcset('hands-nails'), width: 1179, height: 1356, alt: 'das deck model editorial campaign', title: 'Das Deck', subtitle: 'MODEL', caption: 'Editorial campaign for fashion brand' },
+    { id: 11, type: 'image', src: `${IMG}/bonnie-hair.webp`, width: 2000, height: 1333, alt: 'Bonnie Strange model DJ Spotify Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Campaign for Spotify/Sony Music' },
+    { id: 12, type: 'image', src: `${IMG}/blue-dress-sand.webp`, width: 1449, height: 2000, alt: 'das deck model editorial campaign', title: 'Das Deck', subtitle: 'MODEL', caption: 'Editorial campaign for fashion brand' },
+    { id: 13, type: 'image', src: `${IMG}/bonnie-bathroom.webp`, width: 2000, height: 1333, alt: 'Bonnie Strange model DJ Spotify Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Campaign for Spotify/Sony Music' },
+    { id: 14, type: 'image', src: `${IMG}/hands-nails.webp`, width: 1179, height: 1356, alt: 'das deck model editorial campaign', title: 'Das Deck', subtitle: 'MODEL', caption: 'Editorial campaign for fashion brand' },
     { id: 15, type: 'video', vimeoId: '730555711', poster: `${IMG}/bonnie-hair.webp`, title: 'Mood Video', subtitle: 'FASHION SHOW', caption: 'Curated by Wales Bonner', aspect: 'landscape' },
   ],
   column4: [
-    { id: 16, type: 'image', src: `${IMG}/wendy-jim.webp`, srcset: srcset('wendy-jim'), width: 2000, height: 1325, alt: 'AFA Awards Austrian Fashion Association', title: 'AFA Awards', subtitle: 'FASHION SHOW', caption: 'Austrian Fashion Association' },
-    { id: 17, type: 'image', src: `${IMG}/mob-wheelchair.webp`, srcset: srcset('mob-wheelchair'), width: 1440, height: 1800, alt: 'Soap & Skin musician actress interview C/O Magazine', title: 'Soap & Skin', subtitle: 'MUSICIAN, ACTRESS', caption: 'Interview for C/O Magazine' },
-    { id: 18, type: 'image', src: `${IMG}/magazine-spread.webp`, srcset: srcset('magazine-spread'), width: 2000, height: 1333, alt: 'das deck model editorial campaign', title: 'Das Deck', subtitle: 'MODEL', caption: 'Editorial campaign for fashion brand' },
-    { id: 19, type: 'image', src: `${IMG}/vienna-street.webp`, srcset: srcset('vienna-street'), width: 2000, height: 1325, alt: 'Mood Video fashion campaign', title: 'Mood Video', subtitle: 'FASHION CAMPAIGN', caption: '' },
-    { id: 20, type: 'image', src: `${IMG}/leather-nails.webp`, srcset: srcset('leather-nails'), width: 2000, height: 1333, alt: 'Wendy & Jim brand owners C/O Magazine', title: 'Wendy & Jim', subtitle: 'BRAND OWNERS', caption: 'Interview for C/O Magazine' },
+    { id: 16, type: 'image', src: `${IMG}/wendy-jim.webp`, width: 2000, height: 1325, alt: 'AFA Awards Austrian Fashion Association', title: 'AFA Awards', subtitle: 'FASHION SHOW', caption: 'Austrian Fashion Association' },
+    { id: 17, type: 'image', src: `${IMG}/mob-wheelchair.webp`, width: 1440, height: 1800, alt: 'Soap & Skin musician actress interview C/O Magazine', title: 'Soap & Skin', subtitle: 'MUSICIAN, ACTRESS', caption: 'Interview for C/O Magazine' },
+    { id: 18, type: 'image', src: `${IMG}/magazine-spread.webp`, width: 2000, height: 1333, alt: 'das deck model editorial campaign', title: 'Das Deck', subtitle: 'MODEL', caption: 'Editorial campaign for fashion brand' },
+    { id: 19, type: 'image', src: `${IMG}/vienna-street.webp`, width: 2000, height: 1325, alt: 'Mood Video fashion campaign', title: 'Mood Video', subtitle: 'FASHION CAMPAIGN', caption: '' },
+    { id: 20, type: 'image', src: `${IMG}/leather-nails.webp`, width: 2000, height: 1333, alt: 'Wendy & Jim brand owners C/O Magazine', title: 'Wendy & Jim', subtitle: 'BRAND OWNERS', caption: 'Interview for C/O Magazine' },
     { id: 21, type: 'video', vimeoId: '1137289577', poster: `${IMG}/wendy-jim.webp`, title: '', subtitle: '', aspect: 'landscape' },
   ],
 };
 
 // ============================================
 // STORY CARD - Image with hover overlay
+// Uses Picture element with AVIF (modern) and WebP fallback
 // Matches original Webflow structure exactly
 // ============================================
-const StoryCard = memo(({ item, isEager = false }) => (
-  <div className="story-card">
-    <div className="story-overlay"></div>
-    <img
-      src={item.src}
-      srcSet={item.srcset}
-      sizes="(max-width: 767px) 50vw, 25vw"
-      width={item.width}
-      height={item.height}
-      alt={item.alt || ''}
-      loading={isEager ? 'eager' : 'lazy'}
-      decoding="async"
-      fetchpriority={isEager ? 'high' : 'auto'}
-      className="story-img"
-    />
-    <div className="story-caption">
-      <div className="artist-name">
-        {item.title && <h3 className="brand-title">{item.title}</h3>}
-        {item.subtitle && <div className="text-block">{item.subtitle}</div>}
-      </div>
-      <div className="season-subtitle">
-        {item.caption && <div>{item.caption}</div>}
+const StoryCard = memo(({ item, isEager = false }) => {
+  const name = item.src.replace(`${IMG}/`, '').replace('.webp', '');
+  const avifSrcset = srcset(name, 'avif');
+  const webpSrcset = srcset(name, 'webp');
+  const fallbackSrc = item.src;
+
+  return (
+    <div className="story-card">
+      <div className="story-overlay"></div>
+      <picture>
+        <source srcSet={avifSrcset} sizes="(max-width: 767px) 50vw, 25vw" type="image/avif" />
+        <source srcSet={webpSrcset} sizes="(max-width: 767px) 50vw, 25vw" type="image/webp" />
+        <img
+          src={fallbackSrc}
+          srcSet={webpSrcset}
+          sizes="(max-width: 767px) 50vw, 25vw"
+          width={item.width}
+          height={item.height}
+          alt={item.alt || ''}
+          loading={isEager ? 'eager' : 'lazy'}
+          decoding="async"
+          fetchpriority={isEager ? 'high' : 'auto'}
+          className="story-img"
+        />
+      </picture>
+      <div className="story-caption">
+        <div className="artist-name">
+          {item.title && <h3 className="brand-title">{item.title}</h3>}
+          {item.subtitle && <div className="text-block">{item.subtitle}</div>}
+        </div>
+        <div className="season-subtitle">
+          {item.caption && <div>{item.caption}</div>}
+        </div>
       </div>
     </div>
-  </div>
-));
+  );
+});
 
 StoryCard.displayName = 'StoryCard';
 

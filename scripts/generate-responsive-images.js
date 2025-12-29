@@ -15,7 +15,7 @@ const OUTPUT_DIR = 'public/images/portfolio';
 
 async function generateVariants() {
   const files = await readdir(INPUT_DIR);
-  const images = files.filter(f => /\.(webp|jpg|jpeg|png|avif)$/i.test(f) && !/-\d+\.webp$/.test(f));
+  const images = files.filter(f => /\.(webp|jpg|jpeg|png|avif)$/i.test(f) && !/-\d+\.(webp|avif)$/.test(f));
 
   console.log(`Found ${images.length} source images`);
 
@@ -24,27 +24,37 @@ async function generateVariants() {
     const name = basename(file, extname(file));
 
     for (const width of SIZES) {
-      const outputPath = join(OUTPUT_DIR, `${name}-${width}.webp`);
-
-      if (existsSync(outputPath)) {
-        console.log(`  Skip: ${name}-${width}.webp (exists)`);
-        continue;
+      // Generate WebP
+      const webpPath = join(OUTPUT_DIR, `${name}-${width}.webp`);
+      if (!existsSync(webpPath)) {
+        try {
+          await sharp(inputPath)
+            .resize(width, null, { withoutEnlargement: true })
+            .webp({ quality: 80 })
+            .toFile(webpPath);
+          console.log(`  Created: ${name}-${width}.webp`);
+        } catch (err) {
+          console.error(`  Error WebP: ${file} -> ${err.message}`);
+        }
       }
 
-      try {
-        await sharp(inputPath)
-          .resize(width, null, { withoutEnlargement: true })
-          .webp({ quality: 80 })
-          .toFile(outputPath);
-
-        console.log(`  Created: ${name}-${width}.webp`);
-      } catch (err) {
-        console.error(`  Error: ${file} -> ${err.message}`);
+      // Generate AVIF (better compression, smaller files)
+      const avifPath = join(OUTPUT_DIR, `${name}-${width}.avif`);
+      if (!existsSync(avifPath)) {
+        try {
+          await sharp(inputPath)
+            .resize(width, null, { withoutEnlargement: true })
+            .avif({ quality: 70 }) // AVIF is more efficient, lower quality = smaller file
+            .toFile(avifPath);
+          console.log(`  Created: ${name}-${width}.avif`);
+        } catch (err) {
+          console.error(`  Error AVIF: ${file} -> ${err.message}`);
+        }
       }
     }
   }
 
-  console.log('\nDone! Now update Portfolio.jsx with srcset.');
+  console.log('\nDone! AVIF and WebP variants generated.');
 }
 
 generateVariants().catch(console.error);
