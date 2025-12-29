@@ -804,7 +804,7 @@ body:hover .cursor {
 .services__row--services {
   display: flex;
   gap: 48px;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 
 .services__list {
