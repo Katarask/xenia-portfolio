@@ -189,7 +189,7 @@ const CardNav = memo(({ onNavigate, onVitaClick }) => {
               ref={setCardRef(idx)}
               onClick={() => handleCardClick(item.section)}
               style={{
-                backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${item.bgImage})`
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${item.bgImage.replace('.webp', '-500.webp')})`
               }}
             >
               <div className="card-nav-card-label">{item.label}</div>

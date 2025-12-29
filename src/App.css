@@ -765,7 +765,8 @@ body:hover .cursor {
   flex-direction: column;
   justify-content: space-between;
   background-color: #ffffff;
-  background-image: url('/images/about/Website-16.webp');
+  /* Optimized background image - use 800w for desktop, 500w for mobile */
+  background-image: url('/images/about/Website-16-800.webp');
   background-size: cover;
   background-position: right center;
   background-repeat: no-repeat;
