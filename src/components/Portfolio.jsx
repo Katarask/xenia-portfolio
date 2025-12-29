@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo, useEffect, useRef } from 'react';
 import useIsMobile from '../hooks/useIsMobile';
 
 // ============================================
@@ -73,23 +73,54 @@ const StoryCard = memo(({ item, isEager = false }) => (
 StoryCard.displayName = 'StoryCard';
 
 // ============================================
-// VIDEO CARD - Vimeo iframe with autoplay
+// VIDEO CARD - Vimeo iframe with lazy loading
 // Matches original Webflow structure
 // Aspect: portrait (9:16), landscape (16:9)
+// Uses Intersection Observer for performance
 // ============================================
 const VideoCard = memo(({ vimeoId, aspect, title, subtitle, caption }) => {
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const containerRef = useRef(null);
   const aspectClass = aspect === 'landscape' ? 'is-landscape' : 'is-portrait';
 
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoad(true);
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        rootMargin: '200px', // Start loading 200px before visible
+        threshold: 0.1,
+      }
+    );
+
+    observer.observe(containerRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className={`video-card ${aspectClass}`}>
+    <div ref={containerRef} className={`video-card ${aspectClass}`}>
       <div className="w-embed w-iframe">
         <div className="video-inner">
-          <iframe
-            src={`https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&autoplay=1&muted=1&loop=1&background=1&dnt=1`}
-            frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            title={title || 'Video'}
-          />
+          {shouldLoad ? (
+            <iframe
+              src={`https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&autoplay=1&muted=1&loop=1&background=1&dnt=1`}
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              title={title || 'Video'}
+              loading="lazy"
+            />
+          ) : (
+            <div style={{ width: '100%', height: '100%', backgroundColor: '#000' }} />
+          )}
         </div>
       </div>
       <div className="story-overlay"></div>

@@ -1,13 +1,11 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import {
-  Cursor,
-  Navbar,
-  Portfolio,
-  Services,
-  About,
-  Contact,
-  VitaModal,
-} from './components';
+import Cursor from './components/Cursor';
+import Navbar from './components/Navbar';
+import Portfolio from './components/Portfolio';
+import Services from './components/Services';
+import About from './components/About';
+import Contact from './components/Contact';
+import VitaModal from './components/VitaModal';
 import './App.css';
 
 // Section positions (in vw units)
