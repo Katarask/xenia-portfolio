@@ -1,0 +1,31 @@
+# Xenia Portfolio - Cursor Configuration
+
+## Project Overview
+This is a React + Vite portfolio website for Xenia Snapiro. The project uses:
+- React 19 with JSX
+- Vite as the build tool
+- GSAP for animations
+- ESLint for code quality
+- Responsive images (WebP format with multiple sizes)
+
+## Code Style
+- Use functional components with hooks
+- Prefer named exports
+- Use modern ES6+ syntax
+- Follow React best practices
+- Maintain responsive design principles
+- Use semantic HTML
+
+## File Structure
+- Components are in `src/components/`
+- Styles are co-located with components or in `src/`
+- Images are in `public/images/` with responsive variants (500, 800, full size)
+- API routes are in `api/`
+
+## Important Notes
+- Images should be optimized WebP format
+- Maintain mobile-first responsive design
+- Keep animations smooth and performant with GSAP
+- Follow existing component patterns
+- Use the custom cursor component when appropriate
+
