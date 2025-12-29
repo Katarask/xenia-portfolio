@@ -99,10 +99,12 @@ const ExpertiseCard = memo(({ item, isExpanded, onHover, onLeave, onTap, isMobil
       onMouseLeave={onLeave}
       onClick={isMobile ? onTap : undefined}
     >
-      {/* Background Image */}
+      {/* Background Image - Optimized with smaller variant */}
       <div
         className="expertise-card_bg"
-        style={{ backgroundImage: `url(${item.image})` }}
+        style={{ 
+          backgroundImage: `url(${item.image.replace('.webp', '-500.webp')})`,
+        }}
       />
 
       {/* Gradient Overlay */}

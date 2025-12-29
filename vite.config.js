@@ -40,5 +40,11 @@ export default defineConfig({
   // Optimize dependencies
   optimizeDeps: {
     include: ['react', 'react-dom', 'gsap'],
+    exclude: [], // Ensure all dependencies are optimized
+  },
+  // Improve tree shaking
+  esbuild: {
+    treeShaking: true,
+    legalComments: 'none', // Remove all comments
   },
 })

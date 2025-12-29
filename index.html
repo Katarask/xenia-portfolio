@@ -154,11 +154,10 @@
       <link rel="stylesheet" href="https://cdn.vercel.com/geist/font/mono/geist-mono.css" />
     </noscript>
 
-    <!-- Preconnect for Performance -->
-    <link rel="preconnect" href="https://player.vimeo.com" crossorigin />
-    <link rel="preconnect" href="https://i.vimeocdn.com" crossorigin />
-    <link rel="preconnect" href="https://f.vimeocdn.com" crossorigin />
+    <!-- Preconnect for Performance - Lazy load Vimeo connections -->
     <link rel="dns-prefetch" href="https://player.vimeo.com" />
+    <link rel="dns-prefetch" href="https://i.vimeocdn.com" />
+    <link rel="dns-prefetch" href="https://f.vimeocdn.com" />
     
     <!-- Preload Critical Assets - AVIF format for modern browsers -->
     <link rel="preload" href="/images/portfolio/soap-skin-500.avif" as="image" type="image/avif" fetchpriority="high" />

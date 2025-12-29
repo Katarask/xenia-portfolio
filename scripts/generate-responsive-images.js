@@ -30,7 +30,7 @@ async function generateVariants() {
         try {
           await sharp(inputPath)
             .resize(width, null, { withoutEnlargement: true })
-            .webp({ quality: 80 })
+            .webp({ quality: 70, effort: 6 }) // Reduced quality for smaller files
             .toFile(webpPath);
           console.log(`  Created: ${name}-${width}.webp`);
         } catch (err) {
@@ -44,7 +44,7 @@ async function generateVariants() {
         try {
           await sharp(inputPath)
             .resize(width, null, { withoutEnlargement: true })
-            .avif({ quality: 70 }) // AVIF is more efficient, lower quality = smaller file
+            .avif({ quality: 60, effort: 4 }) // Reduced quality for smaller files, faster encoding
             .toFile(avifPath);
           console.log(`  Created: ${name}-${width}.avif`);
         } catch (err) {
