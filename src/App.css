@@ -1040,13 +1040,17 @@ body:hover .cursor {
 .expertise-card_description {
   font-size: 14px;
   line-height: 1.8;
-  color: var(--casual);
+  color: var(--white);  /* Genauso weiß wie die Headline */
   margin-bottom: 24px;
   max-width: 400px;
   opacity: 0;
   transform: translateY(15px);
-  transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1) 200ms,
-              transform 500ms cubic-bezier(0.16, 1, 0.3, 1) 200ms;
+  /* Text startet erst NACH Card-Expansion (550ms) + 100ms Puffer = 650ms delay */
+  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1) 650ms,
+              transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 650ms;
+  will-change: opacity, transform;
+
+  will-change: opacity, transform;
 }
 
 .expertise-card.is-expanded .expertise-card_description {
