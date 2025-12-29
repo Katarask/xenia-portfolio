@@ -188,6 +188,22 @@
         transform: translateY(10px);
         transition: opacity 0.3s ease, transform 0.3s ease;
       }
+      /* index.css - Inline to avoid render-blocking */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-width: 320px;
+        height: 100vh;
+        overflow: hidden;
+      }
+      #root {
+        height: 100vh;
+        overflow: hidden;
+      }
     </style>
     
     <!-- Geist Font - Local hosting, async loading to avoid render-blocking -->
@@ -252,6 +268,7 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <!-- Defer script loading to avoid render-blocking -->
+    <script type="module" src="/src/main.jsx" defer></script>
   </body>
 </html>

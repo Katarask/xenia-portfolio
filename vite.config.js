@@ -23,7 +23,8 @@ export default defineConfig({
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
-          'gsap-vendor': ['gsap'],
+          // GSAP only loaded if CardNav is used (currently not used, so won't be in bundle)
+          // 'gsap-vendor': ['gsap'],
         },
         compact: true, // Compact output
       },

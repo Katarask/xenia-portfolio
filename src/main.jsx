@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import './index.css'
+// index.css moved to inline in index.html to avoid render-blocking
 
 // Register Service Worker for caching
 if ('serviceWorker' in navigator) {

@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Test scripts (local only, not needed in repo)
+scripts/lighthouse-test.js
+scripts/pagespeed-test.js
