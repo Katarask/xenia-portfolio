@@ -747,13 +747,15 @@ body:hover .cursor {
 }
 
 /* ============================================
-   SERVICES SECTION - Fresh 3-Column Layout
+   SERVICES SECTION - Row-based Layout
    ============================================ */
 .services {
   flex: 0 0 100vw;
   width: 100vw;
   height: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #ffffff;
   background-image: url('/images/about/Website-16.jpg');
   background-size: cover;
@@ -762,31 +764,11 @@ body:hover .cursor {
   padding: 48px 24px;
 }
 
-/* Columns */
-.services__col {
-  display: flex;
-  flex-direction: column;
-}
-
-.services__col--labels {
-  width: 15%;
-  min-width: 100px;
-}
-
-.services__col--content {
-  width: 60%;
-  flex: 1;
-}
-
-.services__col--empty {
-  width: 25%;
-}
-
 /* Rows */
 .services__row {
-  flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  gap: 48px;
 }
 
 /* Labels */
@@ -794,6 +776,8 @@ body:hover .cursor {
   font-size: 16px;
   color: var(--casual);
   transition: color 200ms ease;
+  min-width: 120px;
+  flex-shrink: 0;
 }
 
 .services__label:hover {
@@ -804,7 +788,7 @@ body:hover .cursor {
 .services__row--services {
   display: flex;
   gap: 48px;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .services__list {
@@ -858,14 +842,6 @@ body:hover .cursor {
     padding: 32px 16px;
   }
 
-  .services__col--labels {
-    width: 20%;
-  }
-
-  .services__col--empty {
-    width: 10%;
-  }
-
   .services__row--services {
     flex-wrap: wrap;
     gap: 24px;
@@ -875,29 +851,22 @@ body:hover .cursor {
 /* Mobile */
 @media (max-width: 767px) {
   .services {
-    flex-direction: column;
     padding: 24px 16px;
     height: auto;
     min-height: 100%;
     background-position: calc(100% + 90px) center;
   }
 
-  .services__col {
-    width: 100% !important;
-  }
-
-  .services__col--labels {
-    display: none;
-  }
-
-  .services__col--empty {
-    display: none;
-  }
-
   .services__row {
-    flex: none;
+    flex-wrap: wrap;
+    gap: 16px;
     padding: 16px 0;
     border-bottom: 1px solid var(--border);
+  }
+
+  .services__label {
+    width: 100%;
+    min-width: unset;
   }
 
   .services__row--services {
