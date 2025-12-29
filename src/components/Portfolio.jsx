@@ -6,8 +6,10 @@ import useIsMobile from '../hooks/useIsMobile';
 // AVIF format for modern browsers, WebP fallback
 // ============================================
 const IMG = '/images/portfolio';
+// Optimized srcset: max 1000w (Desktop 4 columns = ~480px max, Mobile 2 columns = ~375px max)
+// 2000w was too large and wasted bandwidth
 const srcset = (name, format = 'webp') => 
-  `${IMG}/${name}-300.${format} 300w, ${IMG}/${name}-500.${format} 500w, ${IMG}/${name}-800.${format} 800w, ${IMG}/${name}.${format} 2000w`;
+  `${IMG}/${name}-300.${format} 300w, ${IMG}/${name}-500.${format} 500w, ${IMG}/${name}-800.${format} 800w, ${IMG}/${name}-1000.${format} 1000w`;
 
 const PORTFOLIO_DATA = {
   column1: [
@@ -50,18 +52,20 @@ const StoryCard = memo(({ item, isEager = false }) => {
   const name = item.src.replace(`${IMG}/`, '').replace('.webp', '');
   const avifSrcset = srcset(name, 'avif');
   const webpSrcset = srcset(name, 'webp');
-  const fallbackSrc = item.src;
+  // Optimized fallback: Use 500w instead of original (saves ~70% bandwidth for non-srcset browsers)
+  const fallbackSrc = `${IMG}/${name}-500.webp`;
 
   return (
     <div className="story-card">
       <div className="story-overlay"></div>
       <picture>
-        <source srcSet={avifSrcset} sizes="(max-width: 767px) 50vw, 25vw" type="image/avif" />
-        <source srcSet={webpSrcset} sizes="(max-width: 767px) 50vw, 25vw" type="image/webp" />
+        {/* Precise sizes: Mobile 2 columns (50vw), Desktop 4 columns (25vw), max 480px for large screens */}
+        <source srcSet={avifSrcset} sizes="(max-width: 767px) 50vw, (max-width: 1920px) 25vw, 480px" type="image/avif" />
+        <source srcSet={webpSrcset} sizes="(max-width: 767px) 50vw, (max-width: 1920px) 25vw, 480px" type="image/webp" />
         <img
           src={fallbackSrc}
           srcSet={webpSrcset}
-          sizes="(max-width: 767px) 50vw, 25vw"
+          sizes="(max-width: 767px) 50vw, (max-width: 1920px) 25vw, 480px"
           width={item.width}
           height={item.height}
           alt={item.alt || ''}

@@ -22,15 +22,19 @@ const SECTION_POSITIONS = {
 // Transition images (fullscreen between sections) - Optimized with Picture element
 const TransitionImage = ({ src, alt }) => {
   const name = src.replace('/images/portfolio/', '').replace('.webp', '');
-  const avifSrcset = `/images/portfolio/${name}-300.avif 300w, /images/portfolio/${name}-500.avif 500w, /images/portfolio/${name}-800.avif 800w, /images/portfolio/${name}.avif 2000w`;
-  const webpSrcset = `/images/portfolio/${name}-300.webp 300w, /images/portfolio/${name}-500.webp 500w, /images/portfolio/${name}-800.webp 800w, /images/portfolio/${name}.webp 2000w`;
+  // Optimized srcset: max 1000w for fullscreen (most screens are ≤1920px wide)
+  // 2000w was too large and wasted bandwidth
+  const avifSrcset = `/images/portfolio/${name}-300.avif 300w, /images/portfolio/${name}-500.avif 500w, /images/portfolio/${name}-800.avif 800w, /images/portfolio/${name}-1000.avif 1000w`;
+  const webpSrcset = `/images/portfolio/${name}-300.webp 300w, /images/portfolio/${name}-500.webp 500w, /images/portfolio/${name}-800.webp 800w, /images/portfolio/${name}-1000.webp 1000w`;
+  // Optimized fallback: Use 800w for fullscreen (saves bandwidth for non-srcset browsers)
+  const fallbackSrc = `/images/portfolio/${name}-800.webp`;
   
   return (
     <div className="transition-section">
       <picture>
         <source srcSet={avifSrcset} sizes="100vw" type="image/avif" />
         <source srcSet={webpSrcset} sizes="100vw" type="image/webp" />
-        <img src={src} srcSet={webpSrcset} sizes="100vw" alt={alt} className="transition-img" loading="lazy" decoding="async" />
+        <img src={fallbackSrc} srcSet={webpSrcset} sizes="100vw" alt={alt} className="transition-img" loading="lazy" decoding="async" />
       </picture>
     </div>
   );

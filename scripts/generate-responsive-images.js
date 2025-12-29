@@ -9,7 +9,7 @@ import { readdir, mkdir } from 'fs/promises';
 import { join, basename, extname } from 'path';
 import { existsSync } from 'fs';
 
-const SIZES = [300, 500, 800]; // Added 300w for mobile optimization
+const SIZES = [300, 500, 800, 1000]; // Added 1000w for optimized desktop (replaces 2000w)
 const INPUT_DIR = 'public/images/portfolio';
 const OUTPUT_DIR = 'public/images/portfolio';
 
