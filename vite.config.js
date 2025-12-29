@@ -11,6 +11,11 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+        passes: 2, // Multiple passes for better compression
+      },
+      format: {
+        comments: false, // Remove all comments
       },
     },
     // Code Splitting
@@ -20,15 +25,17 @@ export default defineConfig({
           'react-vendor': ['react', 'react-dom'],
           'gsap-vendor': ['gsap'],
         },
+        compact: true, // Compact output
       },
     },
     // Asset Optimization
-    assetsInlineLimit: 4096, // Inline small assets (<4kb)
+    assetsInlineLimit: 2048, // Smaller limit to reduce inline assets
     cssCodeSplit: true,
     // Source maps only in dev
     sourcemap: false,
     // Chunk size warnings
     chunkSizeWarningLimit: 1000,
+    reportCompressedSize: false, // Faster builds
   },
   // Optimize dependencies
   optimizeDeps: {

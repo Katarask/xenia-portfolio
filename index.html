@@ -145,10 +145,14 @@
       }
     </style>
     
-    <!-- Geist Font -->
+    <!-- Geist Font - Load asynchronously to avoid render-blocking -->
     <link rel="preconnect" href="https://cdn.vercel.com" crossorigin />
-    <link rel="stylesheet" href="https://cdn.vercel.com/geist/font/sans/geist-sans.css" />
-    <link rel="stylesheet" href="https://cdn.vercel.com/geist/font/mono/geist-mono.css" />
+    <link rel="stylesheet" href="https://cdn.vercel.com/geist/font/sans/geist-sans.css" media="print" onload="this.media='all'; this.onload=null;" />
+    <link rel="stylesheet" href="https://cdn.vercel.com/geist/font/mono/geist-mono.css" media="print" onload="this.media='all'; this.onload=null;" />
+    <noscript>
+      <link rel="stylesheet" href="https://cdn.vercel.com/geist/font/sans/geist-sans.css" />
+      <link rel="stylesheet" href="https://cdn.vercel.com/geist/font/mono/geist-mono.css" />
+    </noscript>
 
     <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://player.vimeo.com" crossorigin />
@@ -156,9 +160,9 @@
     <link rel="preconnect" href="https://f.vimeocdn.com" crossorigin />
     <link rel="dns-prefetch" href="https://player.vimeo.com" />
     
-    <!-- Preload Critical Assets -->
-    <link rel="preload" href="/images/portfolio/soap-skin.webp" as="image" fetchpriority="high" />
-    <link rel="preload" href="/images/portfolio/soap-skin-500.webp" as="image" fetchpriority="high" />
+    <!-- Preload Critical Assets - AVIF format for modern browsers -->
+    <link rel="preload" href="/images/portfolio/soap-skin-500.avif" as="image" type="image/avif" fetchpriority="high" />
+    <link rel="preload" href="/images/portfolio/soap-skin-500.webp" as="image" type="image/webp" fetchpriority="high" />
     
     <!-- Canonical -->
     <link rel="canonical" href="https://xeniasnapiro.com/" />

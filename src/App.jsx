@@ -17,12 +17,22 @@ const SECTION_POSITIONS = {
   contact: 600,   // after about + transition
 };
 
-// Transition images (fullscreen between sections)
-const TransitionImage = ({ src, alt }) => (
-  <div className="transition-section">
-    <img src={src} alt={alt} className="transition-img" />
-  </div>
-);
+// Transition images (fullscreen between sections) - Optimized with Picture element
+const TransitionImage = ({ src, alt }) => {
+  const name = src.replace('/images/portfolio/', '').replace('.webp', '');
+  const avifSrcset = `/images/portfolio/${name}-500.avif 500w, /images/portfolio/${name}-800.avif 800w, /images/portfolio/${name}.avif 2000w`;
+  const webpSrcset = `/images/portfolio/${name}-500.webp 500w, /images/portfolio/${name}-800.webp 800w, /images/portfolio/${name}.webp 2000w`;
+  
+  return (
+    <div className="transition-section">
+      <picture>
+        <source srcSet={avifSrcset} sizes="100vw" type="image/avif" />
+        <source srcSet={webpSrcset} sizes="100vw" type="image/webp" />
+        <img src={src} srcSet={webpSrcset} sizes="100vw" alt={alt} className="transition-img" loading="lazy" decoding="async" />
+      </picture>
+    </div>
+  );
+};
 
 // ============================================
 // MAIN APP - Horizontal Layout (nav only, no scroll)
