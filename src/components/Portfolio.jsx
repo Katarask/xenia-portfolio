@@ -26,10 +26,15 @@ const PORTFOLIO_DATA = {
     // 6. [FEHLT] Loewe (fashion brand) product shooting test - TODO: Bild wird später ergänzt
   ],
   column2: [
+    // 1. Eric Joham (artist) Interview for C/O Magazine
     { id: 6, type: 'image', src: `${IMG}/chandelier.webp`, width: 1280, height: 1931, alt: 'Eric Joham artist interview C/O Magazine', title: 'Eric Joham', subtitle: 'ARTIST', caption: 'Interview for C/O Magazine' },
-    { id: 7, type: 'image', src: `${IMG}/fence-sitting.webp`, width: 2000, height: 1333, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
-    { id: 8, type: 'image', src: `${IMG}/feather-hat.webp`, width: 1561, height: 2000, alt: 'Joanna das deck agency editorial Martin Niklas Wieser', title: 'Joanna', subtitle: 'DAS DECK AGENCY', caption: 'Editorial shooting Martin Niklas Wieser' },
-    { id: 9, type: 'image', src: `${IMG}/black-sand.webp`, width: 1409, height: 2000, alt: 'Santino das deck agency fashion campaign', title: 'Santino', subtitle: 'DAS DECK AGENCY', caption: 'Fashion campaign' },
+    // 2. Orania (model) for brand Laura Gerte
+    { id: 7, type: 'image', src: `${IMG}/red-jacket.webp`, width: 1642, height: 2000, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
+    // 3. Orania (model) for brand Laura Gerte
+    { id: 8, type: 'image', src: `${IMG}/fence-sitting.webp`, width: 2000, height: 1333, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
+    // 4. Georg Kentaro (cms world agency) Backstage Fashion Show
+    { id: 9, type: 'image', src: `${IMG}/rick-owens.webp`, width: 1365, height: 2000, alt: 'Georg Kentaro Wales Bonner Fashion Show Backstage', title: 'Georg Kentaro', subtitle: 'CMS AGENCY', caption: 'Wales Bonner Fashion Show Backstage' },
+    // 5. Ernst Lima (artist) for DAS WEISSE HAUS
     { id: 10, type: 'video', vimeoId: '1145349173', poster: `${IMG}/chandelier-500.webp`, title: 'Ernst Lima', subtitle: 'ARTIST', caption: 'for DAS WEISSE HAUS', aspect: 'portrait' },
   ],
   column3: [
