@@ -21,12 +21,17 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        // Cache static assets
-        cache.addAll(STATIC_ASSETS);
-        // Precache critical LCP images
-        return cache.addAll(CRITICAL_ASSETS);
+        // Cache static assets - use Promise.allSettled to handle individual failures
+        return Promise.allSettled([
+          ...STATIC_ASSETS.map(url => cache.add(url).catch(() => {})),
+          ...CRITICAL_ASSETS.map(url => cache.add(url).catch(() => {}))
+        ]);
       })
       .then(() => self.skipWaiting())
+      .catch(() => {
+        // Silently fail - service worker is optional
+        self.skipWaiting();
+      })
   );
 });
 
@@ -60,32 +65,51 @@ self.addEventListener('fetch', (event) => {
         }
 
         // Otherwise fetch from network
-        return fetch(event.request).then((response) => {
-          // Don't cache non-successful responses
-          if (!response || response.status !== 200 || response.type !== 'basic') {
+        return fetch(event.request)
+          .then((response) => {
+            // Don't cache non-successful responses
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
+
+            // Clone the response
+            const responseToCache = response.clone();
+
+            // Cache images and assets (async, don't block response)
+            if (event.request.destination === 'image' || 
+                event.request.url.includes('/images/') ||
+                event.request.url.includes('/assets/')) {
+              caches.open(CACHE_NAME)
+                .then((cache) => {
+                  cache.put(event.request, responseToCache).catch(() => {
+                    // Silently fail if caching fails
+                  });
+                })
+                .catch(() => {
+                  // Silently fail if cache open fails
+                });
+            }
+
             return response;
-          }
-
-          // Clone the response
-          const responseToCache = response.clone();
-
-          // Cache images and assets
-          if (event.request.destination === 'image' || 
-              event.request.url.includes('/images/') ||
-              event.request.url.includes('/assets/')) {
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
-          }
-
-          return response;
-        });
+          })
+          .catch(() => {
+            // Network error - return cached fallback or null
+            if (event.request.destination === 'document') {
+              return caches.match('/index.html');
+            }
+            // Return a basic error response for other requests
+            return new Response('Network error', { status: 408 });
+          });
       })
       .catch(() => {
-        // Fallback for offline
-        if (event.request.destination === 'document') {
-          return caches.match('/index.html');
-        }
+        // Cache match failed - try network
+        return fetch(event.request).catch(() => {
+          // Both cache and network failed
+          if (event.request.destination === 'document') {
+            return caches.match('/index.html');
+          }
+          return new Response('Offline', { status: 503 });
+        });
       })
   );
 });

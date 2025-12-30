@@ -55,6 +55,11 @@ const StoryCard = memo(({ item, isEager = false }) => {
   // Optimized fallback: Use 500w instead of original (saves ~70% bandwidth for non-srcset browsers)
   const fallbackSrc = `${IMG}/${name}-500.webp`;
 
+  const handleImageError = (e) => {
+    // Silently handle image loading errors - prevent console errors
+    e.target.style.display = 'none';
+  };
+
   return (
     <div className="story-card">
       <div className="story-overlay"></div>
@@ -73,6 +78,7 @@ const StoryCard = memo(({ item, isEager = false }) => {
           decoding="async"
           fetchpriority={isEager ? 'high' : 'auto'}
           className="story-img"
+          onError={handleImageError}
         />
       </picture>
       <div className="story-caption">

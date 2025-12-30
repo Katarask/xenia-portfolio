@@ -197,6 +197,10 @@ const About = memo(() => {
             alt="Lightbox preview"
             className="lightbox-image"
             onClick={(e) => e.stopPropagation()}
+            onError={(e) => {
+              // Silently handle image loading errors - prevent console errors
+              e.target.style.display = 'none';
+            }}
           />
         )}
       </div>

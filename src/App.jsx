@@ -29,12 +29,17 @@ const TransitionImage = ({ src, alt }) => {
   // Optimized fallback: Use 800w for fullscreen (saves bandwidth for non-srcset browsers)
   const fallbackSrc = `/images/portfolio/${name}-800.webp`;
   
+  const handleImageError = (e) => {
+    // Silently handle image loading errors - prevent console errors
+    e.target.style.display = 'none';
+  };
+  
   return (
     <div className="transition-section">
       <picture>
         <source srcSet={avifSrcset} sizes="100vw" type="image/avif" />
         <source srcSet={webpSrcset} sizes="100vw" type="image/webp" />
-        <img src={fallbackSrc} srcSet={webpSrcset} sizes="100vw" alt={alt} className="transition-img" loading="lazy" decoding="async" />
+        <img src={fallbackSrc} srcSet={webpSrcset} sizes="100vw" alt={alt} className="transition-img" loading="lazy" decoding="async" onError={handleImageError} />
       </picture>
     </div>
   );

@@ -61,17 +61,24 @@ const VitaModal = memo(({ isOpen, onClose }) => {
         }),
       });
 
-      if (response.ok) {
-        setStatus('success');
-        setFormData({ name: '', email: '', message: '' });
-        setTimeout(() => {
-          handleClose();
-          setStatus('idle');
-        }, 2000);
-      } else {
-        setStatus('error');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } catch {
+
+      try {
+        await response.json();
+      } catch {
+        // JSON parsing failed, but response was OK - continue
+      }
+
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => {
+        handleClose();
+        setStatus('idle');
+      }, 2000);
+    } catch (error) {
+      // Silently handle errors - don't log to console in production
       setStatus('error');
     }
   };

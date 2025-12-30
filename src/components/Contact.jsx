@@ -34,17 +34,23 @@ const Contact = memo(() => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setStatus('success');
-        setFormData({ name: '', email: '', message: '' });
-        setTimeout(() => setStatus('idle'), 5000);
-      } else {
-        setStatus('error');
-        setErrorMsg(data.error || 'Something went wrong');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        // JSON parsing failed, but response was OK - continue
+        data = {};
+      }
+
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
+      // Silently handle errors - don't log to console in production
       setStatus('error');
       setErrorMsg('Network error. Please try again.');
     }
