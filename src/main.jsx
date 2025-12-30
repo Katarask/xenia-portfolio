@@ -6,8 +6,12 @@ import App from './App.jsx'
 // Register Service Worker for caching
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {
+    navigator.serviceWorker.register('/sw.js').catch((error) => {
       // Silently fail - service worker is optional
+      // Only log in development
+      if (import.meta.env.DEV) {
+        console.warn('Service Worker registration failed:', error);
+      }
     });
   });
 }

@@ -211,10 +211,15 @@
     <link rel="preload" href="/fonts/geist-mono/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/fonts/geist.css" media="print" id="geist-css" />
     <script>
+      // Load geist.css asynchronously
       (function() {
-        var link = document.getElementById('geist-css');
-        if (link) {
-          link.media = 'all';
+        try {
+          var link = document.getElementById('geist-css');
+          if (link) {
+            link.media = 'all';
+          }
+        } catch (e) {
+          // Silently fail if element not found
         }
       })();
     </script>
