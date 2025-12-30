@@ -596,6 +596,12 @@ body:hover .cursor {
   overflow: hidden;
 }
 
+.story-card picture {
+  position: relative;
+  z-index: 0;
+  display: block;
+}
+
 .story-img {
   width: 100%;
   height: auto;
