@@ -51,12 +51,18 @@ const PORTFOLIO_DATA = {
     { id: 15, type: 'video', vimeoId: '730555711', poster: `${IMG}/bonnie-hair-500.webp`, title: 'Mood Video', subtitle: 'FASHION SHOW', caption: 'Curated by Wales Bonner', aspect: 'landscape' },
   ],
   column4: [
-    { id: 16, type: 'image', src: `${IMG}/wendy-jim.webp`, width: 2000, height: 1325, alt: 'AFA Awards Austrian Fashion Association', title: 'AFA Awards', subtitle: 'FASHION SHOW', caption: 'Austrian Fashion Association' },
-    { id: 17, type: 'image', src: `${IMG}/mob-wheelchair.webp`, width: 1440, height: 1800, alt: 'Soap & Skin musician actress interview C/O Magazine', title: 'Soap & Skin', subtitle: 'MUSICIAN, ACTRESS', caption: 'Interview for C/O Magazine' },
-    { id: 18, type: 'image', src: `${IMG}/magazine-spread.webp`, width: 2000, height: 1333, alt: 'das deck model editorial campaign', title: 'Das Deck', subtitle: 'MODEL', caption: 'Editorial campaign for fashion brand' },
-    { id: 19, type: 'image', src: `${IMG}/vienna-street.webp`, width: 2000, height: 1325, alt: 'Mood Video fashion campaign', title: 'Mood Video', subtitle: 'FASHION CAMPAIGN', caption: '' },
-    { id: 20, type: 'image', src: `${IMG}/leather-nails.webp`, width: 2000, height: 1333, alt: 'Wendy & Jim brand owners C/O Magazine', title: 'Wendy & Jim', subtitle: 'BRAND OWNERS', caption: 'Interview for C/O Magazine' },
-    { id: 21, type: 'video', vimeoId: '1137289577', poster: `${IMG}/wendy-jim-500.webp`, title: '', subtitle: '', aspect: 'landscape' },
+    // 1. AFA Awards Fashion show by Austrian Fashion Association
+    // TODO: Bild wird später ergänzt (wendy-jim.webp ist jetzt in Position 5)
+    { id: 16, type: 'image', src: `${IMG}/placeholder.webp`, width: 2000, height: 1325, alt: 'AFA Awards Austrian Fashion Association', title: 'AFA Awards', subtitle: 'FASHION SHOW', caption: 'Austrian Fashion Association' },
+    // 2. Loewe (fashion brand) product shooting test
+    // TODO: Bild wird später ergänzt
+    { id: 17, type: 'image', src: `${IMG}/placeholder.webp`, width: 1449, height: 2000, alt: 'Loewe fashion brand product shooting test', title: 'Loewe', subtitle: 'FASHION BRAND', caption: 'Product shooting test' },
+    // 3. das deck model editorial campaign for fashion brand
+    { id: 18, type: 'image', src: `${IMG}/blue-dress-sand.webp`, width: 1449, height: 2000, alt: 'das deck model editorial campaign for fashion brand', title: 'Das Deck', subtitle: 'MODEL', caption: 'Editorial campaign for fashion brand' },
+    // 4. das deck model editorial campaign for fashion brand
+    { id: 19, type: 'image', src: `${IMG}/hands-nails.webp`, width: 1179, height: 1356, alt: 'das deck model editorial campaign for fashion brand', title: 'Das Deck', subtitle: 'MODEL', caption: 'Editorial campaign for fashion brand' },
+    // 5. Wendy & Jim brand owners Interview for C/O Magazine
+    { id: 20, type: 'image', src: `${IMG}/wendy-jim.webp`, width: 2000, height: 1325, alt: 'Wendy & Jim brand owners C/O Magazine', title: 'Wendy & Jim', subtitle: 'BRAND OWNERS', caption: 'Interview for C/O Magazine' },
   ],
 };
 
