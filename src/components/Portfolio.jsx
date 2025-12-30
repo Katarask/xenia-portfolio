@@ -83,7 +83,6 @@ const StoryCard = memo(({ item, isEager = false }) => {
 
   return (
     <div className="story-card">
-      <div className="story-overlay"></div>
       <picture>
         {/* Precise sizes: Mobile 2 columns (50vw), Desktop 4 columns (25vw), max 480px for large screens */}
         <source srcSet={avifSrcset} sizes="(max-width: 767px) 50vw, (max-width: 1920px) 25vw, 480px" type="image/avif" />
@@ -102,6 +101,7 @@ const StoryCard = memo(({ item, isEager = false }) => {
           onError={handleImageError}
         />
       </picture>
+      <div className="story-overlay"></div>
       <div className="story-caption">
         <div className="artist-name">
           {item.title && <h3 className="brand-title">{item.title}</h3>}
