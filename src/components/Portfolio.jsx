@@ -40,13 +40,13 @@ const PORTFOLIO_DATA = {
   column3: [
     // 1. Bonnie Strange (model, DJ) Campaign for Spotify/Sony Music
     { id: 11, type: 'image', src: `${IMG}/bonnie-hair.webp`, width: 2000, height: 1333, alt: 'Bonnie Strange model DJ Spotify Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Campaign for Spotify/Sony Music' },
-    // 2. Lisa (Casting Büro Wien) editorial shooting Vogue Ukraine
-    // TODO: Bild wird später hochgeladen
-    { id: 12, type: 'image', src: `${IMG}/placeholder.webp`, width: 1449, height: 2000, alt: 'Lisa Casting Büro Wien editorial shooting Vogue Ukraine', title: 'Lisa', subtitle: 'CASTING BÜRO WIEN', caption: 'Editorial shooting Vogue Ukraine' },
+    // 2. Joanna (das deck agency) editorial shooting Martin Niklas Wieser
+    { id: 12, type: 'image', src: `${IMG}/feather-hat.webp`, width: 1561, height: 2000, alt: 'Joanna das deck agency editorial Martin Niklas Wieser', title: 'Joanna', subtitle: 'DAS DECK AGENCY', caption: 'Editorial shooting Martin Niklas Wieser' },
     // 3. Bonnie Strange (model, DJ) Campaign for Spotify/Sony Music
     { id: 13, type: 'image', src: `${IMG}/bonnie-bathroom.webp`, width: 2000, height: 1333, alt: 'Bonnie Strange model DJ Spotify Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Campaign for Spotify/Sony Music' },
-    // 4. Joanna (das deck agency) editorial shooting Martin Niklas Wieser
-    { id: 14, type: 'image', src: `${IMG}/feather-hat.webp`, width: 1561, height: 2000, alt: 'Joanna das deck agency editorial Martin Niklas Wieser', title: 'Joanna', subtitle: 'DAS DECK AGENCY', caption: 'Editorial shooting Martin Niklas Wieser' },
+    // 4. Lisa (Casting Büro Wien) editorial shooting Vogue Ukraine
+    // TODO: Bild wird später hochgeladen
+    { id: 14, type: 'image', src: `${IMG}/placeholder.webp`, width: 1449, height: 2000, alt: 'Lisa Casting Büro Wien editorial shooting Vogue Ukraine', title: 'Lisa', subtitle: 'CASTING BÜRO WIEN', caption: 'Editorial shooting Vogue Ukraine' },
     // 5. Mood Video fashion show curated by Wales Bonner
     { id: 15, type: 'video', vimeoId: '730555711', poster: `${IMG}/bonnie-hair-500.webp`, title: 'Mood Video', subtitle: 'FASHION SHOW', caption: 'Curated by Wales Bonner', aspect: 'landscape' },
   ],
