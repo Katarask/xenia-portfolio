@@ -13,11 +13,17 @@ const srcset = (name, format = 'webp') =>
 
 const PORTFOLIO_DATA = {
   column1: [
-    { id: 1, type: 'image', src: `${IMG}/soap-skin.webp`, width: 963, height: 644, alt: 'Soap & Skin musician actress interview C/O Magazine', title: 'Soap & Skin', subtitle: 'MUSICIAN, ACTRESS', caption: 'Interview for C/O Magazine' },
-    { id: 2, type: 'image', src: `${IMG}/curly-hair.webp`, width: 1600, height: 2000, alt: 'Rick Owens designer portrait', title: 'Rick Owens', subtitle: 'DESIGNER', caption: 'Portrait' },
-    { id: 3, type: 'image', src: `${IMG}/rick-owens.webp`, width: 1365, height: 2000, alt: 'Georg Kentaro Wales Bonner Fashion Show Backstage', title: 'Georg Kentaro', subtitle: 'CMS AGENCY', caption: 'Wales Bonner Fashion Show Backstage' },
-    { id: 4, type: 'image', src: `${IMG}/red-jacket.webp`, width: 1642, height: 2000, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
-    { id: 5, type: 'video', vimeoId: '1137289960', poster: `${IMG}/soap-skin-500.webp`, title: 'Safira Robens', subtitle: 'ACTRESS', caption: 'Campaign video for fashion brand', aspect: 'portrait' },
+    // 1. Video: Safira Robens (actress) campaign video for fashion brand
+    { id: 1, type: 'video', vimeoId: '1137289960', poster: `${IMG}/soap-skin-500.webp`, title: 'Safira Robens', subtitle: 'ACTRESS', caption: 'Campaign video for fashion brand', aspect: 'portrait' },
+    // 2. Soap & Skin (musician, actress) Interview for C/O Magazine
+    { id: 2, type: 'image', src: `${IMG}/magazine-spread.webp`, width: 2000, height: 1333, alt: 'Soap & Skin musician actress interview C/O Magazine', title: 'Soap & Skin', subtitle: 'MUSICIAN, ACTRESS', caption: 'Interview for C/O Magazine' },
+    // 3. Santino (das deck agency) fashion campaign
+    { id: 3, type: 'image', src: `${IMG}/black-sand.webp`, width: 1409, height: 2000, alt: 'Santino das deck agency fashion campaign', title: 'Santino', subtitle: 'DAS DECK AGENCY', caption: 'Fashion campaign' },
+    // 4. Rick Owens (designer) portrait
+    { id: 4, type: 'image', src: `${IMG}/curly-hair.webp`, width: 1600, height: 2000, alt: 'Rick Owens designer portrait', title: 'Rick Owens', subtitle: 'DESIGNER', caption: 'Portrait' },
+    // 5. Soap & Skin (musician, actress) Interview for C/O Magazine
+    { id: 5, type: 'image', src: `${IMG}/soap-skin.webp`, width: 963, height: 644, alt: 'Soap & Skin musician actress interview C/O Magazine', title: 'Soap & Skin', subtitle: 'MUSICIAN, ACTRESS', caption: 'Interview for C/O Magazine' },
+    // 6. [FEHLT] Loewe (fashion brand) product shooting test - TODO: Bild wird später ergänzt
   ],
   column2: [
     { id: 6, type: 'image', src: `${IMG}/chandelier.webp`, width: 1280, height: 1931, alt: 'Eric Joham artist interview C/O Magazine', title: 'Eric Joham', subtitle: 'ARTIST', caption: 'Interview for C/O Magazine' },
@@ -210,16 +216,13 @@ PortfolioColumn.displayName = 'PortfolioColumn';
 const Portfolio = memo(() => {
   const isMobile = useIsMobile();
 
-  // Desktop: 4 columns with speeds from documentation
-  // Column 1: down, 0.8 -> 35s
-  // Column 2: up, 0.9 -> 40s
-  // Column 3: down, 0.8 -> 32s
-  // Column 4: up, 0.9 -> 38s
+  // Desktop: 4 columns with same speed
+  // All columns scroll at the same speed for uniform appearance
   const desktopColumns = [
-    { items: PORTFOLIO_DATA.column1, direction: 'down', speed: 35, className: '' },
-    { items: PORTFOLIO_DATA.column2, direction: 'up', speed: 40, className: '' },
-    { items: PORTFOLIO_DATA.column3, direction: 'down', speed: 32, className: 'is-col-3' },
-    { items: PORTFOLIO_DATA.column4, direction: 'up', speed: 38, className: 'is-col-4' },
+    { items: PORTFOLIO_DATA.column1, direction: 'down', speed: 60, className: '' },
+    { items: PORTFOLIO_DATA.column2, direction: 'up', speed: 60, className: '' },
+    { items: PORTFOLIO_DATA.column3, direction: 'down', speed: 60, className: 'is-col-3' },
+    { items: PORTFOLIO_DATA.column4, direction: 'up', speed: 60, className: 'is-col-4' },
   ];
 
   // Mobile: 2 columns with all images distributed evenly (no cloning)
