@@ -607,7 +607,10 @@ body:hover .cursor {
 
 .story-overlay {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 1;
   background-color: transparent;
   pointer-events: none;
@@ -615,7 +618,7 @@ body:hover .cursor {
 }
 
 .story-card:hover .story-overlay {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .story-caption {
