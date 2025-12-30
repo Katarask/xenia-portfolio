@@ -29,9 +29,9 @@ const PORTFOLIO_DATA = {
     // 1. Eric Joham (artist) Interview for C/O Magazine
     { id: 6, type: 'image', src: `${IMG}/chandelier.webp`, width: 1280, height: 1931, alt: 'Eric Joham artist interview C/O Magazine', title: 'Eric Joham', subtitle: 'ARTIST', caption: 'Interview for C/O Magazine' },
     // 2. Orania (model) for brand Laura Gerte
-    { id: 7, type: 'image', src: `${IMG}/red-jacket.webp`, width: 1642, height: 2000, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
+    { id: 7, type: 'image', src: `${IMG}/fence-sitting.webp`, width: 2000, height: 1333, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
     // 3. Orania (model) for brand Laura Gerte
-    { id: 8, type: 'image', src: `${IMG}/fence-sitting.webp`, width: 2000, height: 1333, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
+    { id: 8, type: 'image', src: `${IMG}/red-jacket.webp`, width: 1642, height: 2000, alt: 'Orania model for brand Laura Gerte', title: 'Orania', subtitle: 'MODEL', caption: 'for brand Laura Gerte' },
     // 4. Georg Kentaro (cms world agency) Backstage Fashion Show
     { id: 9, type: 'image', src: `${IMG}/rick-owens.webp`, width: 1365, height: 2000, alt: 'Georg Kentaro Wales Bonner Fashion Show Backstage', title: 'Georg Kentaro', subtitle: 'CMS AGENCY', caption: 'Wales Bonner Fashion Show Backstage' },
     // 5. Ernst Lima (artist) for DAS WEISSE HAUS
