@@ -23,7 +23,8 @@ const PORTFOLIO_DATA = {
     { id: 4, type: 'image', src: `${IMG}/curly-hair.webp`, width: 1600, height: 2000, alt: 'Rick Owens designer portrait', title: 'Rick Owens', subtitle: 'DESIGNER', caption: 'Portrait' },
     // 5. Soap & Skin (musician, actress) Interview for C/O Magazine
     { id: 5, type: 'image', src: `${IMG}/soap-skin.webp`, width: 963, height: 644, alt: 'Soap & Skin musician actress interview C/O Magazine', title: 'Soap & Skin', subtitle: 'MUSICIAN, ACTRESS', caption: 'Interview for C/O Magazine' },
-    // 6. [FEHLT] Loewe (fashion brand) product shooting test - TODO: Bild wird später ergänzt
+    // 6. Loewe (fashion brand) product shooting test
+    { id: 6, type: 'image', src: `${IMG}/loewe-soap.webp`, width: 2961, height: 3600, alt: 'Loewe fashion brand product shooting test', title: 'Loewe', subtitle: 'FASHION BRAND', caption: 'Product shooting test' },
   ],
   column2: [
     // 1. Eric Joham (artist) Interview for C/O Magazine
@@ -45,8 +46,7 @@ const PORTFOLIO_DATA = {
     // 3. Bonnie Strange (model, DJ) Campaign for Spotify/Sony Music
     { id: 13, type: 'image', src: `${IMG}/bonnie-bathroom.webp`, width: 2000, height: 1333, alt: 'Bonnie Strange model DJ Spotify Sony Music', title: 'Bonnie Strange', subtitle: 'MODEL, DJ', caption: 'Campaign for Spotify/Sony Music' },
     // 4. Lisa (Casting Büro Wien) editorial shooting Vogue Ukraine
-    // TODO: Bild wird später hochgeladen
-    { id: 14, type: 'image', src: `${IMG}/placeholder.webp`, width: 1449, height: 2000, alt: 'Lisa Casting Büro Wien editorial shooting Vogue Ukraine', title: 'Lisa', subtitle: 'CASTING BÜRO WIEN', caption: 'Editorial shooting Vogue Ukraine' },
+    { id: 14, type: 'image', src: `${IMG}/lisa.webp`, width: 1474, height: 2048, alt: 'Lisa Casting Büro Wien editorial shooting Vogue Ukraine', title: 'Lisa', subtitle: 'CASTING BÜRO WIEN', caption: 'Editorial shooting Vogue Ukraine' },
     // 5. Mood Video fashion show curated by Wales Bonner
     { id: 15, type: 'video', vimeoId: '730555711', poster: `${IMG}/bonnie-hair-500.webp`, title: 'Mood Video', subtitle: 'FASHION SHOW', caption: 'Curated by Wales Bonner', aspect: 'landscape' },
   ],
@@ -55,8 +55,7 @@ const PORTFOLIO_DATA = {
     // TODO: Bild wird später ergänzt (wendy-jim.webp ist jetzt in Position 5)
     { id: 16, type: 'image', src: `${IMG}/placeholder.webp`, width: 2000, height: 1325, alt: 'AFA Awards Austrian Fashion Association', title: 'AFA Awards', subtitle: 'FASHION SHOW', caption: 'Austrian Fashion Association' },
     // 2. Loewe (fashion brand) product shooting test
-    // TODO: Bild wird später ergänzt
-    { id: 17, type: 'image', src: `${IMG}/placeholder.webp`, width: 1449, height: 2000, alt: 'Loewe fashion brand product shooting test', title: 'Loewe', subtitle: 'FASHION BRAND', caption: 'Product shooting test' },
+    { id: 17, type: 'image', src: `${IMG}/loewe-necklace.webp`, width: 1465, height: 2048, alt: 'Loewe fashion brand product shooting test', title: 'Loewe', subtitle: 'FASHION BRAND', caption: 'Product shooting test' },
     // 3. das deck model editorial campaign for fashion brand
     { id: 18, type: 'image', src: `${IMG}/blue-dress-sand.webp`, width: 1449, height: 2000, alt: 'das deck model editorial campaign for fashion brand', title: 'Das Deck', subtitle: 'MODEL', caption: 'Editorial campaign for fashion brand' },
     // 4. das deck model editorial campaign for fashion brand
