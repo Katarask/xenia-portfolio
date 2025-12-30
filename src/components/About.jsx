@@ -158,13 +158,13 @@ const About = memo(() => {
         <div className="about_upper-wrapper">
           <div className="about_text-wrapper">
             <div className="about_text-div">
-              <h2 className="about_heading slide-up">Fashion Photographer &amp; Creative Director</h2>
+              <h2 className="about_heading slide-up">Creative Director, Photographer &amp; Brand / Content Strategist</h2>
               <p className="about_bio slide-up">
-                Based in Berlin. Working across Europe — Berlin, Munich, Vienna, Paris.
+                With 5+ years of experience in visual storytelling, campaign development, and digital marketing. I combine creative direction with strategic thinking — shaping brand identities, producing high quality content, and leading projects from concept to execution.
                 <br /><br />
-                I create visual stories for fashion brands, artists, and cultural publications — from editorial shoots to full campaign development.
+                I've worked with fashion, culture, and lifestyle brands (incl. Sony Music, Austrian Fashion Association, C/O Magazine, ioannes, Wales Bonner) and spent 4 years as Digital Content Lead for an art institution in Vienna, achieving organic audience growth and building digital presence.
                 <br /><br />
-                With 5+ years in fashion photography and creative direction, I've worked with clients including Sony Music, C/O Magazine, Rick Owens, and the Austrian Fashion Association. My approach combines editorial photography with strategic brand thinking — shaping identities, producing campaigns, and leading projects from concept to execution.
+                With a background in Marketing &amp; PR, Visual Communication (UdK Berlin), Cross-Disciplinary Strategies (die Angewandte) and Luxury Marketing (TUM), I bring a combination of creative vision, cultural insight, and data driven strategy.
               </p>
             </div>
           </div>
