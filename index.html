@@ -209,7 +209,15 @@
     <!-- Geist Font - Local hosting, async loading to avoid render-blocking -->
     <link rel="preload" href="/fonts/geist-sans/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/geist-mono/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/fonts/geist.css" media="print" onload="this.media='all'; this.onload=null;" />
+    <link rel="stylesheet" href="/fonts/geist.css" media="print" id="geist-css" />
+    <script>
+      (function() {
+        var link = document.getElementById('geist-css');
+        if (link) {
+          link.media = 'all';
+        }
+      })();
+    </script>
     <noscript>
       <link rel="stylesheet" href="/fonts/geist.css" />
     </noscript>
@@ -219,7 +227,7 @@
     <link rel="dns-prefetch" href="https://i.vimeocdn.com" />
     <link rel="dns-prefetch" href="https://f.vimeocdn.com" />
     <!-- Preconnect to same origin for faster image loading -->
-    <!-- Removed: href="/" causes Vite build error -->
+    <!-- Removed: href="/" might cause Vite build issues -->
     
     <!-- Preload Critical Assets - LCP Image (first portfolio image: soap-skin) -->
     <!-- Use 500w for mobile (optimal balance between size and quality for LCP) -->
