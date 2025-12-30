@@ -52,8 +52,7 @@ const PORTFOLIO_DATA = {
   ],
   column4: [
     // 1. AFA Awards Fashion show by Austrian Fashion Association
-    // TODO: Bild wird später ergänzt (wendy-jim.webp ist jetzt in Position 5)
-    { id: 16, type: 'image', src: `${IMG}/placeholder.webp`, width: 2000, height: 1325, alt: 'AFA Awards Austrian Fashion Association', title: 'AFA Awards', subtitle: 'FASHION SHOW', caption: 'Austrian Fashion Association' },
+    { id: 16, type: 'image', src: `${IMG}/mob-wheelchair.webp`, width: 1440, height: 1800, alt: 'AFA Awards Austrian Fashion Association', title: 'AFA Awards', subtitle: 'FASHION SHOW', caption: 'Austrian Fashion Association' },
     // 2. Loewe (fashion brand) product shooting test
     { id: 17, type: 'image', src: `${IMG}/loewe-necklace.webp`, width: 1465, height: 2048, alt: 'Loewe fashion brand product shooting test', title: 'Loewe', subtitle: 'FASHION BRAND', caption: 'Product shooting test' },
     // 3. das deck model editorial campaign for fashion brand
