@@ -462,7 +462,7 @@ body:hover .cursor {
 .sections-track {
   display: flex;
   flex-direction: row;
-  width: 900vw; /* 5 sections + 4 transitions = 9 × 100vw */
+  width: 700vw; /* 4 sections + 3 transitions = 7 × 100vw */
   height: 100%;
   transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
 }

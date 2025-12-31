@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Cursor from './components/Cursor';
 import Navbar from './components/Navbar';
 import Portfolio from './components/Portfolio';
+import NotFound from './components/NotFound';
 import './App.css';
 
 // Lazy load non-critical components for code splitting
@@ -11,7 +13,7 @@ const Contact = lazy(() => import('./components/Contact'));
 const VitaModal = lazy(() => import('./components/VitaModal'));
 
 // Section positions (in vw units)
-// Layout: Portfolio(100) -> Transition(100) -> Services(100) -> Transition(100) -> About(100) -> Transition(100) -> Contact(100) = 700vw
+// Layout: Portfolio(100) -> Transition(100) -> Services(100) -> Transition(100) -> About(100) -> Transition(100) -> Contact(100) = 600vw
 const SECTION_POSITIONS = {
   portfolio: 0,
   services: 200,  // after portfolio + transition
@@ -121,8 +123,9 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <div className="app">
+  // Main Home Component (horizontal layout)
+  const HomePage = () => (
+    <>
       {/* Custom Cursor (Desktop only) */}
       <Cursor />
 
@@ -162,6 +165,15 @@ function App() {
       <Suspense fallback={null}>
         <VitaModal isOpen={vitaOpen} onClose={() => setVitaOpen(false)} />
       </Suspense>
+    </>
+  );
+
+  return (
+    <div className="app">
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
