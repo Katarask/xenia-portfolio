@@ -20,10 +20,10 @@ const NotFound = () => {
       <div className="not-found-background">
         <GridDistortion
           imageSrc="/images/portfolio/Photo CV.jpeg"
-          grid={10}
-          mouse={0.1}
-          strength={0.15}
-          relaxation={0.9}
+          grid={20}
+          mouse={0.3}
+          strength={0.5}
+          relaxation={0.8}
           className="not-found-distortion"
         />
       </div>

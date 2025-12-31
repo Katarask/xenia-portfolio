@@ -22,7 +22,7 @@ varying vec2 vUv;
 void main() {
   vec2 uv = vUv;
   vec4 offset = texture2D(uDataTexture, vUv);
-  gl_FragColor = texture2D(uTexture, uv - 0.02 * offset.rg);
+  gl_FragColor = texture2D(uTexture, uv - 0.05 * offset.rg);
 }`;
 
 const GridDistortion = ({ grid = 15, mouse = 0.1, strength = 0.15, relaxation = 0.9, imageSrc, className = '' }) => {
