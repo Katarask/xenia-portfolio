@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
+import Cursor from './Cursor';
 import GridDistortion from './GridDistortion';
 import './NotFound.css';
 
 const NotFound = () => {
   return (
     <div className="not-found-page">
+      {/* Custom Cursor (Desktop only) */}
+      <Cursor />
       {/* Fallback background image */}
       <div 
         className="not-found-fallback-bg"
