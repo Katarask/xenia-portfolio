@@ -14,7 +14,7 @@ const NotFound = () => {
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: 'url(/images/portfolio/Photo CV.jpeg)',
+          backgroundImage: 'url(/images/portfolio/marriage.jpeg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           zIndex: 0,
@@ -22,7 +22,7 @@ const NotFound = () => {
       />
       <div className="not-found-background">
         <GridDistortion
-          imageSrc="/images/portfolio/Photo CV.jpeg"
+          imageSrc="/images/portfolio/marriage.jpeg"
           grid={20}
           mouse={0.3}
           strength={0.5}

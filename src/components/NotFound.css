@@ -1,10 +1,5 @@
 /* 404 Page Styles */
 .not-found-page {
-
-/* Ensure cursor is above everything on 404 page */
-.not-found-page .cursor {
-  z-index: 10000 !important;
-}
   width: 100vw;
   height: 100vh;
   position: relative;
@@ -13,6 +8,12 @@
   align-items: center;
   justify-content: center;
   background: var(--black, #0a0a0a);
+}
+
+/* Ensure cursor is above everything on 404 page and always visible */
+.not-found-page .cursor {
+  z-index: 10000 !important;
+  opacity: 1 !important;
 }
 
 .not-found-background {
