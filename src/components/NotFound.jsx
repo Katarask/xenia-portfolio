@@ -5,9 +5,21 @@ import './NotFound.css';
 const NotFound = () => {
   return (
     <div className="not-found-page">
+      {/* Fallback background image */}
+      <div 
+        className="not-found-fallback-bg"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'url(/images/portfolio/lisa-800.webp)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: 0,
+        }}
+      />
       <div className="not-found-background">
         <GridDistortion
-          imageSrc="/images/portfolio/lisa.webp"
+          imageSrc="/images/portfolio/lisa-800.webp"
           grid={10}
           mouse={0.1}
           strength={0.15}
@@ -29,4 +41,3 @@ const NotFound = () => {
 };
 
 export default NotFound;
-
