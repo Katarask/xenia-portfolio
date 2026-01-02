@@ -105,6 +105,7 @@ function App() {
 
   // ============================================
   // SLIDE-UP ANIMATION (IntersectionObserver)
+  // Works with lazy-loaded components by continuously checking for new elements
   // ============================================
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -115,12 +116,40 @@ function App() {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1, rootMargin: '50px' }
     );
 
-    document.querySelectorAll('.slide-up').forEach((el) => observer.observe(el));
+    const observeElements = () => {
+      document.querySelectorAll('.slide-up').forEach((el) => {
+        // Only observe elements that haven't been observed yet
+        if (!el.dataset.observed) {
+          // Check if element is already visible (for lazy-loaded components)
+          const rect = el.getBoundingClientRect();
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+          
+          if (isVisible) {
+            // If already visible, make it visible immediately
+            el.classList.add('is-visible');
+          } else {
+            // Otherwise observe it
+            observer.observe(el);
+          }
+          
+          el.dataset.observed = 'true';
+        }
+      });
+    };
 
-    return () => observer.disconnect();
+    // Initial observation
+    observeElements();
+
+    // Re-check periodically for lazy-loaded components
+    const interval = setInterval(observeElements, 300);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(interval);
+    };
   }, []);
 
   // Main Home Component (horizontal layout)
