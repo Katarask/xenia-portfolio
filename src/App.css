@@ -429,6 +429,8 @@ body:hover .cursor {
   padding: 16px 0;
   border-bottom: 1px solid var(--border);
   font-size: var(--text-lg);
+  opacity: 1 !important; /* Override inherited opacity: 0 */
+  animation: none !important; /* Remove animation for mobile menu */
 }
 
 /* Tablet/Mobile: Show hamburger */

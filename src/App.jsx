@@ -58,12 +58,18 @@ function App() {
 
   // ============================================
   // NAVIGATION VIA TRANSFORM (no scroll)
+  // Optimized to prevent unnecessary re-renders
   // ============================================
   const navigateTo = useCallback((sectionId) => {
     const position = SECTION_POSITIONS[sectionId];
     if (position !== undefined && trackRef.current) {
-      trackRef.current.style.transform = `translateX(-${position}vw)`;
-      setCurrentSection(sectionId);
+      // Use requestAnimationFrame for smooth transition
+      requestAnimationFrame(() => {
+        if (trackRef.current) {
+          trackRef.current.style.transform = `translateX(-${position}vw)`;
+          setCurrentSection(sectionId);
+        }
+      });
     }
   }, []);
 
@@ -113,6 +119,8 @@ function App() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
+            // Stop observing once visible to improve performance
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -120,21 +128,12 @@ function App() {
     );
 
     const observeElements = () => {
-      document.querySelectorAll('.slide-up').forEach((el) => {
+      document.querySelectorAll('.slide-up:not(.is-visible)').forEach((el) => {
         // Only observe elements that haven't been observed yet
         if (!el.dataset.observed) {
-          // Check if element is already visible (for lazy-loaded components)
-          const rect = el.getBoundingClientRect();
-          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-          
-          if (isVisible) {
-            // If already visible, make it visible immediately
-            el.classList.add('is-visible');
-          } else {
-            // Otherwise observe it
-            observer.observe(el);
-          }
-          
+          // Always use IntersectionObserver for smooth animation
+          // Even if visible, let the animation play
+          observer.observe(el);
           el.dataset.observed = 'true';
         }
       });
@@ -143,8 +142,8 @@ function App() {
     // Initial observation
     observeElements();
 
-    // Re-check periodically for lazy-loaded components
-    const interval = setInterval(observeElements, 300);
+    // Re-check periodically for lazy-loaded components (less frequent)
+    const interval = setInterval(observeElements, 500);
 
     return () => {
       observer.disconnect();
@@ -170,23 +169,29 @@ function App() {
           {/* Transition 1 */}
           <TransitionImage src="/images/portfolio/rick-owens.webp" alt="Transition" />
 
-          {/* Section 2: Services */}
-          <Services
-            onVitaClick={() => setVitaOpen(true)}
-            onNavigate={navigateTo}
-          />
+          {/* Section 2: Services - Lazy loaded */}
+          <Suspense fallback={null}>
+            <Services
+              onVitaClick={() => setVitaOpen(true)}
+              onNavigate={navigateTo}
+            />
+          </Suspense>
 
           {/* Transition 2 */}
           <TransitionImage src="/images/portfolio/chandelier.webp" alt="Transition" />
 
-          {/* Section 3: About */}
-          <About />
+          {/* Section 3: About - Lazy loaded */}
+          <Suspense fallback={null}>
+            <About />
+          </Suspense>
 
           {/* Transition 3 */}
           <TransitionImage src="/images/portfolio/blue-dress-sand.webp" alt="Transition" />
 
-          {/* Section 4: Contact */}
-          <Contact />
+          {/* Section 4: Contact - Lazy loaded */}
+          <Suspense fallback={null}>
+            <Contact />
+          </Suspense>
         </div>
       </div>
 
