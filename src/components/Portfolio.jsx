@@ -234,10 +234,10 @@ const Portfolio = memo(() => {
   // Desktop: 4 columns with same speed
   // All columns scroll at the same speed for uniform appearance
   const desktopColumns = [
-    { items: PORTFOLIO_DATA.column1, direction: 'down', speed: 60, className: '' },
-    { items: PORTFOLIO_DATA.column2, direction: 'up', speed: 60, className: '' },
-    { items: PORTFOLIO_DATA.column3, direction: 'down', speed: 60, className: 'is-col-3' },
-    { items: PORTFOLIO_DATA.column4, direction: 'up', speed: 60, className: 'is-col-4' },
+    { items: PORTFOLIO_DATA.column1, direction: 'down', speed: 50, className: '' },
+    { items: PORTFOLIO_DATA.column2, direction: 'up', speed: 50, className: '' },
+    { items: PORTFOLIO_DATA.column3, direction: 'down', speed: 50, className: 'is-col-3' },
+    { items: PORTFOLIO_DATA.column4, direction: 'up', speed: 50, className: 'is-col-4' },
   ];
 
   // Mobile: 2 columns with all images distributed evenly (no cloning)
