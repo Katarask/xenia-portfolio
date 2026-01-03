@@ -19,7 +19,7 @@ React-basierte Portfolio-Website (Vite) - Nachbau der originalen Webflow-Seite.
 - **Domain (geplant):** Migration zu Vercel geplant
 
 ### Portfolio Animationen
-- **Desktop:** Alle 4 Spalten scrollen mit 60s (gleich schnell)
+- **Desktop:** Alle 4 Spalten scrollen mit 50s (gleich schnell, erhöhte Geschwindigkeit)
 - **Mobile:** 2 Spalten mit 50s/56s
 - **Richtung:** Spalte 1+3 down, Spalte 2+4 up
 
@@ -165,7 +165,15 @@ Die Reihenfolge und Texte der Portfolio-Bilder müssen korrigiert werden.
   - Text-Farbe: `var(--white)` (wie Headline)
   - Fade-In: 700ms mit 600ms Delay (startet nach Card-Expansion)
   - Elegante easing: `cubic-bezier(0.22, 1, 0.36, 1)`
-- [x] **Portfolio Animationen:** Alle Spalten gleich schnell (60s) für einheitliches Erscheinungsbild
+- [x] **Portfolio Animationen:** Alle Spalten gleich schnell (50s) für einheitliches Erscheinungsbild
+- [x] **Portfolio Overlay:** Fix für Sichtbarkeit - entfernte `opacity: 0` aus inline styles in index.html
+  - Overlay-Opacity auf 0.5 angepasst (wie im Backup)
+  - DOM-Struktur: Overlay nach `<picture>` Element für korrekte z-index-Ebene
+  - Text-Zentrierung im Overlay: `align-items: center` für `.artist-name`, `text-align: center` für `.season-subtitle`
+- [x] **Vita Modal Form:** Text-Farbe auf dunkelgrau (#333) gesetzt für bessere Lesbarkeit auf weißem Hintergrund
+- [x] **Mobile Navbar Links:** Fix für unsichtbare Links im Mobile-Menu
+  - Problem: Links waren unsichtbar (opacity: 0) wegen geerbter Animation-Eigenschaften
+  - Lösung: `opacity: 1 !important;` und `animation: none !important;` für `.w-nav-overlay .navbar_link` hinzugefügt
 
 ## Wichtige Dateien
 
@@ -206,6 +214,62 @@ Die Reihenfolge und Texte der Portfolio-Bilder müssen korrigiert werden.
 ### Common Issues
 - If push fails with "rejected": Run `git pull origin main --rebase` first
 - If build fails on Vercel: Check the build logs in Vercel dashboard
+
+## Bekannte Probleme & Fixes
+
+### Portfolio Overlay Sichtbarkeit (Behoben ✅)
+
+**Problem:** Portfolio-Overlay war nicht sichtbar beim Hover über Portfolio-Bilder.
+
+**Ursache:** Inline `<style>` Block in `index.html` setzte `opacity: 0` auf `.story-overlay`, was alle anderen CSS-Regeln überschrieb.
+
+**Lösung:**
+1. Entfernte `opacity: 0` Regel aus inline styles in `index.html`
+2. Overlay-Opacity auf 0.5 angepasst (entspricht Backup-Version)
+3. DOM-Struktur korrigiert: Overlay nach `<picture>` Element für korrekte z-index-Ebene
+4. Text-Zentrierung: `align-items: center` für `.artist-name`, `text-align: center` für `.season-subtitle`
+
+**Commit:** `4b0ee07` - Fix overlay visibility and text centering in portfolio cards
+
+**Relevante Dateien:**
+- `index.html` - Inline styles (entfernte opacity: 0)
+- `src/App.css` - Overlay CSS-Regeln
+- `src/components/Portfolio.jsx` - DOM-Struktur
+
+### Mobile Navbar Links Unsichtbar (Behoben ✅)
+
+**Problem:** Links im Mobile-Menu (Hamburger-Menu) waren unsichtbar.
+
+**Ursache:** Die `.navbar_link` Elemente im Mobile-Menu (`.w-nav-overlay`) erbten `opacity: 0` und Animation-Delays von den Desktop-Navbar-Links, wurden aber nicht durch die Animation sichtbar gemacht.
+
+**Lösung:**
+In `src/App.css` für `.w-nav-overlay .navbar_link`:
+```css
+opacity: 1 !important; /* Override inherited opacity: 0 */
+animation: none !important; /* Remove animation for mobile menu */
+```
+
+**Commit:** `901968b` - Fix: Restore slide-up animations, optimize navigation, fix mobile navbar links
+
+**Relevante Dateien:**
+- `src/App.css` - Mobile menu styles (Zeile ~432)
+
+### Vita Modal Form Text Unsichtbar (Behoben ✅)
+
+**Problem:** Eingabe-Text in Vita Modal Formular war weiß auf weißem Hintergrund (unsichtbar).
+
+**Ursache:** Input- und Textarea-Felder hatten keine explizite `color`-Eigenschaft definiert.
+
+**Lösung:**
+In `src/App.css` für `.vita-form input, .vita-form textarea`:
+```css
+color: #333; /* Dunkelgrauer Text für gute Lesbarkeit */
+```
+
+**Commit:** `60dfcf9` - Fix text color in Vita modal form inputs
+
+**Relevante Dateien:**
+- `src/App.css` - Vita form styles
 
 ## Technische Details
 
