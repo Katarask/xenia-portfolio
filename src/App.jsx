@@ -55,19 +55,32 @@ function App() {
   const [vitaOpen, setVitaOpen] = useState(false);
   const [currentSection, setCurrentSection] = useState('portfolio');
   const trackRef = useRef(null);
+  const currentSectionRef = useRef('portfolio');
+  
+  // Keep ref in sync with state
+  useEffect(() => {
+    currentSectionRef.current = currentSection;
+  }, [currentSection]);
 
   // ============================================
   // NAVIGATION VIA TRANSFORM (no scroll)
   // Optimized to prevent unnecessary re-renders
   // ============================================
   const navigateTo = useCallback((sectionId) => {
+    // Prevent navigation to the same section
+    if (sectionId === currentSectionRef.current) {
+      return;
+    }
     const position = SECTION_POSITIONS[sectionId];
     if (position !== undefined && trackRef.current) {
+      // Update ref immediately (synchronous)
+      currentSectionRef.current = sectionId;
+      // Update state (asynchronous, triggers re-render)
+      setCurrentSection(sectionId);
       // Use requestAnimationFrame for smooth transition
       requestAnimationFrame(() => {
         if (trackRef.current) {
           trackRef.current.style.transform = `translateX(-${position}vw)`;
-          setCurrentSection(sectionId);
         }
       });
     }
@@ -128,7 +141,8 @@ function App() {
     );
 
     const observeElements = () => {
-      document.querySelectorAll('.slide-up:not(.is-visible)').forEach((el) => {
+      const elements = document.querySelectorAll('.slide-up:not(.is-visible)');
+      elements.forEach((el) => {
         // Only observe elements that haven't been observed yet
         if (!el.dataset.observed) {
           // Always use IntersectionObserver for smooth animation

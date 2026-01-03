@@ -153,6 +153,7 @@ const VideoCard = memo(({ vimeoId, aspect, title, subtitle, caption }) => {
 
   return (
     <div ref={containerRef} className={`video-card ${aspectClass}`}>
+      <div className="story-overlay"></div>
       <div className="w-embed w-iframe">
         <div className="video-inner">
           {shouldLoad ? (
@@ -168,7 +169,6 @@ const VideoCard = memo(({ vimeoId, aspect, title, subtitle, caption }) => {
           )}
         </div>
       </div>
-      <div className="story-overlay"></div>
       <div className="story-caption">
         <div className="artist-name">
           {title && <h3 className="brand-title">{title}</h3>}

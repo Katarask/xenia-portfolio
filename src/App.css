@@ -599,8 +599,6 @@ body:hover .cursor {
 }
 
 .story-card picture {
-  position: relative;
-  z-index: 0;
   display: block;
 }
 
@@ -609,8 +607,6 @@ body:hover .cursor {
   height: auto;
   object-fit: cover;
   display: block;
-  position: relative;
-  z-index: 0;
 }
 
 .story-overlay {
@@ -626,7 +622,7 @@ body:hover .cursor {
 }
 
 .story-card:hover .story-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .story-caption {
@@ -652,6 +648,7 @@ body:hover .cursor {
 .artist-name {
   display: flex;
   flex-direction: column;
+  align-items: center;
   font-size: 12px;
   font-weight: 400;
   text-transform: uppercase;
@@ -680,6 +677,7 @@ body:hover .cursor {
   font-size: 14px;
   font-weight: 400;
   opacity: 0.9;
+  text-align: center;
   transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
