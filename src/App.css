@@ -1622,6 +1622,7 @@ body:hover .cursor {
   border: none;
   border-bottom: 1px solid var(--border);
   outline: none;
+  color: #333;
   transition: border-color 0.3s ease;
 }
 
